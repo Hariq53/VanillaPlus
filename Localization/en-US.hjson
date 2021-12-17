@@ -1,0 +1,146 @@
+Mods: {
+	VanillaPlus: {
+		Config: {
+			ItemHeader: Items
+			
+			EvilMaceToggle: {
+				Label: Evil Maces
+				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.FleshMace} and {$Mods.VanillaPlus.ItemName.RottenMace} items
+			}
+
+			EnchantedSpearToggle: {
+				Label: "{$Mods.VanillaPlus.ItemName.EnchantedSpear}"
+				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.EnchantedSpear} item
+			}
+
+			ChristmasBarrageToggle: {
+				Label: "{$Mods.VanillaPlus.ItemName.ChristmasBarrage}"
+				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.ChristmasBarrage} item
+			}
+
+			DualiesToggle: {
+				Label: "{$Mods.VanillaPlus.ItemName.Dualies}"
+				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.Dualies}
+			}
+
+			ShinyCharmToggle: {
+				Label: "{$Mods.VanillaPlus.ItemName.ShinyCharm}"
+				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.ShinyCharm}
+			}
+
+			EOCDropsToggle: {
+				Label: "{$NPCNames.EyeofCthulhu} Drops"
+				Tooltip: Enable or disable the new weapon drops for the {$NPCName.EyeofCthulhu}
+			}
+
+			GoblinDropsToggle: {
+				Label: "{$Bestiary_Invasions.Goblins} Drops"
+				Tooltip: Enable or disable the new weapon drops for the {$Bestiary_Invasions.Goblins}
+			}
+
+			SkeletonDropsToggle: {
+				Label: "{$NPCName.SkeletronHead} Drops"
+				Tooltip: Enable or disable the new weapon drops from {$NPCName.SkeletronHead}
+			}
+
+			TilesHeader: Tiles
+
+			LifeFruitLanternToggle: {
+				Label: "{$Mods.VanillaPlus.ItemName.LifeFruitLantern}"
+				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.LifeFruitLantern} item
+			}
+
+			TweaksHeader: Tweaks
+
+			GladiusTweakToggle: {
+				Label: "{$ItemName.Gladius}"
+				Tooltip: Enable or disable the change to the {$ItemName.Gladius} animation
+			}
+
+			FlyingDragonTweakToggle: {
+				Label: "{$ItemName.DD2SquireBetsySword}"
+				Tooltip: Enable or the disable the {$ItemName.DD2SquireBetsySword} damage buff (from 180 to 200)
+			}
+
+			TerraBeamTweakToggle: {
+				Label: "{$ItemName.TerraBlade}"
+				Tooltip: Enable or disable the {$ItemName.TerraBlade} projectile nerf (projectile lifetime decreased)
+			}
+
+			InfluxWaverTweakToggle: {
+				Label: "{$ItemName.InfluxWaver}"
+				Tooltip: Enable or disable the {$ItemName.InfluxWaver} projectile nerf (projectile lifetime decreased)
+			}
+			
+			ExpFeaturesHeader: Experimantal features
+
+			BannerSlotToggle: {
+				Label: Banner slot
+				Tooltip:  Enable or disable the new banner slot
+			}
+
+			MotorcycleMountToggle: {
+				Label: Motorcycle mount
+				Tooltip: Enable or disable the new motorcycle mount
+			}
+		}
+		
+		ItemName: {
+			FleshMace: Flesh Mace
+			RottenMace: Rotten Mace
+			EnchantedSpear: Enchanted Spear
+			ChristmasBarrage: Christmas Barrage
+			LifeFruitLantern: Life Fruit Lantern
+			Dualies: Dualies
+			ShinyCharm: Shiny Charm
+			EyeballOnAStick: Eyeball on a Stick
+			FangOfCthulhu: Fang of Cthulhu
+			Tear: Tear
+			TheOcularMenace: The Ocular Menace
+			GoblinsBlade: Goblin's Blade
+			ThiefsDagger: Thief's Dagger
+			WarriorsMallet: Warrior's Mallet
+			MotorcycleMountItem: Motorcycle wheel
+		}
+
+		ItemTooltip: {
+			LifeFruitLantern: Greatly increase life regeneration when placed nearby
+			Dualies: "'It's high noon'"
+			ShinyCharm: Regenerates life quickly
+			EyeballOnAStick: Summons a miniature servant of Cthulhu to fight for you, it gets enraged when your health is low
+			MotorcycleMountItem: Summon a rideable motorcycle
+ 		}
+
+		ProjectileName: {
+			EnchantedSpearProjectile: "{$Mods.VanillaPlus.ItemName.EnchantedSpear}"
+			DualiesRevolver: "{$ItemName.Revolver}"
+			MiniServant: Mini Servant of Cthulhu
+			BloodStream: Blood Stream
+			ChristmasBarrageBomb: Christmas Barrage Bomb
+			ChristmasBarragePlane: Christmas Barrage Plane
+			FleshBall: Flesh Ball
+			RottenBit: Rotten Bit
+			TearProjectile: "{$Mods.VanillaPlus.ItemName.Tear}"
+			TearEye: "{$Mods.VanillaPlus.ItemName.Tear} eye"
+		}
+
+		TileName: {
+			LifeFruitLanternTile: Life Fruit Lantern
+		}
+			
+
+		BuffName: {
+			LifeFruitLamp: Life Fruit Regeneration
+			CthulhusMalediction: Cthulhu's Malediction
+			MiniServantMinion: Eye on you
+			MotorcycleMount: Motorcycle
+		}
+
+		BuffDescription: {
+			LifeFruitLamp: Life regeneration is increased
+			CthulhusMalediction: Defense reduced by 5
+			MiniServantMinion: The pure servant will fight for you
+			MotorcycleMount: Bruuum-Bruuummm
+		}
+	}
+}

@@ -1,0 +1,136 @@
+Mods: {
+	VanillaPlus: {
+		Config: {
+			ItemHeader: Oggetti
+
+			EvilMaceToggle: {
+				Label: Mazze Corrotte
+				Tooltip: Abilita o disabilita la {$Mods.VanillaPlus.ItemName.FleshMace} e la {$Mods.VanillaPlus.ItemName.RottenMace}
+			}
+
+			EnchantedSpearToggle: {
+				Tooltip: Abilita o disabilita la {$Mods.VanillaPlus.ItemName.EnchantedSpear}
+			}
+
+			ChristmasBarrageToggle: {
+				Tooltip: Abilita o disabilita lo {$Mods.VanillaPlus.ItemName.ChristmasBarrage}
+			}
+
+			DualiesToggle: {
+				Tooltip: Abilita o disabilita le {$Mods.VanillaPlus.ItemName.Dualies}
+			}
+
+			ShinyCharmToggle: {
+				Tooltip: Abilita o disabilita l'{$Mods.VanillaPlus.ItemName.ShinyCharm}
+			}
+
+			EOCDropsToggle: {
+				Label: Drop dell'{$NPCName.EyeofCthulhu}
+				Tooltip: Abilita o disabilita le nuove armi ottenibili dall'{$NPCName.EyeofCthulhu}
+			}
+
+			GoblinDropsToggle: {
+				Label: Drop dell'{$Bestiary_Invasions.Goblins}
+				Tooltip: Abilita o disabilita le nuove armi ottenibili durante l'{$Bestiary_Invasions.Goblins}
+			}
+
+			SkeletonDropsToggle: {
+				Label: Drop di {$NPCName.SkeletronHead}
+				Tooltip: Abilita o disabilita le nuove armi ottenibili da {$NPCName.SkeletronHead}
+			}
+
+			TilesHeader: Blocchi
+
+			LifeFruitLanternToggle: {
+				Tooltip: Abilita o disabilita la {$Mods.VanillaPlus.ItemName.LifeFruitLantern}
+			}
+
+			TweaksHeader: Cambiamenti al gioco base
+
+			GladiusTweakToggle: {
+				Tooltip: Abilita o disabilita il cambiamento dell'animazione del {$ItemName.Gladius}
+			}
+
+			FlyingDragonTweakToggle: {
+				Tooltip: Abilita o disabilita il buff al danno del {$ItemName.DD2SquireBetsySword} (da 180 a 200)
+			}
+
+			TerraBeamTweakToggle: {
+				Tooltip: Abilita o disabilita il nerf del proiettile della {$ItemName.TerraBlade} (distanza coperta dal proiettile diminuita)
+			}
+
+			InfluxWaverTweakToggle: {
+				Tooltip: Abilita o disabilita il nerf del proiettile dello {$ItemName.InfluxWaver} (distanza coperta dal proiettile diminuita)
+			}
+
+			ExpFeaturesHeader: Aggiunte sperimentali
+
+			BannerSlotToggle: {
+				Label: Slot banner
+				Tooltip: Abilita o disabilita il nuovo slot per i banner
+			}
+
+			MotorcycleMountToggle: {
+				Label: Mount motocicletta
+				Tooltip: Abilita o disabilita il nuovo mount motocicletta
+			}
+		}
+
+		ItemName: {
+			FleshMace: Mazza di carne
+			RottenMace: Mazza marcia
+			EnchantedSpear: Lancia incantata
+			ChristmasBarrage: Sbarramento Natalizio
+			LifeFruitLantern: Lanterna Frutto di Vita
+			Dualies: Doppie Rivoltelle
+			ShinyCharm: Amuleto Lucente
+			EyeballOnAStick: Bastone Occhio
+			FangOfCthulhu: Artiglio di Cthulhu
+			Tear: Lacrima
+			TheOcularMenace: La Minaccia Oculare
+			GoblinsBlade: Lama Goblin
+			ThiefsDagger: Daga del Ladro
+			WarriorsMallet: Maglio del Guerriero
+			MotorcycleMountItem: Ruota di Motocicletta
+		}
+		
+		ItemTooltip: {
+			LifeFruitLantern: Aumenta notevolmente la rigenerazione della vita quando posizionato nelle vicinanze
+			Dualies: "'Mezzogiorno di fuoco'"
+			ShinyCharm: Rigenera la vita velocemente
+			EyeballOnAStick: Evoca un servo di Cthulhu in miniatura che combatte per te, entra in uno stato di rabbia quando la tua vita è bassa
+			MotorcycleMountItem: Evoca una motocicletta cavalcabile
+ 		}
+
+		ProjectileName: {
+			EnchantedSpearProjectile: "{$Mods.VanillaPlus.ItemName.EnchantedSpear}"
+			DualiesRevolver: "{$ItemName.Revolver}"
+			MiniServant: Mini Servo di Cthulhu
+			BloodStream: Flusso Sanguigno
+			ChristmasBarrageBomb: Bomba Natalizia
+			ChristmasBarragePlane: Aereo Natalizio
+			FleshBall: Palla di carne corrotta
+			RottenBit: Ceppo marcio
+			TearProjectile: "{$Mods.VanillaPlus.ItemName.Tear}"
+			TearEye: Mini Occhio
+		}
+
+		TileName: {
+			LifeFruitLanternTile: Lanterna Frutto di Vita
+		}
+
+		BuffName: {
+			LifeFruitLamp: Rigenerazione Frutto di Vita
+			CthulhusMalediction: Maledizione di Cthulhu
+			MiniServantMinion: Servo Puro di Cthulhu
+			MotorcycleMount: Motocicletta
+		}
+
+		BuffDescription: {
+			LifeFruitLamp: Rigenerazione vita notevolmente aumentata
+			CthulhusMalediction: Difesa ridotta di 5
+			MiniServantMinion: Il Servo Puro di Cthulhu combatterà per te
+			MotorcycleMount: Bruuum-Bruuummm
+		}
+	}
+}

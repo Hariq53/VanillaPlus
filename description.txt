@@ -1,0 +1,26 @@
+Vanilla+ is a mod that aims to expand Terraria with vanilla-like elements:
+-13 New Items:
+ -Enchanted Spear; similar to the enchanted boomerang and enchanted sword, the enchanted spear shares similar capabilitiies, with less damage but better range than the enchanted sword
+ -Flesh Mace; a direct upgrade of the zombie arm, crafted with crimson materials, it can shoot projectiles that stick to enemies and do damage over time
+ -Rotten Mace; a direct upgrade of the zombie arm, crafted with corruption materials, it can shoot projectiles that slow down enemies
+ -Christmas Barrage; a post-Plantera magic weapon you can obtain during the frost moon event
+ -Dualies; a pre-hardmode gun made from 2 revolvers (sold by the Travelling Merchant)
+ -Shiny Charm; an expert mode exclusive item that combines the shiny stone and the band of regeneration, it makes for an alternative to the charm of myths in late hardmode
+ -New Eye of Cthulhu drops: The eye of Cthulhu can now drop one from 4 new weapons, one for each class
+ -Goblin Invasion weapons: The goblins from the goblin invasion can now drop 3 new melee weapons
+
+-1 New Tile:
+ -Life Fruit Lantern; an upgrade of the heart lantern, crafted with a heart lantern and a life fruit, these two can be mixed togheter for maximum health regeneration
+
+-3 Vanilla Changes:
+ -Flying Dragon Buff; damage buffed from 180 to 200
+ -Terrabeam and Influx Waver Nerf; projectile lifetime decreased
+ -Gladius Buff; has now the same attack pattern as the starlight
+The mod can be customized with the config, allowing the user to pick whichever features they want
+
+Code by Hariq
+Sprites by Hariq, tommy2805 and BluTheTerrarian
+
+Reach out to us if you have questions or suggestions for the mod and you'd like to share them with us:
+Hariq#0077 (Discord)
+tommy2805#8034 (Discord)

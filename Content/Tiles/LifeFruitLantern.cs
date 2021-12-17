@@ -1,0 +1,110 @@
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
+using VanillaPlus.Common;
+
+namespace VanillaPlus.Content.Tiles
+{
+    class LifeFruitLanternTile : ModTile
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.tileLighted[Type] = true;
+            Main.tileFrameImportant[Type] = true;
+            Main.tileLavaDeath[Type] = true;
+
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);
+            TileObjectData.newTile.DrawYOffset = -2;
+            AddMapEntry(new Color(200, 255, 0));
+            TileObjectData.addTile(Type);
+        }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<LifeFruitLantern>());
+        }
+
+        public override void HitWire(int i, int j)
+        {
+            Tile tile = Main.tile[i, j];
+            int topY = j - tile.frameY / 18 % 3;
+            short frameAdjustment = (short)(tile.frameX > 0 ? -18 : 18);
+            Main.tile[i, topY].frameX += frameAdjustment;
+            Main.tile[i, topY + 1].frameX += frameAdjustment;
+            Wiring.SkipWire(i, topY);
+            Wiring.SkipWire(i, topY + 1);
+            NetMessage.SendTileSquare(-1, i, topY + 1, 3);
+        }
+
+        public override void NearbyEffects(int i, int j, bool closer)
+        {
+            Main.LocalPlayer.GetModPlayer<LanternHandlerPlayer>().lantern = true;
+        }
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        {
+            Tile tile = Main.tile[i, j];
+            if (tile.frameX == 0)
+            {
+                r = 0.8f;
+                g = 1f;
+                b = 0f;
+            }
+        }
+    }
+
+    public class LifeFruitLantern : ModItem
+    {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return ModContent.GetInstance<VanillaPlusConfig>().LifeFruitLanternToggle;
+        }
+
+        public override void SetDefaults()
+        {
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useTurn = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.autoReuse = true;
+            Item.maxStack = 999;
+            Item.consumable = true;
+            Item.createTile = ModContent.TileType<LifeFruitLanternTile>();
+            Item.placeStyle = 0;
+            Item.width = 12;
+            Item.height = 28;
+            Item.value = 75000;
+            Item.rare = ItemRarityID.Green;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.LifeFruit)
+                .AddIngredient(ItemID.HeartLantern)
+                .Register();
+        }
+    }
+
+    class LanternHandlerPlayer : ModPlayer
+    {
+        public bool lantern = false;
+
+        public override void PostUpdateMiscEffects()
+        {
+            //Runs just before UpdateLifeRegen
+            if (lantern)
+                Player.AddBuff(ModContent.BuffType<Buffs.LifeFruitLamp>(), 2, false);
+        }
+    }
+
+    class LanternHandlerWorld : ModSystem
+    {
+        public override void ResetNearbyTileEffects()
+        {
+            Main.LocalPlayer.GetModPlayer<LanternHandlerPlayer>().lantern = false;
+        }
+    }
+}
