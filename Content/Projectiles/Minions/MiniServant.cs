@@ -35,7 +35,7 @@ namespace VanillaPlus.Content.Projectiles.Minions
             Projectile.ignoreWater = true;
 
             // Damage
-            Projectile.idStaticNPCHitCooldown = 12;
+            Projectile.idStaticNPCHitCooldown = 24;
 
             // Other
             Projectile.netImportant = true;
@@ -54,9 +54,9 @@ namespace VanillaPlus.Content.Projectiles.Minions
         public override bool PreAI()
         {
             if (berserk)
-                Projectile.idStaticNPCHitCooldown = 0;
-            else
                 Projectile.idStaticNPCHitCooldown = 12;
+            else
+                Projectile.idStaticNPCHitCooldown = 24;
             return true;
         }
 
@@ -149,6 +149,7 @@ namespace VanillaPlus.Content.Projectiles.Minions
                         {
                             distanceFromTarget = between;
                             targetCenter = npc.Center;
+                            target = npc;
                             foundTarget = true;
                         }
                     }
@@ -223,7 +224,6 @@ namespace VanillaPlus.Content.Projectiles.Minions
 
             float distanceFromTarget = Vector2.Distance(Projectile.Center, target.Center);
 
-            // Minion has a target: attack (here, fly towards the enemy)
             if (distanceFromTarget > 40f)
             {
                 Vector2 direction = target.Center - Projectile.Center;

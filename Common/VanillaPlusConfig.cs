@@ -100,4 +100,17 @@ namespace VanillaPlus.Common
         public bool BannerSlotToggle;
 
     }
+
+    public class VanillaPlusClientConfig : ModConfig
+    {
+        public override ConfigScope Mode => ConfigScope.ClientSide;
+
+        [Header("$Mods.VanillaPlus.Config.ItemHeader")]
+
+        [Label("$Mods.VanillaPlus.Config.TearAltToggle.Label")]
+        [Tooltip("$Mods.VanillaPlus.Config.TearAltToggle.Tooltip")]
+        [DefaultValue(true)]
+        [ReloadRequired]
+        public bool TearAltToggle;
+    }
 }

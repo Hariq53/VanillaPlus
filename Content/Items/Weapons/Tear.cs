@@ -15,6 +15,8 @@ namespace VanillaPlus.Content.Items.Weapons
             return ModContent.GetInstance<VanillaPlusConfig>().EOCDropsToggle;
         }
 
+        public override string Texture => ModContent.GetInstance<VanillaPlusClientConfig>().TearAltToggle ? "VanillaPlus/Content/Items/Weapons/Tear_Alt" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             ItemID.Sets.Yoyo[Item.type] = true;

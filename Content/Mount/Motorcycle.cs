@@ -83,7 +83,6 @@ namespace VanillaPlus.Content.Mount
             {
                 if (Collision.WetCollision(player.position, player.width, player.height + 30) == true)
                 {
-                    //Main.NewText("acqua");
                     Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height + 30, DustID.Water_BloodMoon);
                     player.maxFallSpeed = 0;
                 }
@@ -94,7 +93,6 @@ namespace VanillaPlus.Content.Mount
                 {
                     MountData.runSpeed = 3f;
                     MountData.acceleration = 0.1f;
-                    //Main.NewText("fall acqua");
                     player.maxFallSpeed = 3;
                 }
                 else
@@ -106,7 +104,6 @@ namespace VanillaPlus.Content.Mount
             Vector2 offsetPosition = new(player.position.X + 8, player.position.Y - 10);
             if (Collision.SolidCollision(offsetPosition, 75, 70) == true && speed > 6f)
             {
-                //Main.NewText("collisione rilevata");
                 player.maxFallSpeed = -4;
             }
             Rectangle hitbox = new((int)player.position.X, (int)player.position.Y, 100, 70);

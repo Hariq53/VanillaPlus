@@ -29,9 +29,8 @@ namespace VanillaPlus.Content.Buffs
         {
             if (CthulhusMalediction.affectedNpcs.Contains(npc.whoAmI))
                 if (npc.HasBuff(ModContent.BuffType<CthulhusMalediction>()))
-                {
                     npc.color = new Color(100, 10, 10, 100);
-                }
+
             base.DrawEffects(npc, ref drawColor);
         }
 

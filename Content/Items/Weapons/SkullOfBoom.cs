@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
 using VanillaPlus.Common.Presets;
+using VanillaPlus.Content.Buffs;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
@@ -28,7 +29,7 @@ namespace VanillaPlus.Content.Items.Weapons
             // Weapon Specific
             Item.damage = 40;
             Item.shoot = ModContent.ProjectileType<SkullOfBoomProjectile>();
-            Item.shootSpeed = 5f;
+            Item.shootSpeed = 7f;
             Item.DamageType = DamageClass.Ranged;
 
             // Other
@@ -111,6 +112,12 @@ namespace VanillaPlus.Content.Items.Weapons
                 Projectile.velocity.Y += 0.2f;
             }
             Projectile.rotation += Projectile.velocity.X * 0.1f;
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            base.OnHitNPC(target, damage, knockback, crit);
+            target.AddBuff(ModContent.BuffType<Aquaflame>(), 60);
         }
     }
 }
