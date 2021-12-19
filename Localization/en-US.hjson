@@ -40,7 +40,7 @@ Mods: {
 
 			SkeletonDropsToggle: {
 				Label: "{$NPCName.SkeletronHead} Drops"
-				Tooltip: Enable or disable the new weapon drops from {$NPCName.SkeletronHead}
+				Tooltip: Enable or disable the new weapon drops for the {$NPCName.SkeletronHead}
 			}
 
 			TilesHeader: Tiles

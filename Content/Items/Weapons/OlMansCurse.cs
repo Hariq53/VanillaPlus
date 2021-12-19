@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using VanillaPlus.Common;
 using VanillaPlus.Common.Presets.SummonWeapon;
 using VanillaPlus.Content.Buffs;
 using VanillaPlus.Content.Projectiles.Minions;
@@ -13,8 +14,9 @@ namespace VanillaPlus.Content.Items.Weapons
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return true;
+            return ModContent.GetInstance<VanillaPlusConfig>().SkeletronDropsToggle;
         }
+
         protected override int MinionBuff => ModContent.BuffType<CursedSkullMinionBuff>();
 
         public override void SetDefaults()

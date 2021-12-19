@@ -11,6 +11,11 @@ namespace VanillaPlus.Content.Items.Weapons
 {
     class SkullOfBoom : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return ModContent.GetInstance<VanillaPlusConfig>().SkeletronDropsToggle;
+        }
+
         public override void SetDefaults()
         {
             // GFX

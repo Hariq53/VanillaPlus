@@ -11,6 +11,11 @@ namespace VanillaPlus.Content.Items.Weapons
 {
     class SkeletronsFinger : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return ModContent.GetInstance<VanillaPlusConfig>().SkeletronDropsToggle;
+        }
+
         public override void SetDefaults()
         {
             Item.useStyle = ItemUseStyleID.Swing;
