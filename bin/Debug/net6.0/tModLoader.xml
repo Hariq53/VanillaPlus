@@ -11011,6 +11011,13 @@
             <exception cref="T:System.IndexOutOfRangeException"/>
             <exception cref="T:System.NullReferenceException"/>
         </member>
+        <member name="M:Terraria.Player.TryGetModPlayer``1(``0@)">
+            <summary> Gets the instance of the specified ModPlayer type. </summary>
+        </member>
+        <member name="M:Terraria.Player.TryGetModPlayer``1(``0,``0@)">
+            <summary> Safely attempts to get the local instance of the type of the specified ModPlayer instance. </summary>
+            <returns> Whether or not the requested instance has been found. </returns>
+        </member>
         <member name="M:Terraria.Player.QuickSpawnClonedItem(Terraria.Item,System.Int32)">
             <summary>
             Will spawn an item like QuickSpawnItem, but clones it (handy when you need to retain item infos)

@@ -91,7 +91,7 @@ namespace VanillaPlus.Content.Items.Weapons
             {
                 Projectile.ai[1]++;
                 HomingAI(owner);
-                if (Projectile.ai[1] >= 40f)
+                if (Projectile.ai[1] >= 30f)
                 {
                     Projectile.ai[0] = 1f;
                     Projectile.ai[1] = 0f;
@@ -105,14 +105,8 @@ namespace VanillaPlus.Content.Items.Weapons
                 ProjectilesUtilities.BoomerangAI(Projectile, owner.Center, 12f, 1.5f);
 
                 if (Main.myPlayer == Projectile.owner)
-                {
-                    Rectangle rectangle = new((int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height);
-                    Rectangle value12 = new((int)Main.player[Projectile.owner].position.X, (int)Main.player[Projectile.owner].position.Y, Main.player[Projectile.owner].width, Main.player[Projectile.owner].height);
-                    if (rectangle.Intersects(value12))
-                    {
+                    if (Projectile.Hitbox.Intersects(Main.player[Projectile.owner].Hitbox))
                         Projectile.Kill();
-                    }
-                }
             }
 
             Projectile.rotation += 0.4f * (float)Projectile.direction;

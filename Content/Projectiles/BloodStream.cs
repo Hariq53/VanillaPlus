@@ -33,7 +33,7 @@ namespace VanillaPlus.Content.Projectiles
         {
             Common.ProjectilesUtilities.ApplyGravity(Projectile, 0.2f);
             if (Projectile.timeLeft > 5)
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 5; i++)
                     Dust.NewDust(Projectile.position + Vector2.Normalize(Projectile.velocity) * 44, Projectile.width / 2, Projectile.height / 2, DustID.Blood, Projectile.velocity.X / 2, Projectile.velocity.Y / 2, 50);
         }
 

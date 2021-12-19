@@ -29,7 +29,7 @@ namespace VanillaPlus.Content.Items.Weapons
             // Weapon Specific
             Item.damage = 40;
             Item.shoot = ModContent.ProjectileType<SkullOfBoomProjectile>();
-            Item.shootSpeed = 7f;
+            Item.shootSpeed = 8f;
             Item.DamageType = DamageClass.Ranged;
 
             // Other
