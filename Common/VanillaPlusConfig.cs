@@ -3,6 +3,7 @@ using Terraria.ModLoader.Config;
 
 namespace VanillaPlus.Common
 {
+    [Label("$Mods.VanillaPlus.Config.ServerSideConfig")]
     public class VanillaPlusConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
@@ -101,6 +102,7 @@ namespace VanillaPlus.Common
 
     }
 
+    [Label("$Mods.VanillaPlus.Config.ClientSideConfig")]
     public class VanillaPlusClientConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
@@ -109,7 +111,7 @@ namespace VanillaPlus.Common
 
         [Label("$Mods.VanillaPlus.Config.TearAltToggle.Label")]
         [Tooltip("$Mods.VanillaPlus.Config.TearAltToggle.Tooltip")]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         [ReloadRequired]
         public bool TearAltToggle;
     }

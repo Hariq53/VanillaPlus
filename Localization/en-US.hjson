@@ -1,6 +1,9 @@
 Mods: {
 	VanillaPlus: {
 		Config: {
+			ServerSideConfig: Server-Side Settings
+			ClientSideConfig: Client-Side Settings
+
 			ItemHeader: Items
 			
 			EvilMaceToggle: {
