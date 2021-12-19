@@ -45,17 +45,17 @@ namespace VanillaPlus.Common
         [ReloadRequired]
         public bool EOCDropsToggle;
 
-        [Label("$Mods.VanillaPlus.Config.SkeletronDropsToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.SkeletronDropsToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool SkeletronDropsToggle;
-
         [Label("$Mods.VanillaPlus.Config.GoblinDropsToggle.Label")]
         [Tooltip("$Mods.VanillaPlus.Config.GoblinDropsToggle.Tooltip")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool GoblinDropsToggle;
+
+        [Label("$Mods.VanillaPlus.Config.SkeletonDropsToggle.Label")]
+        [Tooltip("$Mods.VanillaPlus.Config.SkeletonDropsToggle.Tooltip")]
+        [DefaultValue(true)]
+        [ReloadRequired]
+        public bool SkeletonDropsToggle;
 
         [Header("$Mods.VanillaPlus.Config.TilesHeader")]
 
@@ -99,18 +99,11 @@ namespace VanillaPlus.Common
         [ReloadRequired]
         public bool BannerSlotToggle;
 
-    }
-
-    public class VanillaPlusClientConfig : ModConfig
-    {
-        public override ConfigScope Mode => ConfigScope.ClientSide;
-
-        [Header("$Mods.VanillaPlus.Config.ItemHeader")]
-
-        [Label("$Mods.VanillaPlus.Config.TearAltToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.TearAltToggle.Tooltip")]
-        [DefaultValue(true)]
+        [Label("$Mods.VanillaPlus.Config.MotorcycleMountToggle.Label")]
+        [Tooltip("$Mods.VanillaPlus.Config.MotorcycleMountToggle.Tooltip")]
+        [DefaultValue(false)]
         [ReloadRequired]
-        public bool TearAltToggle;
+        public bool MotorcycleMountToggle;
+
     }
 }
