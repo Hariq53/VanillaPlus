@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tommy\\source\\repos\\VanillaPlus\\VanillaPlus.csproj": {}
+    "C:\\Users\\hariq\\Documents\\My Games\\Terraria\\ModLoader\\Beta\\Mod Sources\\VanillaPlus\\VanillaPlus.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tommy\\source\\repos\\VanillaPlus\\VanillaPlus.csproj": {
+    "C:\\Users\\hariq\\Documents\\My Games\\Terraria\\ModLoader\\Beta\\Mod Sources\\VanillaPlus\\VanillaPlus.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tommy\\source\\repos\\VanillaPlus\\VanillaPlus.csproj",
+        "projectUniqueName": "C:\\Users\\hariq\\Documents\\My Games\\Terraria\\ModLoader\\Beta\\Mod Sources\\VanillaPlus\\VanillaPlus.csproj",
         "projectName": "VanillaPlus",
-        "projectPath": "C:\\Users\\tommy\\source\\repos\\VanillaPlus\\VanillaPlus.csproj",
-        "packagesPath": "C:\\Users\\tommy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tommy\\source\\repos\\VanillaPlus\\obj\\",
+        "projectPath": "C:\\Users\\hariq\\Documents\\My Games\\Terraria\\ModLoader\\Beta\\Mod Sources\\VanillaPlus\\VanillaPlus.csproj",
+        "packagesPath": "C:\\Users\\hariq\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hariq\\Documents\\My Games\\Terraria\\ModLoader\\Beta\\Mod Sources\\VanillaPlus\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\tommy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hariq\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,6 +43,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "tModLoader.CodeAssist": {
+              "target": "Package",
+              "version": "[0.1.*, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -49,7 +59,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "X9pn7zQ5JR0nDpyZWz3x47o7xtz37VxhYVlQlaUxmqWg12i2aaXj4QB+zjv5wDdgUqWULXQbhn2u+C+RIDqN2A==",
+  "dgSpecHash": "Po7suORq0vyPOvItalQ51fyyj55Kpc86RSeGp9czteIYH8u313Sp5NKkV4ftuEoVz2nS34+PdHvY8oXKTg4lsg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tommy\\source\\repos\\VanillaPlus\\VanillaPlus.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\hariq\\Documents\\My Games\\Terraria\\ModLoader\\Beta\\Mod Sources\\VanillaPlus\\VanillaPlus.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hariq\\.nuget\\packages\\tmodloader.codeassist\\0.1.3\\tmodloader.codeassist.0.1.3.nupkg.sha512"
+  ],
   "logs": []
 }
