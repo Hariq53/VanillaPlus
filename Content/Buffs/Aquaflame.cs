@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
 using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace VanillaPlus.Content.Buffs
 {
@@ -30,7 +30,7 @@ namespace VanillaPlus.Content.Buffs
         }
     }
 
-	class AquaFlameGlobalNPC : GlobalNPC
+    class AquaFlameGlobalNPC : GlobalNPC
     {
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {

@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common;
 using VanillaPlus.Common.Presets.SummonWeapon;
 using VanillaPlus.Content.Buffs;
 

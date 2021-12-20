@@ -2,7 +2,6 @@ Mods: {
 	VanillaPlus: {
 		Config: {
 			ServerSideConfig: Impostazioni lato Server
-			ClientSideConfig: Impostazioni lato Client
 
 			ItemHeader: Oggetti
 
@@ -66,16 +65,23 @@ Mods: {
 				Tooltip: Abilita o disabilita il nerf del proiettile dello {$ItemName.InfluxWaver} (distanza coperta dal proiettile diminuita)
 			}
 
-			ExpFeaturesHeader: Aggiunte sperimentali
+			ExpFeaturesHeader: Funzioni sperimentali
 
 			BannerSlotToggle: {
 				Label: Slot banner
-				Tooltip: Abilita o disabilita il nuovo slot per i banner
+				Tooltip: Abilita o disabilita lo slot per i banner
 			}
 
 			MotorcycleMountToggle: {
 				Label: Mount motocicletta
-				Tooltip: Abilita o disabilita il nuovo mount motocicletta
+				Tooltip: Abilita o disabilita il mount motocicletta
+			}
+
+			ClientSideConfig: Impostazioni lato Client
+
+			TearAltToggle: {
+				Label: "Texture vanilla per lo yo-yo {$Mods.VanillaPlus.ItemName.Tear}"
+				Tooltip: "Abilita o disabilita la texture fedele al gioco originale per la {$Mods.VanillaPlus.ItemName.Tear}"
 			}
 		}
 
@@ -94,6 +100,9 @@ Mods: {
 			GoblinsBlade: Lama Goblin
 			ThiefsDagger: Daga del Ladro
 			WarriorsMallet: Maglio del Guerriero
+			SkullOfBoom: Teschio Esplosivo
+			SkeletronsFinger: Dito di Skeletron
+			OlMansCurse: Maledizione del vecchio
 			MotorcycleMountItem: Ruota di Motocicletta
 		}
 		
@@ -101,14 +110,17 @@ Mods: {
 			LifeFruitLantern: Aumenta notevolmente la rigenerazione della vita quando posizionato nelle vicinanze
 			Dualies: "'Mezzogiorno di fuoco'"
 			ShinyCharm: Rigenera la vita velocemente
-			EyeballOnAStick: Evoca un servo di Cthulhu in miniatura che combatte per te, entra in uno stato di rabbia quando la tua vita Ë bassa
+			EyeballOnAStick: Evoca un {$Mods.VanillaPlus.ProjectileName.MiniServant} che combatte per te, entra in uno stato di rabbia quando la tua vita Ë†¢assa
+			SkullOfBoom: Evoca teschi esplodivi che emettono fiamme d'acqua
+			SkeletronsFinger: Contiene un frammento della coscienza di {$NPCName.SkeletronHead}
+			OlMansCurse: "Evoca un {$Mods.VanillaPlus.ProjectileName.CursedSkullMinion} che combatte per te\n\"MALEDIZIONE!\""
 			MotorcycleMountItem: Evoca una motocicletta cavalcabile
  		}
 
 		ProjectileName: {
 			EnchantedSpearProjectile: "{$Mods.VanillaPlus.ItemName.EnchantedSpear}"
 			DualiesRevolver: "{$ItemName.Revolver}"
-			MiniServant: Mini Servo di Cthulhu
+			MiniServant: Servo Puro di Cthulhu
 			BloodStream: Flusso Sanguigno
 			ChristmasBarrageBomb: Bomba Natalizia
 			ChristmasBarragePlane: Aereo Natalizio
@@ -116,6 +128,7 @@ Mods: {
 			RottenBit: Ceppo marcio
 			TearProjectile: "{$Mods.VanillaPlus.ItemName.Tear}"
 			TearEye: Mini Occhio
+			CursedSkullMinion: Teschio Maledetto
 		}
 
 		TileName: {
@@ -125,14 +138,15 @@ Mods: {
 		BuffName: {
 			LifeFruitLamp: Rigenerazione Frutto di Vita
 			CthulhusMalediction: Maledizione di Cthulhu
-			MiniServantMinion: Servo Puro di Cthulhu
+			MiniServantMinion: "{$Mods.VanillaPlus.ProjectileName.MiniServant}"
 			MotorcycleMount: Motocicletta
 		}
 
 		BuffDescription: {
 			LifeFruitLamp: Rigenerazione vita notevolmente aumentata
 			CthulhusMalediction: Difesa ridotta di 5
-			MiniServantMinion: Il Servo Puro di Cthulhu combatter‡ per te
+			MiniServantMinion: "Il {$Mods.VanillaPlus.ProjectileName.MiniServant} combatter√† te"
+			CursedSkullMinionBuff: "Il {$Mods.VanillaPlus.ProjectileName.CursedSkullMinion} combatter√† te"
 			MotorcycleMount: Bruuum-Bruuummm
 		}
 	}

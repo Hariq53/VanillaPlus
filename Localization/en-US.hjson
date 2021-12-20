@@ -2,7 +2,6 @@ Mods: {
 	VanillaPlus: {
 		Config: {
 			ServerSideConfig: Server-Side Settings
-			ClientSideConfig: Client-Side Settings
 
 			ItemHeader: Items
 			
@@ -79,12 +78,19 @@ Mods: {
 
 			BannerSlotToggle: {
 				Label: Banner slot
-				Tooltip:  Enable or disable the new banner slot
+				Tooltip:  Enable or disable the banner slot
 			}
 
 			MotorcycleMountToggle: {
 				Label: Motorcycle mount
-				Tooltip: Enable or disable the new motorcycle mount
+				Tooltip: Enable or disable the motorcycle mount
+			}
+
+			ClientSideConfig: Client-Side Settings
+
+			TearAltToggle: {
+				Label: "{$Mods.VanillaPlus.ItemName.Tear} Vanilla Texture"
+				Tooltip: "Enable or disable the vanilla-like texture for the {$Mods.VanillaPlus.ItemName.Tear}"
 			}
 		}
 		
@@ -103,6 +109,9 @@ Mods: {
 			GoblinsBlade: Goblin's Blade
 			ThiefsDagger: Thief's Dagger
 			WarriorsMallet: Warrior's Mallet
+			SkullOfBoom: Skull of Boom
+			SkeletronsFinger: Skeletron's Finger
+			OlMansCurse: Old Man's Curse
 			MotorcycleMountItem: Motorcycle wheel
 		}
 
@@ -111,6 +120,9 @@ Mods: {
 			Dualies: "'It's high noon'"
 			ShinyCharm: Regenerates life quickly
 			EyeballOnAStick: Summons a miniature servant of Cthulhu to fight for you, it gets enraged when your health is low
+			SkullOfBoom: Throws non-consumable skull that explodes and spreads water flames
+			SkeletronsFinger: Contains a fragment of {$NPCName.SkeletronHead}'s consciousness
+			OlMansCurse: "Summons cursed skulls to fight for you\n\"CURSES!\""
 			MotorcycleMountItem: Summon a rideable motorcycle
  		}
 
@@ -125,24 +137,28 @@ Mods: {
 			RottenBit: Rotten Bit
 			TearProjectile: "{$Mods.VanillaPlus.ItemName.Tear}"
 			TearEye: "{$Mods.VanillaPlus.ItemName.Tear} eye"
+			CursedSkullMinion: Cursed Skull
 		}
 
 		TileName: {
 			LifeFruitLanternTile: Life Fruit Lantern
 		}
-			
 
 		BuffName: {
 			LifeFruitLamp: Life Fruit Regeneration
 			CthulhusMalediction: Cthulhu's Malediction
 			MiniServantMinion: Eye on you
+			Aquaflame: "{$BuffName.OnFire}"
+			CursedSkullMinionBuff: "{$Mods.VanillaPlus.ProjectileName.CursedSkullMinion}"
 			MotorcycleMount: Motorcycle
 		}
 
 		BuffDescription: {
 			LifeFruitLamp: Life regeneration is increased
 			CthulhusMalediction: Defense reduced by 5
-			MiniServantMinion: The pure servant will fight for you
+			MiniServantMinion: The {$Mods.VanillaPlus.ProjectileName.MiniServant} will fight for you
+			Aquaflame: "{BuffDescription.OnFire}"
+			CursedSkullMinionBuff: The {$Mods.VanillaPlus.ProjectileName.CursedSkullMinion} will fight for you
 			MotorcycleMount: Bruuum-Bruuummm
 		}
 	}
