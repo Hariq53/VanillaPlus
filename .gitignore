@@ -2,7 +2,5 @@
 **/obj/
 **/packages/
 .vs
-*.user
-*.suo
 **/packages/
 **/.vs/
