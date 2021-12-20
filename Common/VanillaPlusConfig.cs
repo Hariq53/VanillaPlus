@@ -56,7 +56,7 @@ namespace VanillaPlus.Common
         [Tooltip("$Mods.VanillaPlus.Config.SkeletonDropsToggle.Tooltip")]
         [DefaultValue(true)]
         [ReloadRequired]
-        public bool SkeletonDropsToggle;
+        public bool SkeletronDropsToggle;
 
         [Header("$Mods.VanillaPlus.Config.TilesHeader")]
 
