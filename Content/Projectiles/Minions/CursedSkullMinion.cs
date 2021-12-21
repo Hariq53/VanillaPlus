@@ -38,7 +38,6 @@ namespace VanillaPlus.Content.Projectiles.Minions
 
             // Damage
             Projectile.damage = 0;
-            // Projectile.idStaticNPCHitCooldown = 24;
 
             // Other
             Projectile.netImportant = true;
@@ -113,7 +112,6 @@ namespace VanillaPlus.Content.Projectiles.Minions
             Vector2 idlePosition = owner.Center;
             idlePosition.Y -= (48 + radius);
 
-            // MathHelper.ToRadians(360 / totalIndexesInGroup * index)
             idlePosition.X += MathF.Cos(MathHelper.TwoPi / totalIndexesInGroup * index + CursedSkullTimer.angle) * radius;
             idlePosition.Y += MathF.Sin(MathHelper.TwoPi / totalIndexesInGroup * index + CursedSkullTimer.angle) * radius;
             return idlePosition;

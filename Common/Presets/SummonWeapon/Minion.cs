@@ -44,7 +44,7 @@ namespace VanillaPlus.Common.Presets.SummonWeapon
 
             SearchForTargets(owner, out foundTarget, out target);
 
-            if (foundTarget)
+            if (PreAttackBehaviour(owner))
                 AttackBehaviour(target);
             else
                 IdleBehaviour(idlePosition);
@@ -55,7 +55,7 @@ namespace VanillaPlus.Common.Presets.SummonWeapon
         protected virtual int MinionBuff => 0;
 
         /// <summary>
-        /// This is the "active check", it makes sure the minion is alive while the player is alive, and despawns if not
+        /// The "active check" makes sure the minion is alive while the player is alive, and despawns if not
         /// </summary>
         /// <param name="owner">The owner of this minion, the one on which the active check is run </param>
         /// <returns></returns>
@@ -76,7 +76,7 @@ namespace VanillaPlus.Common.Presets.SummonWeapon
         protected virtual Vector2 GetIdlePosition(Player owner) { return owner.Center; }
 
         /// <summary>
-        /// This method runs in the AI method right after the active check
+        /// Runs right after the active check
         /// </summary>
         protected virtual void GeneralBehavior(Player owner, out Vector2 idlePosition) { idlePosition = GetIdlePosition(owner); }
 
@@ -91,7 +91,7 @@ namespace VanillaPlus.Common.Presets.SummonWeapon
         protected virtual float MaxTargetDistance => 2000f;
 
         /// <summary>
-        /// This method runs a check on all the active NPCs to find a suitable target, and outputs wheter or not it has been found and its position 
+        /// Allows you to check all the active NPCs for a suitable target, and outputs wheter or not it has been found 
         /// </summary>
         /// <param name="owner">The owner of this minion (useful to have only when right click targetting is active)</param>
         /// <param name="foundTarget">Wheter or not a suitable target has been found</param>
@@ -141,7 +141,7 @@ namespace VanillaPlus.Common.Presets.SummonWeapon
         }
 
         /// <summary>
-        /// This method handles the minion's idle behaviour (mainly movement)
+        /// Handle the minion's idle behaviour (mainly movement)
         /// </summary>
         /// <param name="idlePosition">The objective the minion must move towards</param>
         protected virtual void IdleBehaviour(Vector2 idlePosition) { }
@@ -149,8 +149,14 @@ namespace VanillaPlus.Common.Presets.SummonWeapon
         protected virtual void AttackBehaviour(NPC target) { }
 
         /// <summary>
-        /// This method is used for all the visual effects of the minion
+        /// Used for all the visual effects of the minion
         /// </summary>
         protected virtual void Visuals() { }
+
+        /// <summary>
+        /// Runs before the attack behaviour, return false to prevent the attack behaviour from running (the idle behaviour will be run instead)
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool PreAttackBehaviour(Player owner) { return foundTarget && target.active; }
     }
 }
