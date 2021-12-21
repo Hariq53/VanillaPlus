@@ -70,7 +70,7 @@ namespace VanillaPlus.Content.Projectiles.Minions
 
                 if (i != Projectile.whoAmI && other.active && other.owner == Projectile.owner)
                 {
-                    if (Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
+                    if (MathF.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
                     {
                         if (Projectile.position.X < other.position.X)
                             Projectile.velocity.X -= overlapVelocity;
@@ -267,13 +267,13 @@ namespace VanillaPlus.Content.Projectiles.Minions
                 if (vectorToTarget.X > 0f)
                 {
                     Projectile.spriteDirection = -1;
-                    Projectile.rotation = (float)Math.Atan2(vectorToTarget.Y, vectorToTarget.X);
+                    Projectile.rotation = MathF.Atan2(vectorToTarget.Y, vectorToTarget.X);
                 }
 
                 if (vectorToTarget.X < 0f)
                 {
                     Projectile.spriteDirection = 1;
-                    Projectile.rotation = (float)Math.Atan2(vectorToTarget.Y, vectorToTarget.X) + MathHelper.Pi;
+                    Projectile.rotation = MathF.Atan2(vectorToTarget.Y, vectorToTarget.X) + MathHelper.Pi;
                 }
             }
             else if (!isSpinning)

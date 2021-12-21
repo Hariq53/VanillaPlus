@@ -91,7 +91,7 @@ namespace VanillaPlus.Common
                 float num338 = Main.rand.Next(-10, 11);
                 float num339 = Main.rand.Next(-10, 11);
                 float num340 = Main.rand.Next(3, 9);
-                float num341 = (float)Math.Sqrt(num338 * num338 + num339 * num339);
+                float num341 = MathF.Sqrt(num338 * num338 + num339 * num339);
                 num341 = num340 / num341;
                 num338 *= num341;
                 num339 *= num341;
