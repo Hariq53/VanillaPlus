@@ -111,7 +111,7 @@ Mods: {
 			Dualies: "'Mezzogiorno di fuoco'"
 			ShinyCharm: Rigenera la vita velocemente
 			EyeballOnAStick: Evoca un {$Mods.VanillaPlus.ProjectileName.MiniServant} che combatte per te, entra in uno stato di rabbia quando la tua vita 蠢assa
-			SkullOfBoom: Evoca teschi esplodivi che emettono fiamme d'acqua
+			SkullOfBoom: Evoca teschi esplosivi che emettono fiamme d'acqua
 			SkeletronsFinger: Contiene un frammento della coscienza di {$NPCName.SkeletronHead}
 			OlMansCurse: "Evoca un {$Mods.VanillaPlus.ProjectileName.CursedSkullMinion} che combatte per te\n\"MALEDIZIONE!\""
 			MotorcycleMountItem: Evoca una motocicletta cavalcabile
