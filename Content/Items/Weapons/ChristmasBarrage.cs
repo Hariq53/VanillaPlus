@@ -43,33 +43,5 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 9);
             Item.rare = ItemRarityID.Yellow;
         }
-
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
-        }
-    }
-    class SantaDrop : GlobalNPC
-    {
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            if (npc.type == NPCID.SantaNK1)
-            {
-                var entries = npcLoot.Get(false);
-                foreach (var entry in entries)
-                    if (entry is LeadingConditionRule leadingRule)
-                        foreach (var chainedRule in entry.ChainedRules)
-                            if (chainedRule.RuleToChain is OneFromOptionsDropRule oneFromOptionsRule)
-                            {
-                                var tempList = oneFromOptionsRule.dropIds.ToList();
-                                int ItemTypeToAdd = ModContent.ItemType<ChristmasBarrage>();
-                                if (tempList.Contains(ItemID.EldMelter) && tempList.Contains(ItemID.ChainGun) && !tempList.Contains(ItemTypeToAdd))
-                                    tempList.Add(ItemTypeToAdd);
-                                oneFromOptionsRule.dropIds = tempList.ToArray();
-                                break;
-                            }
-            }
-            base.ModifyNPCLoot(npc, npcLoot);
-        }
     }
 }

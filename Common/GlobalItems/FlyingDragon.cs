@@ -12,11 +12,14 @@ namespace VanillaPlus.Content.Changes
             return ModContent.GetInstance<VanillaPlusConfig>().FlyingDragonTweakToggle;
         }
 
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation)
+        {
+            return entity.type == ItemID.DD2SquireBetsySword;
+        }
+
         public override void SetDefaults(Item item)
         {
-            if (item.type == ItemID.DD2SquireBetsySword)
-                item.damage = 200;
-            base.SetDefaults(item);
+            item.damage = 200;
         }
     }
 }

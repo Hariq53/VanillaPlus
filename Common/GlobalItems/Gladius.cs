@@ -11,14 +11,15 @@ namespace VanillaPlus.Common.GlobalItems
             return ModContent.GetInstance<VanillaPlusConfig>().GladiusTweakToggle;
         }
 
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation)
+        {
+            return entity.type == ItemID.Gladius;
+        }
+
         public override void SetDefaults(Item item)
         {
-            if (item.type == ItemID.Gladius)
-            {
-                item.autoReuse = true;
-                item.reuseDelay = 0;
-            }
-            base.SetDefaults(item);
+            item.autoReuse = true;
+            item.reuseDelay = 0;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
@@ -27,21 +26,6 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.knockBack = 5f;
             Item.value = Item.sellPrice(silver: 60);
             Item.rare = ItemRarityID.Blue;
-        }
-    }
-
-    class GoblinPeonDrop : GlobalNPC
-    {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ModContent.GetInstance<VanillaPlusConfig>().GoblinDropsToggle;
-        }
-
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
-        {
-            if (npc.type == NPCID.GoblinPeon)
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<GoblinsBlade>(), 100, 40));
-            base.ModifyNPCLoot(npc, npcLoot);
         }
     }
 }

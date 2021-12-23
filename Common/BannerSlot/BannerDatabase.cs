@@ -17,7 +17,7 @@ namespace VanillaPlus.Common.BannerSlot
             }
         }
 
-        private List<BannerEntry> bannerEntries = new();
+        private readonly List<BannerEntry> bannerEntries = new();
 
         public void AddEntry(int bannerID, int NPCNetID)
         {

@@ -11,11 +11,14 @@ namespace VanillaPlus.Common.GlobalProjectiles
             return ModContent.GetInstance<VanillaPlusConfig>().InfluxWaverTweakToggle;
         }
 
+        public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
+        {
+            return entity.type == ProjectileID.InfluxWaver;
+        }
+
         public override void SetDefaults(Projectile projectile)
         {
-            if (projectile.type == ProjectileID.InfluxWaver)
-                projectile.timeLeft = 70;
-            base.SetDefaults(projectile);
+            projectile.timeLeft = 70;
         }
     }
 }

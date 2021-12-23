@@ -13,11 +13,14 @@ namespace VanillaPlus.Common.BannerSlot
                 return ModContent.GetInstance<VanillaPlusConfig>().BannerSlotToggle;
             }
 
+            public override bool AppliesToEntity(Item entity, bool lateInstantiation)
+            {
+                return VanillaPlus.Banners.ContainsItem(entity.type);
+            }
+
             public override void SetDefaults(Item item)
             {
-                if (VanillaPlus.Banners.ContainsItem(item.type))
-                    item.accessory = true;
-                base.SetDefaults(item);
+                item.accessory = true;
             }
         }
 

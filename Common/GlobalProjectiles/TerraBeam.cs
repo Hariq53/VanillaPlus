@@ -11,11 +11,14 @@ namespace VanillaPlus.Common.GlobalProjectiles
             return ModContent.GetInstance<VanillaPlusConfig>().TerraBeamTweakToggle;
         }
 
+        public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
+        {
+            return entity.type == ProjectileID.TerraBeam;
+        }
+
         public override void SetDefaults(Projectile projectile)
         {
-            if (projectile.type == ProjectileID.TerraBeam)
-                projectile.timeLeft = 65;
-            base.SetDefaults(projectile);
+            projectile.timeLeft = 65;
         }
     }
 }
