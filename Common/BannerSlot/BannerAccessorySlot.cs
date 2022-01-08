@@ -10,7 +10,7 @@ namespace VanillaPlus.Common.BannerSlot
 
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusConfig>().BannerSlotToggle;
+            return true;//ModContent.GetInstance<VanillaPlusConfig>().BannerSlotToggle;
         }
 
         public override bool CanAcceptItem(Item checkItem, AccessorySlotType context)

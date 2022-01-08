@@ -55,7 +55,7 @@ namespace VanillaPlus.Content.Tiles
         }
     }
 
-    public class LifeFruitLantern : ModItem
+    class LifeFruitLantern : ModItem
     {
         public override bool IsLoadingEnabled(Mod mod)
         {

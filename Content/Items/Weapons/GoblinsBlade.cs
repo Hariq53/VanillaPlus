@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
@@ -12,6 +13,10 @@ namespace VanillaPlus.Content.Items.Weapons
             return ModContent.GetInstance<VanillaPlusConfig>().GoblinDropsToggle;
         }
 
+        public override void SetStaticDefaults()
+        {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
         public override void SetDefaults()
         {
             Item.width = 34;

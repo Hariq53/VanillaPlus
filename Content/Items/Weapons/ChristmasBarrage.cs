@@ -1,8 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using System.Linq;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent.ItemDropRules;
+﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
@@ -15,6 +12,11 @@ namespace VanillaPlus.Content.Items.Weapons
         public override bool IsLoadingEnabled(Mod mod)
         {
             return ModContent.GetInstance<VanillaPlusConfig>().ChristmasBarrageToggle;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

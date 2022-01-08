@@ -7,7 +7,7 @@ namespace VanillaPlus.Common.BannerSlot
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusConfig>().BannerSlotToggle;
+            return true;//ModContent.GetInstance<VanillaPlusConfig>().BannerSlotToggle;
         }
 
         public bool banner;

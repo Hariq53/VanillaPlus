@@ -10,7 +10,7 @@ namespace VanillaPlus.Common.BannerSlot
         {
             public override bool IsLoadingEnabled(Mod mod)
             {
-                return ModContent.GetInstance<VanillaPlusConfig>().BannerSlotToggle;
+                return true;// ModContent.GetInstance<VanillaPlusConfig>().BannerSlotToggle;
             }
 
             public override bool AppliesToEntity(Item entity, bool lateInstantiation)
@@ -28,7 +28,7 @@ namespace VanillaPlus.Common.BannerSlot
         {
             public override bool IsLoadingEnabled(Mod mod)
             {
-                return ModContent.GetInstance<VanillaPlusConfig>().BannerSlotToggle;
+                return true;//ModContent.GetInstance<VanillaPlusConfig>().BannerSlotToggle;
             }
 
             public override void SetBestiary(NPC npc, BestiaryDatabase database, BestiaryEntry bestiaryEntry)
