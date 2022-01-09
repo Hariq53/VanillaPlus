@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +13,11 @@ namespace VanillaPlus.Content.Items.Weapons
         public override bool IsLoadingEnabled(Mod mod)
         {
             return ModContent.GetInstance<VanillaPlusConfig>().EvilMaceToggle;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

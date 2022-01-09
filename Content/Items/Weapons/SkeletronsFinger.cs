@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
@@ -13,6 +14,11 @@ namespace VanillaPlus.Content.Items.Weapons
         public override bool IsLoadingEnabled(Mod mod)
         {
             return ModContent.GetInstance<VanillaPlusConfig>().SkeletronDropsToggle;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

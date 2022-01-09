@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
@@ -11,6 +12,11 @@ namespace VanillaPlus.Content.Items.Accessories
         public override bool IsLoadingEnabled(Mod mod)
         {
             return ModContent.GetInstance<VanillaPlusConfig>().ShinyCharmToggle;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
