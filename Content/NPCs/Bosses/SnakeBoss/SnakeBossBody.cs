@@ -48,13 +48,16 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
                 Music = MusicID.Boss1;
         }
 
-        bool HeadSpawned
+        internal enum ActionState
         {
-            get => NPC.ai[0] == 1f;
-            set => NPC.ai[0] = value ? 1f : 0f;
+            Jump,
+            HeadAttack,
+            Fleeing
         }
 
-        bool IsAttacking
+        public ref float AI_State => ref NPC.ai[0];
+
+        bool HeadSpawned
         {
             get => NPC.ai[1] == 1f;
             set => NPC.ai[1] = value ? 1f : 0f;
@@ -81,31 +84,45 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
             Player player = Main.player[NPC.target];
             Vector2 vectorToTarget = player.Center - NPC.Center;
+            float minJumpHeight = 10f, maxJumpHeight = 15f, maxSideSpeed = 5f;
 
             if (player.dead)
             {
-                // If the targeted player is dead, flee
-                if (JumpTimer++ > 40f)
-                {
-                    JumpAI(new(), 20f, 0f, 4f);
-                    JumpTimer = 0;
-                }
+                AI_State = (float)ActionState.Fleeing;
+                minJumpHeight = 20f;
+                maxJumpHeight = 30f;
+                maxSideSpeed = 5f;
+                vectorToTarget = -NPC.Center;
 
                 // This method makes it so when the boss is in "despawn range" (outside of the screen), it despawns in 10 ticks
                 NPC.EncourageDespawn(10);
-                return;
             }
 
+            Main.NewText(AI_State);
+
+            switch (AI_State)
+            {
+                case (float)ActionState.Jump:
+                case (float)ActionState.Fleeing:
+                    {
+                        JumpAI(vectorToTarget, minJumpHeight, maxJumpHeight, maxSideSpeed);
+                        break;
+                    }
+                case (float)ActionState.HeadAttack:
+                    {
+                        if (NPC.collideY)
+                            NPC.velocity = Vector2.Zero;
+                        break;
+                    }
+            }
+
+            SetDirectionTowardsTarget(vectorToTarget);
+        }
+
+        void SetDirectionTowardsTarget(Vector2 vectorToTarget)
+        {
             NPC.direction = (vectorToTarget.X > 0f ? 1 : -1);
             NPC.spriteDirection = NPC.direction;
-
-            if (!IsAttacking)
-                JumpAI(vectorToTarget, 10f, 5f, 5f);
-            else
-            {
-                if (NPC.collideY)
-                    NPC.velocity = Vector2.Zero;
-            }
         }
 
         void JumpAI(Vector2 vectorToTarget, float minJumpHeight, float maxJumpHeight, float maxSideSpeed)
@@ -122,7 +139,7 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
                 if (vectorToTarget.X * NPC.direction > NPC.width / 2 + 100f)
                 {
                     // Jumps as high as the minimum jump height plus the distance from the top of the NPC to the player center (capped at maxJumpHeight)
-                    float velocityY = -minJumpHeight + MathHelper.Clamp(NPC.height / 2 + vectorToTarget.Y, -maxJumpHeight, 0f);
+                    float velocityY = -minJumpHeight + MathHelper.Clamp(NPC.height / 2 + vectorToTarget.Y, -(maxJumpHeight-minJumpHeight), 0f);
 
                     // Side movement speed relative to distance from target
                     float velocityX = MathHelper.Clamp(vectorToTarget.X * 0.01f, -maxSideSpeed, maxSideSpeed);

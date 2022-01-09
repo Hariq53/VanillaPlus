@@ -34,7 +34,11 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
         bool IsAttacking
         {
             get => NPC.ai[1] == 1f;
-            set => NPC.ai[1] = Body.ai[1] = (value ? 1f : 0f);
+            set
+            {
+                NPC.ai[1] = (value ? 1f : 0f);
+                BodyModNPC.AI_State = (value ? (float)SnakeBossBody.ActionState.HeadAttack : (float)SnakeBossBody.ActionState.Jump);
+            }
         }
 
         int AttackTimer
@@ -53,6 +57,11 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             get => Main.npc[OwnerID];
         }
 
+        SnakeBossBody BodyModNPC
+        {
+            get => (SnakeBossBody)Body.ModNPC;
+        }
+
         Vector2 attackDirection = new();
         float attackProgress = 0f;
 
@@ -60,23 +69,20 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
         {
             if (Body.active && Body.type == ModContent.NPCType<SnakeBossBody>())
             {
-                NPC.realLife = OwnerID;
+                int attackFrequency = 120;
 
                 if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
                     NPC.TargetClosest();
 
-                if (IsAttacking)
+                if (IsAttacking && BodyModNPC.AI_State != (float)SnakeBossBody.ActionState.Fleeing)
                 {
                     AttackAI();
-
-                    if (AttackTimer++ > 60)
-                        StopAttack();
                 }
                 else
                 {
                     StationaryAI();
 
-                    if (AttackTimer++ > 120)
+                    if (AttackTimer++ > attackFrequency)
                         StartAttack();
                 }
             }
@@ -119,7 +125,8 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
         void AttackAI()
         {
-            float attackReach = 400f;
+            float attackSpeed = 0.5f, attackReach = 400f;
+            Vector2 attackObjective = attackDirection * attackReach;
 
             if (attackProgress > 20f)
             {
@@ -128,15 +135,11 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             else
             {
                 if (attackProgress > 10f)
-                {
-                    NPC.Center = GetHeadPosition() + Vector2.SmoothStep(attackDirection * attackReach, attackDirection, (attackProgress - 10f) / 10f);
-                }
+                    NPC.Center = GetHeadPosition() + Vector2.SmoothStep(attackObjective, attackDirection, (attackProgress - 10f) / 10f);
                 else
-                {
-                    NPC.Center = GetHeadPosition() + Vector2.SmoothStep(attackDirection, attackDirection * attackReach, attackProgress / 10f);
-                }
+                    NPC.Center = GetHeadPosition() + Vector2.SmoothStep(attackDirection, attackObjective, attackProgress / 10f);
 
-                attackProgress += 0.5f;
+                attackProgress += attackSpeed;
 
                 NPC.spriteDirection = NPC.direction = (attackDirection.X > 0).ToDirectionInt();
                 NPC.rotation = attackDirection.ToRotation() + (NPC.spriteDirection == 1 ? 0f : MathHelper.Pi);
