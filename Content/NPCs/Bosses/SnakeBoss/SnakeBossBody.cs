@@ -16,7 +16,7 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             NPCID.Sets.BossBestiaryPriority.Add(Type);
 
             // Specify the debuffs it is immune to
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            NPCDebuffImmunityData debuffData = new()
             {
                 SpecificallyImmuneTo = new int[] {
                     BuffID.Poisoned,

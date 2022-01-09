@@ -94,7 +94,7 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
         Vector2 GetHeadPosition()
         {
-            Vector2 headPosition = new(-22f, -85f);
+            Vector2 headPosition = new(-31f, -85f);
             headPosition.X *= -Body.direction;
             headPosition += Body.Center;
             return headPosition;
