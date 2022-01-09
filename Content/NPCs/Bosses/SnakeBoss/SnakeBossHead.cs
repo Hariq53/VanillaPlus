@@ -135,9 +135,15 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             else
             {
                 if (attackProgress > 10f)
+                {
                     NPC.Center = GetHeadPosition() + Vector2.SmoothStep(attackObjective, attackDirection, (attackProgress - 10f) / 10f);
+                }
                 else
+                {
                     NPC.Center = GetHeadPosition() + Vector2.SmoothStep(attackDirection, attackObjective, attackProgress / 10f);
+                    // NPC.NewNPC();
+                }    
+                    
 
                 attackProgress += attackSpeed;
 

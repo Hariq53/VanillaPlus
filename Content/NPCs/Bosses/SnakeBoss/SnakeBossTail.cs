@@ -9,8 +9,8 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
         public override void SetDefaults()
         {
             NPC.npcSlots = 5f;
-            NPC.width = 38;
-            NPC.height = 30;
+            NPC.width = 56;
+            NPC.height = 32;
             NPC.aiStyle = -1;
             NPC.damage = 12;
             NPC.defense = 10;
@@ -22,7 +22,6 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             NPC.knockBackResist = 0f;
             NPC.netAlways = true;
             NPC.dontCountMe = true;
-            NPC.alpha = 255;
         }
     }
 }

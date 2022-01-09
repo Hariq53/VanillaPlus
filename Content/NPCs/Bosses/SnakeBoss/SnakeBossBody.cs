@@ -98,8 +98,6 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
                 NPC.EncourageDespawn(10);
             }
 
-            Main.NewText(AI_State);
-
             switch (AI_State)
             {
                 case (float)ActionState.Jump:
