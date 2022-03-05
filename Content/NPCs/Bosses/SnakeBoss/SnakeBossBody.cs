@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+
+using HeadState = VanillaPlus.Content.NPCs.Bosses.SnakeBoss.SnakeBossHead.ActionState;
 
 namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 {
@@ -24,12 +27,13 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 				}
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            Main.npcFrameCount[Type] = 2;
         }
 
         public override void SetDefaults()
         {
-            NPC.width = 84;
-            NPC.height = 186;
+            NPC.width = 90;
+            NPC.height = 210;
             NPC.damage = 12;
             NPC.defense = 10;
             NPC.lifeMax = 2000;
@@ -48,106 +52,137 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
                 Music = MusicID.Boss1;
         }
 
-        internal enum ActionState
+        public bool SecondStage
         {
-            Jump,
-            HeadAttack,
-            Fleeing
+            get => NPC.ai[0] == 1f;
+            set => NPC.ai[0] = value ? 1f : -1f;
         }
 
-        public ref float AI_State => ref NPC.ai[0];
-
-        bool HeadSpawned
+        public ActionState AIState
         {
-            get => NPC.ai[1] == 1f;
-            set => NPC.ai[1] = value ? 1f : 0f;
+            get => (ActionState)NPC.ai[1];
+            set => NPC.ai[1] = (float)value;
         }
 
-        int JumpTimer
+        int AttackTimer
         {
             get => (int)NPC.ai[2];
             set => NPC.ai[2] = value;
         }
 
-        public override void AI()
+        int HeadID
         {
-            if (!HeadSpawned)
-            {
-                Point headPoint = NPC.Center.ToPoint();
-                int headWhoAmI = NPC.NewNPC(headPoint.X, headPoint.Y, ModContent.NPCType<SnakeBossHead>(), NPC.whoAmI, NPC.whoAmI);
-                Main.npc[headWhoAmI].ai[0] = Main.npc[headWhoAmI].realLife = NPC.whoAmI;
-                HeadSpawned = true;
-            }
-
-            if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
-                NPC.TargetClosest();
-
-            Player player = Main.player[NPC.target];
-            Vector2 vectorToTarget = player.Center - NPC.Center;
-            float minJumpHeight = 10f, maxJumpHeight = 15f, maxSideSpeed = 5f;
-
-            if (player.dead)
-            {
-                AI_State = (float)ActionState.Fleeing;
-                minJumpHeight = 20f;
-                maxJumpHeight = 30f;
-                maxSideSpeed = 5f;
-                vectorToTarget = -NPC.Center;
-
-                // This method makes it so when the boss is in "despawn range" (outside of the screen), it despawns in 10 ticks
-                NPC.EncourageDespawn(10);
-            }
-
-            switch (AI_State)
-            {
-                case (float)ActionState.Jump:
-                case (float)ActionState.Fleeing:
-                    {
-                        JumpAI(vectorToTarget, minJumpHeight, maxJumpHeight, maxSideSpeed);
-                        break;
-                    }
-                case (float)ActionState.HeadAttack:
-                    {
-                        if (NPC.collideY)
-                            NPC.velocity = Vector2.Zero;
-                        break;
-                    }
-            }
-
-            SetDirectionTowardsTarget(vectorToTarget);
+            get => (int)NPC.ai[3];
+            set => NPC.ai[3] = value;
         }
 
-        void SetDirectionTowardsTarget(Vector2 vectorToTarget)
+        SnakeBossHead Head
         {
-            NPC.direction = (vectorToTarget.X > 0f ? 1 : -1);
+            get
+            {
+                NPC npc = Main.npc[HeadID];
+                if (npc.active &&
+                    npc.type == ModContent.NPCType<SnakeBossHead>() &&
+                    npc.ModNPC is SnakeBossHead head)
+                    return head;
+                else
+                    return null;
+            }
+        }
+
+        bool SetupFlag
+        {
+            get => NPC.localAI[0] == 1f;
+            set => NPC.localAI[0] = value ? 1f : -1f;
+        }
+
+        public enum ActionState
+        {
+            Idle,
+            BiteAttack,
+            Jump
+        }
+
+        public Vector2 HeadPosition
+        {
+            get
+            {
+                Vector2 headPosition = NPC.Center;
+                headPosition -= new Vector2(7f * -NPC.direction, 96f);
+                return headPosition;
+            }
+        }
+
+        Player Target
+        {
+            get => Main.player[NPC.target];
+        }
+
+        private void Setup()
+        {
+            if (NPC.target < 0 || NPC.target == 255 || Target.dead || !Target.active)
+                NPC.TargetClosest();
+            AIState = ActionState.Idle;
+            Point HeadSpawnPoint = HeadPosition.ToPoint();
+            HeadID = NPC.NewNPC(NPC.GetBossSpawnSource(NPC.target), HeadSpawnPoint.X, HeadSpawnPoint.Y, ModContent.NPCType<SnakeBossHead>(), NPC.whoAmI, NPC.whoAmI);
+        }
+
+        public override bool PreAI()
+        {
+            if (!SetupFlag)
+            {
+                Setup();
+                SetupFlag = true;
+            }
+            return true;
+        }
+
+        public override void AI()
+        {
+            if (NPC.target < 0 || NPC.target == 255 || Target.dead || !Target.active)
+                NPC.TargetClosest();
+
+            AIState = DetermineState(AIState);
+
+            NPC.direction = (NPC.position.X - Target.position.X > 0 ? -1 : 1);
             NPC.spriteDirection = NPC.direction;
         }
 
-        void JumpAI(Vector2 vectorToTarget, float minJumpHeight, float maxJumpHeight, float maxSideSpeed)
+        ActionState DetermineState(ActionState previousState)
         {
-            if (NPC.collideY)
-            {
-                JumpTimer++;
-                NPC.velocity.X = 0f;
-            }
+            int maxAttackDuration = 30;
 
-            if (JumpTimer > 40f)
+            if (previousState == ActionState.BiteAttack)
             {
-                #region Jump Code
-                if (vectorToTarget.X * NPC.direction > NPC.width / 2 + 100f)
+                if (AttackTimer++ > maxAttackDuration || Head.AIState != HeadState.Attack)
                 {
-                    // Jumps as high as the minimum jump height plus the distance from the top of the NPC to the player center (capped at maxJumpHeight)
-                    float velocityY = -minJumpHeight + MathHelper.Clamp(NPC.height / 2 + vectorToTarget.Y, -(maxJumpHeight-minJumpHeight), 0f);
-
-                    // Side movement speed relative to distance from target
-                    float velocityX = MathHelper.Clamp(vectorToTarget.X * 0.01f, -maxSideSpeed, maxSideSpeed);
-
-                    NPC.velocity = new(velocityX, velocityY);
+                    AttackTimer = 0;
+                    return ActionState.Idle;
                 }
-                #endregion
-
-                JumpTimer = 0;
+                return ActionState.BiteAttack;
             }
+
+            Vector2 vectorToTarget = Target.Center - NPC.Center;
+            float xDistance = MathF.Abs(vectorToTarget.X), yDistance = MathF.Abs(vectorToTarget.Y);
+
+            float attackRange = 400f;
+            int attackFrequency = 60;
+
+            if (xDistance > attackRange)
+                return ActionState.Jump;
+            else if (AttackTimer++ > attackFrequency)
+            {
+                SetupAttack();
+                return ActionState.BiteAttack;
+            }
+
+            return ActionState.Idle;
+        }
+
+        void SetupAttack()
+        {
+            AttackTimer = 0;
+            Head.StartAttack();
         }
     }
 }

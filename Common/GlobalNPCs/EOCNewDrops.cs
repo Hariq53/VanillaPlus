@@ -43,7 +43,7 @@ namespace VanillaPlus.Common.GlobalNPCs
                         2 => ModContent.ItemType<TheOcularMenace>(),
                         _ => ModContent.ItemType<EyeballOnAStick>(),
                     };
-                    player.QuickSpawnItem(ItemType);
+                    player.QuickSpawnItem(player.GetItemSource_OpenItem(ItemID.EyeOfCthulhuBossBag), ItemType);
                 }
             }
         }

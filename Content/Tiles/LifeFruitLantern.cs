@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -23,16 +24,16 @@ namespace VanillaPlus.Content.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<LifeFruitLantern>());
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ModContent.ItemType<LifeFruitLantern>());
         }
 
         public override void HitWire(int i, int j)
         {
             Tile tile = Main.tile[i, j];
-            int topY = j - tile.frameY / 18 % 3;
-            short frameAdjustment = (short)(tile.frameX > 0 ? -18 : 18);
-            Main.tile[i, topY].frameX += frameAdjustment;
-            Main.tile[i, topY + 1].frameX += frameAdjustment;
+            int topY = j - tile.TileFrameY / 18 % 3;
+            short frameAdjustment = (short)(tile.TileFrameX > 0 ? -18 : 18);
+            Main.tile[i, topY].TileFrameX += frameAdjustment;
+            Main.tile[i, topY + 1].TileFrameX += frameAdjustment;
             Wiring.SkipWire(i, topY);
             Wiring.SkipWire(i, topY + 1);
             NetMessage.SendTileSquare(-1, i, topY + 1, 3);
@@ -46,7 +47,7 @@ namespace VanillaPlus.Content.Tiles
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             Tile tile = Main.tile[i, j];
-            if (tile.frameX == 0)
+            if (tile.TileFrameX == 0)
             {
                 r = 0.8f;
                 g = 1f;

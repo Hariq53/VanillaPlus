@@ -49,32 +49,34 @@ namespace VanillaPlus.Common.GlobalNPCs
             {
                 if (context == "bossBag" && arg == ItemID.SkeletronBossBag)
                 {
-                    if (Main.tenthAnniversaryWorld)
-                        player.TryGettingDevArmor();
+                    var source = player.GetItemSource_OpenItem(ItemID.SkeletronBossBag);
 
-                    player.QuickSpawnItem(3245);
+                    if (Main.tenthAnniversaryWorld)
+                        player.TryGettingDevArmor(source);
+
+                    player.QuickSpawnItem(source, 3245);
                     switch (Main.rand.Next(2))
                     {
                         case 0:
-                            player.QuickSpawnItem(1281);
+                            player.QuickSpawnItem(source, 1281);
                             break;
                         default:
-                            player.QuickSpawnItem(1273);
+                            player.QuickSpawnItem(source, 1273);
                             break;
                     }
                     switch (Main.rand.Next(4))
                     {
                         case 0:
-                            player.QuickSpawnItem(ModContent.ItemType<SkeletronsFinger>());
+                            player.QuickSpawnItem(source, ModContent.ItemType<SkeletronsFinger>());
                             break;
                         case 1:
-                            player.QuickSpawnItem(ModContent.ItemType<SkullOfBoom>());
+                            player.QuickSpawnItem(source, ModContent.ItemType<SkullOfBoom>());
                             break;
                         case 2:
-                            player.QuickSpawnItem(ModContent.ItemType<OlMansCurse>());
+                            player.QuickSpawnItem(source, ModContent.ItemType<OlMansCurse>());
                             break;
                         default:
-                            player.QuickSpawnItem(ItemID.BookofSkulls);
+                            player.QuickSpawnItem(source, ItemID.BookofSkulls);
                             break;
                     }
                     return false;

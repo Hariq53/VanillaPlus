@@ -247,7 +247,8 @@ namespace VanillaPlus.Content.Projectiles.Minions
         bool IsInsideTile()
         {
             Point projectileCenterTileCoords = Projectile.Center.ToTileCoordinates();
-            return Main.tile[projectileCenterTileCoords.X, projectileCenterTileCoords.Y].CollisionType == 1;
+            ushort type = Main.tile[projectileCenterTileCoords.X, projectileCenterTileCoords.Y].TileType;
+            return Main.tileSolid[type] && !Main.tileSolidTop[type];
         }
     }
 }
