@@ -91,20 +91,6 @@ namespace VanillaPlus.Common
         [DefaultValue(true)]
         [ReloadRequired]
         public bool InfluxWaverTweakToggle;
-
-        [Header("$Mods.VanillaPlus.Config.ExpFeaturesHeader")]
-
-        [Label("$Mods.VanillaPlus.Config.BannerSlotToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.BannerSlotToggle.Tooltip")]
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool BannerSlotToggle;
-
-        [Label("$Mods.VanillaPlus.Config.MotorcycleMountToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.MotorcycleMountToggle.Tooltip")]
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool MotorcycleMountToggle;
     }
 
     [Label("$Mods.VanillaPlus.Config.ClientSideConfig")]
