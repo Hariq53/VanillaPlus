@@ -55,7 +55,7 @@ namespace VanillaPlus.Content.Projectiles
                 if (Projectile.timeLeft % 40 == 0)
                 {
                     currentFrame++;
-                    
+
                     IEntitySource source = Projectile.GetProjectileSource_FromThis();
                     if (Projectile.owner == Main.myPlayer)
                         if (Main.player[Main.myPlayer].HeldItem.type == ModContent.ItemType<ChristmasBarrage>())

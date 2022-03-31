@@ -32,7 +32,7 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
         public override void SetDefaults()
         {
-            NPC.width = 90;
+            NPC.width = 70;
             NPC.height = 210;
             NPC.damage = 12;
             NPC.defense = 10;
@@ -50,6 +50,19 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             // The following code assigns a music track to the boss in a simple way.
             if (!Main.dedServ)
                 Music = MusicID.Boss1;
+        }
+
+        public enum ActionState
+        {
+            Idle,
+            BiteAttack,
+            Jump
+        }
+
+        private enum Frame
+        {
+            Phase1Idle,
+            Phase1Jump
         }
 
         public bool SecondStage
@@ -96,11 +109,10 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             set => NPC.localAI[0] = value ? 1f : -1f;
         }
 
-        public enum ActionState
+        bool JumpAnimFlag
         {
-            Idle,
-            BiteAttack,
-            Jump
+            get => NPC.localAI[1] == 1f;
+            set => NPC.localAI[1] = value ? 1f : -1f;
         }
 
         public Vector2 HeadPosition
@@ -108,7 +120,9 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             get
             {
                 Vector2 headPosition = NPC.Center;
-                headPosition -= new Vector2(7f * -NPC.direction, 96f);
+                headPosition -= new Vector2(7f * NPC.direction, 93f);
+                if (JumpAnimFlag)
+                    headPosition.Y -= 8f;
                 return headPosition;
             }
         }
@@ -144,12 +158,31 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
             AIState = DetermineState(AIState);
 
-            NPC.direction = (NPC.position.X - Target.position.X > 0 ? -1 : 1);
-            NPC.spriteDirection = NPC.direction;
+            switch (AIState)
+            {
+                case ActionState.BiteAttack:
+                    StationaryAI();
+                    break;
+                case ActionState.Jump:
+                    float minJumpHeight = 10f, maxJumpHeight = 15f, maxSideSpeed = 5f;
+                    JumpAI(minJumpHeight, maxJumpHeight, maxSideSpeed);
+                    break;
+                case ActionState.Idle:
+                    // TO DO: add minion spawn
+                    StationaryAI();
+                    break;
+                default:
+                    StationaryAI();
+                    break;
+            }
         }
 
         ActionState DetermineState(ActionState previousState)
         {
+            if (previousState == ActionState.Jump)
+                if (!NPC.collideY)
+                    return ActionState.Jump;
+
             int maxAttackDuration = 30;
 
             if (previousState == ActionState.BiteAttack)
@@ -163,17 +196,33 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             }
 
             Vector2 vectorToTarget = Target.Center - NPC.Center;
-            float xDistance = MathF.Abs(vectorToTarget.X), yDistance = MathF.Abs(vectorToTarget.Y);
+            float xDistance = MathF.Abs(vectorToTarget.X);
 
             float attackRange = 400f;
             int attackFrequency = 60;
 
             if (xDistance > attackRange)
                 return ActionState.Jump;
-            else if (AttackTimer++ > attackFrequency)
+
+            // Charge attack even when out of range
+            if (AttackTimer <= attackFrequency)
+                AttackTimer++;
+
+            if (IsInBiteAttackRange(Target.Center))
             {
-                SetupAttack();
-                return ActionState.BiteAttack;
+                // if attack charged
+                if (AttackTimer > attackFrequency)
+                {
+                    SetupAttack();
+                    return ActionState.BiteAttack;
+                }
+            }
+            else
+            {
+                if (IsInDirectHitRange(Target.Hitbox))
+                    return ActionState.Idle;
+
+                return ActionState.Jump;
             }
 
             return ActionState.Idle;
@@ -183,6 +232,96 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
         {
             AttackTimer = 0;
             Head.StartAttack();
+        }
+
+        void StationaryAI()
+        {
+            if (NPC.collideY)
+                NPC.velocity.X = 0f;
+            TurnTowardsPlayer();
+        }
+
+        void JumpAI(float minJumpHeight, float maxJumpHeight, float maxSideSpeed)
+        {
+            Vector2 vectorToTarget = Target.Center - NPC.Center;
+            if (NPC.collideY)
+            {
+                NPC.velocity.X = 0f;
+                #region Jump Code
+                // Jumps as high as the minimum jump height plus the distance from the top of the NPC to the player center (capped at maxJumpHeight)
+                float velocityY = -minJumpHeight + MathHelper.Clamp(NPC.height / 2 + vectorToTarget.Y, -(maxJumpHeight - minJumpHeight), 0f);
+
+                // Side movement speed relative to distance from target
+                float velocityX = MathHelper.Clamp(vectorToTarget.X * 0.01f, -maxSideSpeed, maxSideSpeed);
+
+                NPC.velocity = new(velocityX, velocityY);
+                #endregion
+            }
+            TurnTowardsPlayer();
+        }
+
+        private bool IsInBiteAttackRange(Vector2 targetCenter)
+        {
+            float rotationToTarget = (HeadPosition - targetCenter).ToRotation();
+
+            // Check for angle: the max angle for a bite attack is 35 degrees up and 45 degrees down
+            if (NPC.direction == 1)
+            {
+                if (rotationToTarget < -0.8f || rotationToTarget > 0.6f)
+                    return false;
+            }
+            else
+            {
+                if (rotationToTarget > 0f)
+                {
+                    if (rotationToTarget < 2.5f)
+                        return false;
+                }
+                else if (rotationToTarget > -2.4f)
+                    return false;
+            }
+
+            return true;
+        }
+
+        bool IsInDirectHitRange(Rectangle targetHitbox)
+        {
+            if (NPC.Hitbox.Intersects(targetHitbox))
+                return true;
+
+
+            if (IsInXRange(targetHitbox))
+                if (NPC.Center.Y < targetHitbox.Y)
+                    return true;
+
+            return false;
+        }
+
+        bool IsInXRange(Rectangle targetHitbox)
+        {
+            if (NPC.Hitbox.BottomLeft().X > targetHitbox.BottomLeft().X && NPC.Hitbox.BottomLeft().X < targetHitbox.BottomRight().X)
+                return true;
+
+            if (NPC.Hitbox.BottomRight().X > targetHitbox.BottomLeft().X && NPC.Hitbox.BottomRight().X < targetHitbox.BottomRight().X)
+                return true;
+
+            if (NPC.Hitbox.Center.X > targetHitbox.BottomLeft().X && NPC.Hitbox.Center.X < targetHitbox.BottomRight().X)
+                return true;
+
+            return false;
+        }
+
+        public override void FindFrame(int frameHeight)
+        {
+            NPC.frame.Y = 0;
+            JumpAnimFlag = AIState == ActionState.Jump && !NPC.collideY && NPC.velocity.Y < 0;
+            if (JumpAnimFlag)
+                NPC.frame.Y = frameHeight * (int)Frame.Phase1Jump;
+        }
+
+        private void TurnTowardsPlayer()
+        {
+            NPC.direction = NPC.spriteDirection = (NPC.position.X - Target.position.X > 0 ? 1 : -1);
         }
     }
 }

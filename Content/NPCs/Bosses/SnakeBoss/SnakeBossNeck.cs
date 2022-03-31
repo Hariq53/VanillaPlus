@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,7 +42,10 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
                     npc.ModNPC is SnakeBossBody body)
                     return body;
                 else
+                {
+                    NPCsUtilities.Kill(NPC.whoAmI);
                     return null;
+                }
             }
         }
 
@@ -69,6 +71,7 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
                 return false;
             }
             NPC.realLife = BodyID;
+            NPC.direction = Body.NPC.direction;
             NPC.rotation = AttackDirection;
             return true;
         }
@@ -85,14 +88,15 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
         public override void AI()
         {
-            if (Body.NPC.direction == 1f)
-                NPC.position = Body.HeadPosition;
-            else
-                NPC.TopRight = Body.HeadPosition;
+            if (Body == null)
+                return;
 
-            NPC.position.Y -= 7f;
-            
-            NPC.position += OffsetPosition(Body.NPC.direction) + NPC.rotation.ToRotationVector2() * SectionNumber * NPC.width;
+            if (NPC.direction == 1)
+                NPC.Left = Body.HeadPosition;
+            else
+                NPC.Right = Body.HeadPosition;
+
+            NPC.position += OffsetPosition(NPC.direction) + NPC.rotation.ToRotationVector2() * (SectionNumber + (NPC.direction == 1 ? 0f : 1f)) * NPC.width;
         }
 
         Vector2 OffsetPosition(int direction)

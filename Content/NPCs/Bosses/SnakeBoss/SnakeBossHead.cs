@@ -3,7 +3,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
-using VanillaPlus.Content.Projectiles;
 
 namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 {
@@ -32,6 +31,20 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             NPC.dontCountMe = true;
         }
 
+        public enum ActionState
+        {
+            Stationary,
+            Attack
+        }
+
+        private enum Frame
+        {
+            Phase1MouthClosed,
+            Phase1TongueOut1,
+            Phase1TongueOut2,
+            Phase1MouthOpen
+        }
+
         public int BodyID
         {
             get => (int)NPC.ai[0];
@@ -48,7 +61,10 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
                     npc.ModNPC is SnakeBossBody body)
                     return body;
                 else
+                {
+                    NPCsUtilities.Kill(NPC.whoAmI);
                     return null;
+                }
             }
         }
 
@@ -72,6 +88,12 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             set => NPC.localAI[0] = value ? 1f : -1f;
         }
 
+        int AnimationPhase
+        {
+            get => (int)NPC.localAI[1];
+            set => NPC.localAI[1] = value;
+        }
+
         public ref float AttackDirection => ref NPC.localAI[1];
 
         Player Target
@@ -79,10 +101,23 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             get => Main.player[NPC.target];
         }
 
-        public enum ActionState
+        Vector2 PivotPoint
         {
-            Stationary,
-            Attack
+            get
+            {
+                if (NPC.direction == 1)
+                    return NPC.Right;
+                else
+                    return NPC.Left;
+            }
+
+            set
+            {
+                if (NPC.direction == 1)
+                    NPC.Right = value;
+                else
+                    NPC.Left = value;
+            }
         }
 
         private bool Setup()
@@ -108,6 +143,9 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
         public override void AI()
         {
+            if (Body == null)
+                return;
+
             switch (AIState)
             {
                 case ActionState.Attack:
@@ -124,13 +162,9 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
         void StationaryAI()
         {
-            NPC.direction = Body.NPC.direction;
-            NPC.spriteDirection = NPC.direction;
-            if (NPC.direction == 1)
-                NPC.position = Body.HeadPosition;
-            else
-                NPC.TopRight = Body.HeadPosition;
-            NPC.position += OffsetPosition(NPC.direction);
+            NPC.direction = NPC.spriteDirection = Body.NPC.direction;
+            PivotPoint = Body.HeadPosition;
+            NPC.position += GetOffsetCoefficient(NPC.direction);
         }
 
         void AttackAI()
@@ -146,6 +180,9 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             }
             else
             {
+                NPC.spriteDirection = NPC.direction = Body.NPC.direction;
+                NPC.rotation = AttackDirection + (NPC.spriteDirection == -1 ? 0f : MathHelper.Pi);
+
                 if (AttackProgress > 10f)
                 {
                     KillNeckSections(true);
@@ -154,10 +191,7 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
                     attackPosition = DetermineAttackPosition(attackObjective, attackRotationVector, actualProgress);
 
-                    if (NPC.direction == 1f)
-                        NPC.position = attackPosition;
-                    else
-                        NPC.TopRight = attackPosition;
+                    PivotPoint = attackPosition;
 
                     AttackProgress += attackSpeed / 2;
                 }
@@ -167,23 +201,13 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
                     attackPosition = DetermineAttackPosition(attackRotationVector, attackObjective, actualProgress);
 
-                    if (NPC.direction == 1f)
-                        NPC.position = attackPosition;
-                    else
-                        NPC.TopRight = attackPosition;
+                    PivotPoint = attackPosition;
 
-                    if (NPC.direction == -1f && AttackProgress == 0f)
-                    {
-
-                    }
-                    else if (SectionsCount == 0 || NoNeckIntersection())
+                    if (SectionsCount == 0 || NoNeckIntersection())
                         SpawnNeckSection(NPC.Center.ToPoint(), AttackDirection, SectionsCount++);
                 }
 
                 AttackProgress += attackSpeed;
-
-                NPC.spriteDirection = NPC.direction = Body.NPC.direction;
-                NPC.rotation = AttackDirection + (NPC.spriteDirection == 1 ? 0f : MathHelper.Pi);
             }
         }
 
@@ -209,12 +233,12 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
         {
             Vector2 progressVector = Vector2.SmoothStep(attackDirection, targetPosition, attackProgress);
 
-            return Body.HeadPosition + progressVector + OffsetPosition(NPC.direction);
+            return Body.HeadPosition + GetOffsetCoefficient(NPC.direction) + progressVector;
         }
 
-        Vector2 OffsetPosition(int direction)
+        Vector2 GetOffsetCoefficient(int direction)
         {
-            Vector2 pointToRotate = (direction == 1f ? NPC.Left : NPC.Right);
+            Vector2 pointToRotate = PivotPoint;
             Vector2 realPos = pointToRotate.RotatedBy(NPC.rotation, NPC.Center);
 
             Vector2 offset = pointToRotate - realPos;
@@ -224,7 +248,7 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
         int SpawnNeckSection(Point spawnPos, float rotation, int sectionNumber)
         {
-            return NPC.NewNPC(NPC.GetBossSpawnSource(NPC.target), spawnPos.X, spawnPos.Y, ModContent.NPCType<SnakeBossNeck>(), NPC.whoAmI, BodyID, rotation, sectionNumber);  ;
+            return NPC.NewNPC(NPC.GetBossSpawnSource(NPC.target), spawnPos.X, spawnPos.Y, ModContent.NPCType<SnakeBossNeck>(), NPC.whoAmI, BodyID, rotation, sectionNumber); ;
         }
 
         bool NoNeckIntersection()
@@ -247,12 +271,88 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             {
                 if (!npc.active || npc.type != ModContent.NPCType<SnakeBossNeck>())
                     continue;
-                
+
                 if (isIntersecting)
                     if (!NPC.Hitbox.Intersects(npc.Hitbox))
                         continue;
 
                 NPCsUtilities.Kill(npc.whoAmI);
+            }
+        }
+
+        private void SetFrame(Frame frame, int frameHeight)
+        {
+            NPC.frame.Y = frameHeight * (int)frame;
+            switch (frame)
+            {
+                case Frame.Phase1TongueOut1:
+                case Frame.Phase1MouthClosed:
+                    NPC.gfxOffY = 0f;
+                    break;
+                case Frame.Phase1TongueOut2:
+                    NPC.gfxOffY = 2f;
+                    break;
+                case Frame.Phase1MouthOpen:
+                    NPC.gfxOffY = 14f;
+                    break;
+                default:
+                    NPC.frame.Y = 0;
+                    NPC.gfxOffY = 0f;
+                    break;
+            }
+        }
+
+        public override void FindFrame(int frameHeight)
+        {
+            int animationDelay = 3, animationWait = 60;
+            switch (AIState)
+            {
+                case ActionState.Attack:
+                    {
+                        if (AttackProgress < 12f)
+                            SetFrame(Frame.Phase1MouthOpen, frameHeight);
+                        else
+                            SetFrame(Frame.Phase1MouthClosed, frameHeight);
+                        NPC.frameCounter = 0.0;
+                        break;
+                    }
+                case ActionState.Stationary:
+                    {
+                        NPC.frameCounter++;
+
+                        if (NPC.frameCounter <= animationWait)
+                        {
+                            // To reset after bite attack
+                            AnimationPhase = 0;
+                            return;
+                        }
+
+                        if ((NPC.frameCounter - animationWait) > animationDelay)
+                        {
+                            NPC.frameCounter = animationWait;
+                            switch (++AnimationPhase)
+                            {
+                                case 1:
+                                    SetFrame(Frame.Phase1TongueOut1, frameHeight);
+                                    break;
+                                case 2:
+                                    SetFrame(Frame.Phase1TongueOut2, frameHeight);
+                                    break;
+                                case 3:
+                                    SetFrame(Frame.Phase1TongueOut1, frameHeight);
+                                    break;
+                                default:
+                                    AnimationPhase = NPC.frame.Y = 0;
+                                    NPC.gfxOffY = 0f;
+                                    NPC.frameCounter = 0.0;
+                                    break;
+                            }
+                        }
+                        break;
+                    }
+                default:
+                    SetFrame(Frame.Phase1MouthClosed, frameHeight);
+                    return;
             }
         }
     }
