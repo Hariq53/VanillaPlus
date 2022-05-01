@@ -30,8 +30,34 @@ namespace VanillaPlus.Common.Presets.SummonWeapon
 
         public override bool MinionContactDamage() { return true; }
 
-        public bool foundTarget = false;
-        public NPC target = new();
+        public bool FoundTarget
+        {
+            get => Projectile.ai[0] == 1f;
+            set => Projectile.ai[0] = value ? 1f : -1f;
+        }
+
+        int TargetID
+        {
+            get => (int)Projectile.ai[1];
+            set => Projectile.ai[1] = value;
+        }
+
+        public NPC Target
+        {
+            get
+            {
+                NPC npc = Main.npc[TargetID];
+                if (npc.active)
+                    return npc;
+                else
+                    return null;
+            }
+
+            set
+            {
+                TargetID = value.whoAmI;
+            }
+        }
 
         public override void AI()
         {
@@ -42,10 +68,12 @@ namespace VanillaPlus.Common.Presets.SummonWeapon
 
             GeneralBehavior(owner, out Vector2 idlePosition);
 
-            SearchForTargets(owner, out foundTarget, out target);
+            SearchForTargets(owner, out bool foundTarget, out NPC target);
+            FoundTarget = foundTarget;
+            Target = target;
 
             if (PreAttackBehaviour(owner))
-                AttackBehaviour(target);
+                AttackBehaviour(Target);
             else
                 IdleBehaviour(idlePosition);
 
@@ -157,6 +185,6 @@ namespace VanillaPlus.Common.Presets.SummonWeapon
         /// Runs before the attack behaviour, return false to prevent the attack behaviour from running (the idle behaviour will be run instead)
         /// </summary>
         /// <returns></returns>
-        protected virtual bool PreAttackBehaviour(Player owner) { return foundTarget && target.active; }
+        protected virtual bool PreAttackBehaviour(Player owner) { return FoundTarget && Target.active; }
     }
 }

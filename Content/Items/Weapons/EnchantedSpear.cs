@@ -130,7 +130,7 @@ namespace VanillaPlus.Content.Items.Weapons
             {
                 shot = true;
                 Vector2 SpearTip = Projectile.Center + (Projectile.velocity * Projectile.width / 2);
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), SpearTip, Projectile.velocity * 9.5f, ProjectileID.EnchantedBeam, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), SpearTip, Projectile.velocity * 9.5f, ProjectileID.EnchantedBeam, Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
         }
     }

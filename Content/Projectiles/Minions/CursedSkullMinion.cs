@@ -177,7 +177,7 @@ namespace VanillaPlus.Content.Projectiles.Minions
             ShootTimer++;
             if (ShootTimer >= 60f + 10f * Projectile.minionPos)
             {
-                int projectileIndex = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, directionToTarget * speed, ProjectileID.Shadowflames, shadowflamesDamage, Projectile.knockBack, Main.myPlayer);
+                int projectileIndex = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, directionToTarget * speed, ProjectileID.Shadowflames, shadowflamesDamage, Projectile.knockBack, Main.myPlayer);
                 Main.projectile[projectileIndex].hostile = false;
                 Main.projectile[projectileIndex].friendly = true;
                 ShootTimer = 0;
@@ -258,9 +258,9 @@ namespace VanillaPlus.Content.Projectiles.Minions
             float distanceFromIdlePos = Projectile.Center.Distance(idlePosition);
             Vector2 vectorToIdlePos = idlePosition - Projectile.Center;
 
-            if (target.active && foundTarget)
+            if (Target.active && FoundTarget)
             {
-                Vector2 vectorToTarget = target.Center - Projectile.Center;
+                Vector2 vectorToTarget = Target.Center - Projectile.Center;
 
                 if (vectorToTarget.X > 0f)
                 {

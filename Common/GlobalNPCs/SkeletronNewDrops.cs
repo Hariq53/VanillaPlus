@@ -49,7 +49,7 @@ namespace VanillaPlus.Common.GlobalNPCs
             {
                 if (context == "bossBag" && arg == ItemID.SkeletronBossBag)
                 {
-                    var source = player.GetItemSource_OpenItem(ItemID.SkeletronBossBag);
+                    var source = player.GetSource_OpenItem(ItemID.SkeletronBossBag);
 
                     if (Main.tenthAnniversaryWorld)
                         player.TryGettingDevArmor(source);

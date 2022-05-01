@@ -1,5 +1,20 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.Serialization;
+using Terraria;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
+using Terraria.ModLoader.Config.UI;
+using Terraria.UI;
 
 namespace VanillaPlus.Common
 {
@@ -91,6 +106,23 @@ namespace VanillaPlus.Common
         [DefaultValue(true)]
         [ReloadRequired]
         public bool InfluxWaverTweakToggle;
+
+        // Inner classes
+
+        public class DifficultyToggles
+        {
+            [Label("Enabled in Journey")]
+            public bool Journey;
+
+            [Label("Enabled in Classic")]
+            public bool Classic;
+
+            [Label("Enabled in Expert")]
+            public bool Expert;
+
+            [Label("Enabled in Master")]
+            public bool Master;
+        }
     }
 
     [Label("$Mods.VanillaPlus.Config.ClientSideConfig")]

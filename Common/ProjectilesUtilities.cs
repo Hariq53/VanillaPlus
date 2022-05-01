@@ -65,19 +65,19 @@ namespace VanillaPlus.Common
             // Large Smoke Gore spawn
             for (int i = 0; i < 2; i++)
             {
-                int goreIndex = Gore.NewGore(new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default, smokeGore[Main.rand.Next(smokeGore.Length)]);
+                int goreIndex = Gore.NewGore(projectile.GetSource_Death(), new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default, smokeGore[Main.rand.Next(smokeGore.Length)]);
                 Main.gore[goreIndex].scale = 1.5f;
                 Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
                 Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-                goreIndex = Gore.NewGore(new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default, smokeGore[Main.rand.Next(smokeGore.Length)]);
+                goreIndex = Gore.NewGore(projectile.GetSource_Death(), new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default, smokeGore[Main.rand.Next(smokeGore.Length)]);
                 Main.gore[goreIndex].scale = 1.5f;
                 Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
                 Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-                goreIndex = Gore.NewGore(new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default, smokeGore[Main.rand.Next(smokeGore.Length)]);
+                goreIndex = Gore.NewGore(projectile.GetSource_Death(), new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default, smokeGore[Main.rand.Next(smokeGore.Length)]);
                 Main.gore[goreIndex].scale = 1.5f;
                 Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
                 Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
-                goreIndex = Gore.NewGore(new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default, smokeGore[Main.rand.Next(smokeGore.Length)]);
+                goreIndex = Gore.NewGore(projectile.GetSource_Death(), new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default, smokeGore[Main.rand.Next(smokeGore.Length)]);
                 Main.gore[goreIndex].scale = 1.5f;
                 Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
                 Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;

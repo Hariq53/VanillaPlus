@@ -289,7 +289,6 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             if (NPC.Hitbox.Intersects(targetHitbox))
                 return true;
 
-
             if (IsInXRange(targetHitbox))
                 if (NPC.Center.Y < targetHitbox.Y)
                     return true;
@@ -313,10 +312,11 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 
         public override void FindFrame(int frameHeight)
         {
-            NPC.frame.Y = 0;
+            int frameY = 0;
             JumpAnimFlag = AIState == ActionState.Jump && !NPC.collideY && NPC.velocity.Y < 0;
             if (JumpAnimFlag)
-                NPC.frame.Y = frameHeight * (int)Frame.Phase1Jump;
+                frameY = frameHeight * (int)Frame.Phase1Jump;
+            NPC.frame.Y = frameY;
         }
 
         private void TurnTowardsPlayer()

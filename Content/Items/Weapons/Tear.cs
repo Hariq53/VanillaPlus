@@ -95,7 +95,7 @@ namespace VanillaPlus.Content.Items.Weapons
             if (!eyesSpawned)
             {
                 for (int i = 1; i < eyeCount + 1; i++)
-                    eyes.Add(Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.position, MathHelper.ToRadians(360f / eyeCount * i).ToRotationVector2(), ModContent.ProjectileType<TearEye>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI));
+                    eyes.Add(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, MathHelper.ToRadians(360f / eyeCount * i).ToRotationVector2(), ModContent.ProjectileType<TearEye>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI));
                 eyesSpawned = true;
             }
         }

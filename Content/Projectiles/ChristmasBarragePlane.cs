@@ -56,10 +56,10 @@ namespace VanillaPlus.Content.Projectiles
                 {
                     currentFrame++;
 
-                    IEntitySource source = Projectile.GetProjectileSource_FromThis();
+                    IEntitySource source = Projectile.GetSource_FromThis();
                     if (Projectile.owner == Main.myPlayer)
                         if (Main.player[Main.myPlayer].HeldItem.type == ModContent.ItemType<ChristmasBarrage>())
-                            source = Main.player[Main.myPlayer].GetProjectileSource_Item(Main.player[Main.myPlayer].HeldItem);
+                            source = Main.player[Main.myPlayer].GetSource_ItemUse(Main.player[Main.myPlayer].HeldItem);
                     Projectile.NewProjectile(source, Projectile.Center + Projectile.velocity, Projectile.velocity, ModContent.ProjectileType<ChristmasBarrageBomb>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             }
