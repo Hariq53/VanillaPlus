@@ -11,6 +11,11 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 {
     class SnakeBossBody : ModNPC
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetStaticDefaults()
         {
             // Add this in for bosses that have a summon item, requires corresponding code in the item (See MinionBossSummonItem.cs)

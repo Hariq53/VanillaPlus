@@ -23,28 +23,48 @@ namespace VanillaPlus.Content.Projectiles
             Projectile.tileCollide = false;
         }
 
-        bool modified = false;
-        int ownerIndex = 0;
-        float distance = 0f;
-        float rotation = 0f;
-        readonly static float rotationSpeed = 0.3f;
+        public int OwnerID
+        {
+            get => (int)Projectile.ai[0];
+            set => Projectile.ai[0] = value;
+        }
+
+        float CurrentRotation
+        {
+            get => Projectile.ai[1];
+            set => Projectile.ai[1] = value;
+        }
+
+        bool SetupFlag
+        {
+            get => Projectile.localAI[0] == 1f;
+            set => Projectile.localAI[0] = value ? 1f : -1f;
+        }
+
+        const float DISTANCE = 20f;
+        const float ROTATION_SPEED = 0.3f;
 
         public override void AI()
         {
-            if (!modified)
+            if (!SetupFlag)
             {
-                ownerIndex = (int)Projectile.ai[0];
-                if (Main.projectile[ownerIndex].ModProjectile is TearProjectile tearProjectile)
-                {
-                    distance = tearProjectile.distance;
-                    rotation = MathHelper.ToDegrees(Projectile.velocity.ToRotation());
-                }
-                modified = true;
+                if (Main.projectile[OwnerID].type == ModContent.ProjectileType<TearProjectile>())
+                    CurrentRotation = MathHelper.ToDegrees(Projectile.velocity.ToRotation());
+                else
+                    Projectile.Kill();
+                SetupFlag = true;
             }
-            Projectile owner = Main.projectile[ownerIndex];
+
             Projectile.velocity = Vector2.Zero;
-            ProjectilesUtilities.ApplyRotation(Projectile, rotationSpeed);
-            Projectile.Center = owner.Center + MathHelper.ToRadians(rotation++).ToRotationVector2() * distance;
+
+            // Rotate on projectile's axis
+            ProjectilesUtilities.ApplyRotation(Projectile, ROTATION_SPEED);
+
+            // Orbit around the owner projectile
+            Projectile.Center = Main.projectile[OwnerID].Center + MathHelper.ToRadians(CurrentRotation++).ToRotationVector2() * DISTANCE;
+
+            if (CurrentRotation > 360)
+                CurrentRotation -= 360;
         }
     }
 }

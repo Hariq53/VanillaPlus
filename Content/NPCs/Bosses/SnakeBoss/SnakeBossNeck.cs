@@ -8,6 +8,11 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 {
     class SnakeBossNeck : ModNPC
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetDefaults()
         {
             NPC.npcSlots = 5f;

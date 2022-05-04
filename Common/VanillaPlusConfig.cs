@@ -108,7 +108,6 @@ namespace VanillaPlus.Common
         public bool InfluxWaverTweakToggle;
 
         // Inner classes
-
         public class DifficultyToggles
         {
             [Label("Enabled in Journey")]

@@ -7,6 +7,11 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
 {
     class SnakeBossMinion : ModNPC
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 6;

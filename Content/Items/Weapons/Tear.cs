@@ -80,10 +80,13 @@ namespace VanillaPlus.Content.Items.Weapons
             Projectile.CloneDefaults(ProjectileID.WoodYoyo);
         }
 
-        bool eyesSpawned = false;
-        int eyeCount = 3;
-        public float distance = 20f;
-        List<int> eyes = new List<int>();
+        bool EyesSpawned
+        {
+            get => Projectile.localAI[1] == 1f;
+            set => Projectile.localAI[1] = value ? 1f : -1f;
+        }
+
+        const int EYE_COUNT = 3;
 
         public override void AI()
         {
@@ -92,22 +95,21 @@ namespace VanillaPlus.Content.Items.Weapons
             if (player.stringColor == 0)
                 player.stringColor = 1;
 
-            if (!eyesSpawned)
+            if (!EyesSpawned)
             {
-                for (int i = 1; i < eyeCount + 1; i++)
-                    eyes.Add(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, MathHelper.ToRadians(360f / eyeCount * i).ToRotationVector2(), ModContent.ProjectileType<TearEye>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI));
-                eyesSpawned = true;
+                for (int i = 1; i < EYE_COUNT + 1; i++)
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, MathHelper.ToRadians(360f / EYE_COUNT * i).ToRotationVector2(), ModContent.ProjectileType<TearEye>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
+                EyesSpawned = true;
             }
         }
 
         public override void Kill(int timeLeft)
         {
-            // Kill the eyes along with this projectile
-            foreach (int i in eyes)
+            foreach (Projectile projectile in Main.projectile)
             {
-                Projectile eye = Main.projectile[i];
-                if (eye.active)
-                    eye.Kill();
+                if (projectile.type == ModContent.ProjectileType<TearEye>() && projectile.ModProjectile is TearEye eye)
+                    if (eye.OwnerID == Projectile.whoAmI)
+                        projectile.Kill();
             }
         }
     }
