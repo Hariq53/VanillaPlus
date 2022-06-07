@@ -3,7 +3,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
-using VanillaPlus.Common.Models.Items;
+using VanillaPlus.Common.Models.ModItems;
 using VanillaPlus.Content.Buffs;
 using VanillaPlus.Content.Projectiles.Minions;
 

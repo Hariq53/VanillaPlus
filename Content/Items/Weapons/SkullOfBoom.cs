@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
 using VanillaPlus.Common.Config;
-using VanillaPlus.Common.Models.Projectiles;
+using VanillaPlus.Common.Models.ModProjectiles;
 using VanillaPlus.Content.Buffs;
 
 namespace VanillaPlus.Content.Items.Weapons

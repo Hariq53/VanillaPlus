@@ -2,7 +2,7 @@
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
-using VanillaPlus.Common.Models.Projectiles;
+using VanillaPlus.Common.Models.ModProjectiles;
 using VanillaPlus.Content.Items.Weapons;
 
 namespace VanillaPlus.Content.Projectiles

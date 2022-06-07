@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace VanillaPlus.Common
 {
-    class ItemUtilities
+    static class ItemUtilities
     {
         // Code based on the function of the same name from "Player" class (tModLoader/Terraria source code)
         static public void EmitMaxManaEffect(Player player)
