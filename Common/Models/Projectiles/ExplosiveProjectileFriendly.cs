@@ -4,7 +4,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace VanillaPlus.Common.Presets
+namespace VanillaPlus.Common.Models.Projectiles
 {
     class ExplosiveProjectileFriendly : ModProjectile
     {
@@ -29,7 +29,7 @@ namespace VanillaPlus.Common.Presets
 
         protected int ExplosionDuration = 3;
         protected int ExplosionDamage = -1;
-        protected LegacySoundStyle ExplosionSound = SoundID.Item14;
+        protected SoundStyle ExplosionSound = SoundID.Item14;
         protected Point ExplosionHitBoxDimensions = new(128, 128);
         protected bool ExplodeOnNPCCollision = false;
         protected bool ExplodeOnTileCollision = false;
@@ -48,7 +48,7 @@ namespace VanillaPlus.Common.Presets
 
         public virtual bool ShouldExplode()
         {
-            return (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= ExplosionDuration);
+            return Projectile.owner == Main.myPlayer && Projectile.timeLeft <= ExplosionDuration;
         }
 
         public virtual void ExplosionEffects()

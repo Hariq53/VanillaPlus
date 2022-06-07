@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace VanillaPlus.Common.Presets.SummonWeapon
+namespace VanillaPlus.Common.Models.Items
 {
     class Minion : ModProjectile
     {
@@ -156,7 +156,7 @@ namespace VanillaPlus.Common.Presets.SummonWeapon
                         bool closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
                         bool inRange = between < distanceFromTarget;
                         bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height);
-                        if (((closest && inRange) || !foundTarget) && lineOfSight)
+                        if ((closest && inRange || !foundTarget) && lineOfSight)
                         {
                             distanceFromTarget = between;
                             targetCenter = npc.Center;

@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace VanillaPlus.Common.Presets.SummonWeapon
+namespace VanillaPlus.Common.Models.Items
 {
     class MinionBuff : ModBuff
     {

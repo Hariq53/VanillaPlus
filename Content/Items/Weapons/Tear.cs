@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common;
+using VanillaPlus.Common.Config;
 using VanillaPlus.Content.Projectiles;
 
 namespace VanillaPlus.Content.Items.Weapons
@@ -13,7 +13,7 @@ namespace VanillaPlus.Content.Items.Weapons
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusConfig>().EOCDropsToggle;
+            return ModContent.GetInstance<VanillaPlusServerConfig>().EOCDropsToggle;
         }
 
         public override string Texture => ModContent.GetInstance<VanillaPlusClientConfig>().TearAltToggle ? "VanillaPlus/Content/Items/Weapons/Tear_Alt" : base.Texture;

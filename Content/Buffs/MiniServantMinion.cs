@@ -1,5 +1,5 @@
 ﻿using Terraria.ModLoader;
-using VanillaPlus.Common.Presets.SummonWeapon;
+using VanillaPlus.Common.Models.Items;
 using VanillaPlus.Content.Projectiles.Minions;
 
 namespace VanillaPlus.Content.Buffs

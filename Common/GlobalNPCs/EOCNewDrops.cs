@@ -2,6 +2,7 @@
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using VanillaPlus.Common.Config;
 using VanillaPlus.Content.Items.Weapons;
 
 namespace VanillaPlus.Common.GlobalNPCs
@@ -10,7 +11,7 @@ namespace VanillaPlus.Common.GlobalNPCs
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusConfig>().EOCDropsToggle;
+            return ModContent.GetInstance<VanillaPlusServerConfig>().EOCDropsToggle;
         }
 
         public override bool AppliesToEntity(NPC entity, bool lateInstantiation)

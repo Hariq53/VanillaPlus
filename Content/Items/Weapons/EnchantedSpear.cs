@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common;
+using VanillaPlus.Common.Config;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
@@ -11,7 +11,7 @@ namespace VanillaPlus.Content.Items.Weapons
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusConfig>().EnchantedSpearToggle;
+            return ModContent.GetInstance<VanillaPlusServerConfig>().EnchantedSpearToggle;
         }
 
         public override void SetStaticDefaults()

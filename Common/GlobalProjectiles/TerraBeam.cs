@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using VanillaPlus.Common.Config;
 
 namespace VanillaPlus.Common.GlobalProjectiles
 {
@@ -8,7 +9,7 @@ namespace VanillaPlus.Common.GlobalProjectiles
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusConfig>().TerraBeamTweakToggle;
+            return ModContent.GetInstance<VanillaPlusServerConfig>().TerraBeamTweakToggle;
         }
 
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)

@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using VanillaPlus.Common.Config;
 
 namespace VanillaPlus.Common.GlobalItems
 {
@@ -8,7 +9,7 @@ namespace VanillaPlus.Common.GlobalItems
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusConfig>().GladiusTweakToggle;
+            return ModContent.GetInstance<VanillaPlusServerConfig>().GladiusTweakToggle;
         }
 
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)

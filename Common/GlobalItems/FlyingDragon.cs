@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common;
+using VanillaPlus.Common.Config;
 
 namespace VanillaPlus.Content.Changes
 {
@@ -9,7 +9,7 @@ namespace VanillaPlus.Content.Changes
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusConfig>().FlyingDragonTweakToggle;
+            return ModContent.GetInstance<VanillaPlusServerConfig>().FlyingDragonTweakToggle;
         }
 
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)

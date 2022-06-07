@@ -4,7 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using VanillaPlus.Common;
+using VanillaPlus.Common.Config;
 
 namespace VanillaPlus.Content.Tiles
 {
@@ -60,7 +60,7 @@ namespace VanillaPlus.Content.Tiles
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusConfig>().LifeFruitLanternToggle;
+            return ModContent.GetInstance<VanillaPlusServerConfig>().LifeFruitLanternToggle;
         }
 
         public override void SetDefaults()

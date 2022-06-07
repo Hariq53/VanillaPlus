@@ -5,7 +5,8 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
-using VanillaPlus.Common.Presets;
+using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Projectiles;
 using VanillaPlus.Content.Buffs;
 
 namespace VanillaPlus.Content.Items.Weapons
@@ -14,7 +15,7 @@ namespace VanillaPlus.Content.Items.Weapons
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusConfig>().SkeletronDropsToggle;
+            return ModContent.GetInstance<VanillaPlusServerConfig>().SkeletronDropsToggle;
         }
 
         public override void SetStaticDefaults()

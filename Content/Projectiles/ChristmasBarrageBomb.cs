@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
-using VanillaPlus.Common.Presets;
+using VanillaPlus.Common.Models.Projectiles;
 
 namespace VanillaPlus.Content.Projectiles
 {

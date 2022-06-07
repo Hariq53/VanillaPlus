@@ -15,11 +15,12 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
+using VanillaPlus.Common.Models.Config;
 
-namespace VanillaPlus.Common
+namespace VanillaPlus.Common.Config
 {
     [Label("$Mods.VanillaPlus.Config.ServerSideConfig")]
-    public class VanillaPlusConfig : ModConfig
+    public class VanillaPlusServerConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
@@ -106,35 +107,5 @@ namespace VanillaPlus.Common
         [DefaultValue(true)]
         [ReloadRequired]
         public bool InfluxWaverTweakToggle;
-
-        // Inner classes
-        public class DifficultyToggles
-        {
-            [Label("Enabled in Journey")]
-            public bool Journey;
-
-            [Label("Enabled in Classic")]
-            public bool Classic;
-
-            [Label("Enabled in Expert")]
-            public bool Expert;
-
-            [Label("Enabled in Master")]
-            public bool Master;
-        }
-    }
-
-    [Label("$Mods.VanillaPlus.Config.ClientSideConfig")]
-    public class VanillaPlusClientConfig : ModConfig
-    {
-        public override ConfigScope Mode => ConfigScope.ClientSide;
-
-        [Header("$Mods.VanillaPlus.Config.ItemHeader")]
-
-        [Label("$Mods.VanillaPlus.Config.TearAltToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.TearAltToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool TearAltToggle;
     }
 }

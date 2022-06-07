@@ -3,7 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Presets.SummonWeapon;
+using VanillaPlus.Common.Models.Items;
 using VanillaPlus.Content.Buffs;
 
 namespace VanillaPlus.Content.Projectiles.Minions

@@ -2,7 +2,7 @@
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common;
+using VanillaPlus.Common.Config;
 
 namespace VanillaPlus.Content.Items.Accessories
 {
@@ -11,7 +11,7 @@ namespace VanillaPlus.Content.Items.Accessories
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusConfig>().ShinyCharmToggle;
+            return ModContent.GetInstance<VanillaPlusServerConfig>().ShinyCharmToggle;
         }
 
         public override void SetStaticDefaults()

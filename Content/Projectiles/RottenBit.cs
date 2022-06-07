@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
@@ -32,7 +33,7 @@ namespace VanillaPlus.Content.Projectiles
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath1.SoundId, (int)Projectile.position.X, (int)Projectile.position.Y, 1, 0.4f);
+            SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.position);
             for (int i = 0; i < 10; i++)
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustEffect, Projectile.velocity.X * 0.25f, Projectile.velocity.Y * 0.25f, 100);
             return base.OnTileCollide(oldVelocity);

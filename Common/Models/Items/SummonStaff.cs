@@ -4,7 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace VanillaPlus.Common.Presets.SummonWeapon
+namespace VanillaPlus.Common.Models.Items
 {
     class SummonStaff : ModItem
     {
