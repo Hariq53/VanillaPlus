@@ -19,16 +19,26 @@ namespace VanillaPlus.Content.Items.Weapons
         }
         public override void SetDefaults()
         {
+            base.SetDefaults();
+
+            // GFX
             Item.width = 34;
             Item.height = 36;
-            Item.damage = 25;
             Item.UseSound = SoundID.Item1;
-            Item.autoReuse = false;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.crit = 2;
+
+            // Animation
             Item.useTime = 26;
             Item.useAnimation = 26;
+            Item.autoReuse = false;
+            Item.useStyle = ItemUseStyleID.Swing;
+
+            // Weapon Specific
+            Item.damage = 25;
             Item.knockBack = 5f;
+            Item.crit = 2;
+            Item.DamageType = DamageClass.Melee;
+
+            // Other
             Item.value = Item.sellPrice(silver: 60);
             Item.rare = ItemRarityID.Blue;
         }

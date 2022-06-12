@@ -5,6 +5,7 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Content.Projectiles;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
@@ -22,27 +23,30 @@ namespace VanillaPlus.Content.Items.Weapons
 
         public override void SetDefaults()
         {
+            base.SetDefaults();
+
             // GFX
             Item.width = 34;
             Item.height = 34;
             Item.UseSound = SoundID.Item1;
 
             // Animation
-            Item.useAnimation = 21;
             Item.useTime = 45;
+            Item.useAnimation = Item.useTime / 2;
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Swing;
 
             // Weapon Specific
             Item.damage = 25;
             Item.knockBack = 5f;
-            Item.shoot = ModContent.ProjectileType<Projectiles.FleshBall>();
+            Item.shoot = ModContent.ProjectileType<FleshBall>();
             Item.shootSpeed = 10f;
             Item.DamageType = DamageClass.Melee;
 
             // Other
             Item.value = Item.sellPrice(gold: 1, silver: 50);
             Item.rare = ItemRarityID.Green;
+            FleshBall.StickyDamage = Item.damage / 4;
         }
 
         public override void AddRecipes()
@@ -54,7 +58,7 @@ namespace VanillaPlus.Content.Items.Weapons
                 .Register();
         }
 
-        private protected int SwingDust = DustID.Blood;
+        internal static int SwingDust { get; set; } = DustID.Blood;
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -70,8 +74,7 @@ namespace VanillaPlus.Content.Items.Weapons
                 {
                     if (!Player.JustDroppedAnItem)
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.MaxMana, Player.position);
-                    PlayerInput.TryEndingFastUse();
-                }
+                    PlayerInput.TryEndingFastUse();                }
                 base.PostItemCheck();
             }
         }

@@ -13,8 +13,6 @@ namespace VanillaPlus.Content.Items.Accessories
 {
     internal class Sheath : ModItem
     {
-        //protected override ItemConfig Config => ModContent.GetInstance<VanillaPlusExperimentalConfig>().Items.Sword;
-
         public override bool IsLoadingEnabled(Mod mod)
         {
             return false;

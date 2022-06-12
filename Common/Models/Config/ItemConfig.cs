@@ -6,19 +6,31 @@ namespace VanillaPlus.Common.Models.Config
 {
     public class ItemConfig
     {
-        private bool _isSoftDisabled;
+        [JsonIgnore]
+        public static bool ForceDisableAllItems { get; set; } = false;
 
-        [ReloadRequired]
+        private bool _isSoftDisabled = !ForceDisableAllItems;
+
         [DefaultValue(false)]
-        [Label("Soft Disable")]
-        [Tooltip("Removes crafting recipes/drops from NPCs but allows players to keep using the item (RECOMMENDED)")]
+        [Label("Soft Disable (NO LOC)")]
+        [Tooltip("Removes crafting recipes/drops from NPCs but allows players to keep using the item (RECOMMENDED) (NO LOC)")]
         [BackgroundColor(0, 127, 0)]
+        [ReloadRequired]
         public bool IsSoftDisabled
         {
-            get => _isSoftDisabled;
+            get
+            {
+                if (ForceDisableAllItems)
+                    return false;
+                
+                return _isSoftDisabled;
+            }
 
             set
             {
+                if (ForceDisableAllItems)
+                    return;
+                
                 if (value)
                 {
                     _isHardDisabled = false;
@@ -29,19 +41,28 @@ namespace VanillaPlus.Common.Models.Config
             }
         }
 
-        private bool _isHardDisabled;
+        private bool _isHardDisabled = ForceDisableAllItems;
 
-        [ReloadRequired]
         [DefaultValue(false)]
-        [Label("Hard Disable")]
-        [Tooltip("Removes the item completely, rendering it unusable in-game (use with caution)")]
+        [Label("Hard Disable (NO LOC)")]
+        [Tooltip("Removes the item completely, rendering it unusable in-game (use with caution) (NO LOC)")]
         [BackgroundColor(127, 0, 0)]
+        [ReloadRequired]
         public bool IsHardDisabled
         {
-            get => _isHardDisabled;
+            get
+            {
+                if (ForceDisableAllItems)
+                    return true;
+                
+                return _isHardDisabled;
+            }
 
             set
             {
+                if (ForceDisableAllItems)
+                    return;
+                
                 if (value)
                 {
                     _isSoftDisabled = false;

@@ -7,18 +7,25 @@ using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.Models.ModItems
 {
-    class ConfigurableItem : ModItem
+    abstract class ConfigurableItem : ModItem
     {
         protected virtual ItemConfig Config => new(hardDisabled: true);
 
+
         public bool ShouldLoad()
         {
-            return !Config.IsHardDisabled;
+            // If all items are disabled, do not load (used when the Config is null)
+            if (ItemConfig.ForceDisableAllItems)
+                return false;
+
+            // If there is a config and the item is disabled, do not load
+            return Config is null || !Config.IsHardDisabled;
         }
 
         public bool ShouldAddRecipes()
         {
-            return !Config.IsSoftDisabled;
+            // If there is no config or the item is disabled, do not add recipes
+            return Config is null || !Config.IsSoftDisabled;
         }
 
         public override bool IsLoadingEnabled(Mod mod)
@@ -28,22 +35,11 @@ namespace VanillaPlus.Common.Models.ModItems
 
         public override void SetDefaults()
         {
-            Type t = Config.GetType();
-            ItemConfig conf = Config;
-            if (conf != null)
-                if (conf is WeaponConfig weaponConfig)
-                {
-                    Item.useTime = 11;
-                    Item.useAnimation = 22;
-                    Item.autoReuse = false;
-                    Item.useStyle = ItemUseStyleID.Shoot;
-                    Item.DamageType = DamageClass.Melee;
-
-                    int dmg = weaponConfig.Damage;
-                    Item.damage = dmg;
-                    //Item.accessory = true;
-                }
+            if (Config is not null)
+                SetConfigurableDefaults();
         }
+
+        protected virtual void SetConfigurableDefaults() { }
 
         public override void AddRecipes()
         {

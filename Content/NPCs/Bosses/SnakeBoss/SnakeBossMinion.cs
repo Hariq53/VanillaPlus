@@ -51,7 +51,7 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             set => NPC.ai[1] = (float)value;
         }
 
-        SnakeBossBody Body
+        SnakeBossBody? Body
         {
             get
             {
@@ -63,7 +63,7 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
                 else
                 {
                     NPCsUtilities.Kill(NPC.whoAmI);
-                    return null;
+                    return null!;
                 }
             }
         }

@@ -1,7 +1,7 @@
 Mods: {
 	VanillaPlus: {
 		Config: {
-			ServerSideConfig: Server-Side Settings
+			ServerSideConfig: Server-Side Config
 
 			ItemHeader: Items
 			
