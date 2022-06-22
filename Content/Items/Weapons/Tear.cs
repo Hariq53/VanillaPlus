@@ -13,10 +13,10 @@ namespace VanillaPlus.Content.Items.Weapons
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().EOCDropsToggle;
+            return true; //.EOCDropsToggle;
         }
 
-        public override string Texture => ModContent.GetInstance<VanillaPlusClientConfig>().TearAltToggle ? "VanillaPlus/Content/Items/Weapons/Tear_Alt" : base.Texture;
+        public override string Texture => false ? "VanillaPlus/Content/Items/Weapons/Tear_Alt" : base.Texture;
 
         public override void SetStaticDefaults()
         {

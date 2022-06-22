@@ -9,7 +9,7 @@ namespace VanillaPlus.Common.GameplayTweaks.GlobalProjectiles
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().TerraBeamTweakToggle;
+            return true; //.TerraBeamTweakToggle;
         }
 
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)

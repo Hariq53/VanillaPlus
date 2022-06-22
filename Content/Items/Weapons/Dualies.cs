@@ -14,7 +14,7 @@ namespace VanillaPlus.Content.Items.Weapons
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().DualiesToggle;
+            return true; //.DualiesToggle;
         }
 
         public override void SetStaticDefaults()

@@ -9,7 +9,7 @@ namespace VanillaPlus.Common.GameplayTweaks.GlobalProjectiles
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().InfluxWaverTweakToggle;
+            return true; //.InfluxWaverTweakToggle;
         }
 
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)

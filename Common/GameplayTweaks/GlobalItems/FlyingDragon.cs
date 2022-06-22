@@ -9,7 +9,7 @@ namespace VanillaPlus.Common.GameplayTweaks.GlobalItems
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().FlyingDragonTweakToggle;
+            return true; //.FlyingDragonTweakToggle;
         }
 
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)

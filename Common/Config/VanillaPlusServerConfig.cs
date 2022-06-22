@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using Terraria;
 using Terraria.GameContent;
@@ -15,6 +16,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
+using VanillaPlus.Common.Config.Global;
 using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.Config
@@ -22,90 +24,54 @@ namespace VanillaPlus.Common.Config
     [Label("$Mods.VanillaPlus.Config.ServerSideConfig")]
     public class VanillaPlusServerConfig : ModConfig
     {
+        public override bool NeedsReload(ModConfig pendingConfig)
+        {
+            if (pendingConfig is VanillaPlusServerConfig otherConfig)
+            {
+                PropertyInfo[] properties = this.GetType().GetProperties(BindingFlags.Instance);
+
+                foreach (PropertyInfo property in properties)
+                {
+                    object? thisValue = property.GetValue(this);
+                    object? otherValue = property.GetValue(otherConfig);
+                    if (!(thisValue)?.Equals(otherValue) ?? true)
+                        return true;
+                }
+            }
+            return base.NeedsReload(pendingConfig);
+        }
+
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [Header("$Mods.VanillaPlus.Config.ItemHeader")]
+        [Header("$Mods.VanillaPlus.Config.ItemsHeader")]
 
-        [Label("$Mods.VanillaPlus.Config.EvilMaceToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.EvilMaceToggle.Tooltip")]
-        [DefaultValue(true)]
+        [Label("$Mods.VanillaPlus.Config.GlobalConfig.Label")]
+        [Tooltip("$Mods.VanillaPlus.Config.GlobalConfig.Tooltip")]
         [ReloadRequired]
-        public bool EvilMaceToggle;
+        public GlobalItemsConfig GlobalItems { get => _globalItems; set => _globalItems.Assign(value); }
+        readonly GlobalItemsConfig _globalItems = new();
 
-        [Label("$Mods.VanillaPlus.Config.EnchantedSpearToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.EnchantedSpearToggle.Tooltip")]
-        [DefaultValue(true)]
         [ReloadRequired]
-        public bool EnchantedSpearToggle;
+        public ItemsConfig Items { get; } = new();
 
-        [Label("$Mods.VanillaPlus.Config.ChristmasBarrageToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.ChristmasBarrageToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool ChristmasBarrageToggle;
+        public bool TestBool = false;
 
-        [Label("$Mods.VanillaPlus.Config.DualiesToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.DualiesToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool DualiesToggle;
+        static void AssignSuperConfig(Func<ItemConfig?> superConfigHandler, IEnumerable<ItemConfig> subConfigs)
+        {
+            foreach (ItemConfig itemConfig in subConfigs)
+                if (itemConfig.SuperConfigHandler is null)
+                    itemConfig.SuperConfigHandler = superConfigHandler;
+        }
 
-        [Label("$Mods.VanillaPlus.Config.ShinyCharmToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.ShinyCharmToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool ShinyCharmToggle;
+        static void AssignSuperConfig(Func<ItemConfig?> superConfigHandler, params ItemConfig[] subConfigs)
+        {
+            AssignSuperConfig(superConfigHandler, subConfigs.AsEnumerable());
+        }
 
-        [Label("$Mods.VanillaPlus.Config.EOCDropsToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.EOCDropsToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool EOCDropsToggle;
-
-        [Label("$Mods.VanillaPlus.Config.GoblinDropsToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.GoblinDropsToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool GoblinDropsToggle;
-
-        [Label("$Mods.VanillaPlus.Config.SkeletonDropsToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.SkeletonDropsToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool SkeletronDropsToggle;
-
-        [Header("$Mods.VanillaPlus.Config.TilesHeader")]
-
-        [Label("$Mods.VanillaPlus.Config.LifeFruitLanternToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.LifeFruitLanternToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool LifeFruitLanternToggle;
-
-        [Header("$Mods.VanillaPlus.Config.TweaksHeader")]
-
-        [Label("$Mods.VanillaPlus.Config.GladiusTweakToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.GladiusTweakToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool GladiusTweakToggle;
-
-        [Label("$Mods.VanillaPlus.Config.FlyingDragonTweakToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.FlyingDragonTweakToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool FlyingDragonTweakToggle;
-
-        [Label("$Mods.VanillaPlus.Config.TerraBeamTweakToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.TerraBeamTweakToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool TerraBeamTweakToggle;
-
-        [Label("$Mods.VanillaPlus.Config.InfluxWaverTweakToggle.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.InfluxWaverTweakToggle.Tooltip")]
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool InfluxWaverTweakToggle;
+        public VanillaPlusServerConfig()
+            : base()
+        {
+            AssignSuperConfig(() => GlobalItems, Items.TestItem);
+        }
     }
 }

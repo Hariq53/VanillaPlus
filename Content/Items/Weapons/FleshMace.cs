@@ -5,26 +5,21 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 using VanillaPlus.Content.Projectiles;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    public class FleshMace : ModItem
+    public class FleshMace : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().EvilMaceToggle;
-        }
-
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
-            base.SetDefaults();
-
             // GFX
             Item.width = 34;
             Item.height = 34;
@@ -46,10 +41,17 @@ namespace VanillaPlus.Content.Items.Weapons
             // Other
             Item.value = Item.sellPrice(gold: 1, silver: 50);
             Item.rare = ItemRarityID.Green;
+        }
+
+        protected override void SetConfigurableDefaults(WeaponConfig config)
+        {
+            base.SetConfigurableDefaults(config);
+
+            // Set here to make sure that the damage that has been set on the item is the final one
             FleshBall.StickyDamage = Item.damage / 4;
         }
 
-        public override void AddRecipes()
+        protected override void AddRecipesWithConfig()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.ZombieArm, 1)

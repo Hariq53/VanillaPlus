@@ -11,7 +11,7 @@ namespace VanillaPlus.Common.NPCLoots
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().SkeletronDropsToggle;
+            return true; //.SkeletronDropsToggle;
         }
 
         public override bool AppliesToEntity(NPC entity, bool lateInstantiation)

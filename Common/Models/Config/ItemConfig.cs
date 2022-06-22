@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Reflection;
 using System.Text.Json.Serialization;
 using Terraria.ModLoader.Config;
 
@@ -6,31 +8,46 @@ namespace VanillaPlus.Common.Models.Config
 {
     public class ItemConfig
     {
-        [JsonIgnore]
-        public static bool ForceDisableAllItems { get; set; } = false;
+        internal Func<ItemConfig?>? SuperConfigHandler { get; set; }
 
-        private bool _isSoftDisabled = !ForceDisableAllItems;
+        [JsonIgnore]
+        internal ItemConfig? SuperConfig => (SuperConfigHandler is not null ? SuperConfigHandler() : null);
+
+        public virtual void Assign(ItemConfig itemConfig)
+        {
+            _isSoftDisabled = itemConfig._isSoftDisabled;
+            _isHardDisabled = itemConfig._isHardDisabled;
+        }
+
+        private bool _isSoftDisabled;
 
         [DefaultValue(false)]
-        [Label("Soft Disable (NO LOC)")]
-        [Tooltip("Removes crafting recipes/drops from NPCs but allows players to keep using the item (RECOMMENDED) (NO LOC)")]
+        [Label("$Mods.VanillaPlus.Config.Items.SoftDisable.Label")]
+        [Tooltip("$Mods.VanillaPlus.Config.Items.SoftDisable.Tooltip")]
         [BackgroundColor(0, 127, 0)]
         [ReloadRequired]
-        public bool IsSoftDisabled
+        public virtual bool IsSoftDisabled
         {
             get
             {
-                if (ForceDisableAllItems)
-                    return false;
-                
+                if (SuperConfig is not null)
+                {
+                    if (SuperConfig.IsHardDisabled)
+                        return false;
+
+                    if (SuperConfig.IsSoftDisabled)
+                        return true;
+                }
+
                 return _isSoftDisabled;
             }
 
             set
             {
-                if (ForceDisableAllItems)
-                    return;
-                
+                if (SuperConfig is not null)
+                    if (SuperConfig.IsSoftDisabled || SuperConfig.IsHardDisabled)
+                        return;
+
                 if (value)
                 {
                     _isHardDisabled = false;
@@ -41,28 +58,35 @@ namespace VanillaPlus.Common.Models.Config
             }
         }
 
-        private bool _isHardDisabled = ForceDisableAllItems;
+        private bool _isHardDisabled;
 
         [DefaultValue(false)]
-        [Label("Hard Disable (NO LOC)")]
-        [Tooltip("Removes the item completely, rendering it unusable in-game (use with caution) (NO LOC)")]
+        [Label("$Mods.VanillaPlus.Config.Items.HardDisable.Label")]
+        [Tooltip("$Mods.VanillaPlus.Config.Items.HardDisable.Tooltip")]
         [BackgroundColor(127, 0, 0)]
         [ReloadRequired]
-        public bool IsHardDisabled
+        public virtual bool IsHardDisabled
         {
             get
             {
-                if (ForceDisableAllItems)
-                    return true;
-                
+                if (SuperConfig is not null)
+                {
+                    if (SuperConfig.IsHardDisabled)
+                        return true;
+
+                    if (SuperConfig.IsSoftDisabled)
+                        return false;
+                }
+
                 return _isHardDisabled;
             }
 
             set
             {
-                if (ForceDisableAllItems)
-                    return;
-                
+                if (SuperConfig is not null)
+                    if (SuperConfig.IsSoftDisabled || SuperConfig.IsHardDisabled)
+                        return;
+
                 if (value)
                 {
                     _isSoftDisabled = false;
@@ -73,10 +97,23 @@ namespace VanillaPlus.Common.Models.Config
             }
         }
 
+        public override bool Equals(object? obj)
+        {
+            if (obj is ItemConfig other)
+                return other.IsSoftDisabled == this.IsSoftDisabled && other.IsHardDisabled == this.IsHardDisabled;
+            else
+                return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return new { _isSoftDisabled, _isHardDisabled }.GetHashCode();
+        }
+
         public ItemConfig()
             : this(false, false)
         { }
-
+        
         public ItemConfig(bool softDisabled = false, bool hardDisabled = false)
         {
             _isSoftDisabled = softDisabled;

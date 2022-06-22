@@ -5,25 +5,20 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    public class RottenMace : ModItem
+    public class RottenMace : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().EvilMaceToggle;
-        }
-
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
-            base.SetDefaults();
-
             // GFX
             Item.width = 34;
             Item.height = 34;
@@ -46,8 +41,8 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 1, silver: 50);
             Item.rare = ItemRarityID.Green;
         }
-
-        public override void AddRecipes()
+        
+        protected override void AddRecipesWithConfig()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.ZombieArm, 1)
@@ -74,7 +69,6 @@ namespace VanillaPlus.Content.Items.Weapons
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.MaxMana, Player.position);
                     PlayerInput.TryEndingFastUse();
                 }
-                base.PostItemCheck();
             }
         }
     }

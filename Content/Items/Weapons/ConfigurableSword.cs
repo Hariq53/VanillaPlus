@@ -11,15 +11,13 @@ using VanillaPlus.Common;
 using VanillaPlus.Common.Config;
 using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Common.Models.ModItems;
-using static VanillaPlus.Common.Config.VanillaPlusExperimentalConfig;
+using static VanillaPlus.Common.Config.VanillaPlusServerConfig;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
     class ConfigurableSword : ConfigurableWeapon
     {
-        protected override WeaponConfig Config => VanillaPlus.ExperimentalConfig.Items.Sword;
-
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             Item.damage = 20;
             Item.width = Item.height = 40;
@@ -28,8 +26,6 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.useAnimation = 11;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
-
-            base.SetDefaults();
         }
     }
 }

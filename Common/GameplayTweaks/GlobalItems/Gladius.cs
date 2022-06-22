@@ -9,7 +9,7 @@ namespace VanillaPlus.Common.GameplayTweaks.GlobalItems
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().GladiusTweakToggle;
+            return true; //.GladiusTweakToggle;
         }
 
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)

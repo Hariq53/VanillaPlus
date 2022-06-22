@@ -20,8 +20,11 @@ using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.Config
 {
-    public class VanillaPlusExperimentalConfig : ModConfig
+    [SeparatePage]
+    [Label("$Mods.VanillaPlus.Config.Items.Label")]
+    public class ItemsConfig
     {
-        public override ConfigScope Mode => ConfigScope.ServerSide;
+        public ItemConfig TestItem { get => _testItem; set => _testItem.Assign(value); }
+        readonly ItemConfig _testItem = new();
     }
 }

@@ -12,7 +12,7 @@ namespace VanillaPlus.Content.Items.Weapons
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().EnchantedSpearToggle;
+            return true; //.EnchantedSpearToggle;
         }
 
         public override void SetStaticDefaults()

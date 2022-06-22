@@ -11,7 +11,7 @@ namespace VanillaPlus.Common.NPCLoots
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().GoblinDropsToggle;
+            return true; //.GoblinDropsToggle;
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)

@@ -1,100 +1,56 @@
-Mods: {
-	VanillaPlus: {
-		Config: {
+Mods:
+{
+	VanillaPlus:
+	{
+		Config:
+		{
 			ServerSideConfig: Server-Side Config
 
-			ItemHeader: Items
+			ItemsHeader: Items
 			
-			EvilMaceToggle: {
-				Label: Evil Maces
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.FleshMace} and {$Mods.VanillaPlus.ItemName.RottenMace} items
+			GlobalConfig:
+			{
+				Label: Global Settings
+				Tooltip: All the changes you make here will apply to all subconfigs (changing these options will overwrite the subconfigs)
 			}
 
-			EnchantedSpearToggle: {
-				Label: "{$Mods.VanillaPlus.ItemName.EnchantedSpear}"
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.EnchantedSpear} item
-			}
+			SoftDisable: Soft Disable
+			HardDisable: Hard Disable
+			SoftDisableAll: "{$Mods.VanillaPlus.Config.SoftDisable} All"
+			HardDisableAll: "{$Mods.VanillaPlus.Config.HardDisable} All"
 
-			ChristmasBarrageToggle: {
-				Label: "{$Mods.VanillaPlus.ItemName.ChristmasBarrage}"
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.ChristmasBarrage} item
-			}
+			Items:
+			{
+				Label: Single items settings
 
-			DualiesToggle: {
-				Label: "{$Mods.VanillaPlus.ItemName.Dualies}"
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.Dualies}
-			}
+				SoftDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisable}"
+					Tooltip: Removes crafting recipes, drops, etc. but allows players to keep using the item (RECOMMENDED)
+				}
 
-			ShinyCharmToggle: {
-				Label: "{$Mods.VanillaPlus.ItemName.ShinyCharm}"
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.ShinyCharm}
-			}
+				HardDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisable}"
+					Tooltip: Removes the item completely, rendering it unusable in-game (use with caution)
+				}
 
-			EOCDropsToggle: {
-				Label: "{$NPCNames.EyeofCthulhu} Drops"
-				Tooltip: Enable or disable the new weapon drops for the {$NPCName.EyeofCthulhu}
-			}
+				SoftDisableAll:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisableAll}"
+					Tooltip: Removes crafting recipes, drops, etc. but allows players to keep using the items (RECOMMENDED)
+				}
 
-			GoblinDropsToggle: {
-				Label: "{$Bestiary_Invasions.Goblins} Drops"
-				Tooltip: Enable or disable the new weapon drops for the {$Bestiary_Invasions.Goblins}
-			}
-
-			SkeletonDropsToggle: {
-				Label: "{$NPCName.SkeletronHead} Drops"
-				Tooltip: Enable or disable the new weapon drops from {$NPCName.SkeletronHead}
-			}
-
-			TilesHeader: Tiles
-
-			LifeFruitLanternToggle: {
-				Label: "{$Mods.VanillaPlus.ItemName.LifeFruitLantern}"
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.LifeFruitLantern} item
-			}
-
-			TweaksHeader: Tweaks
-
-			GladiusTweakToggle: {
-				Label: "{$ItemName.Gladius}"
-				Tooltip: Enable or disable the change to the {$ItemName.Gladius} animation
-			}
-
-			FlyingDragonTweakToggle: {
-				Label: "{$ItemName.DD2SquireBetsySword}"
-				Tooltip: Enable or the disable the {$ItemName.DD2SquireBetsySword} damage buff (from 180 to 200)
-			}
-
-			TerraBeamTweakToggle: {
-				Label: "{$ItemName.TerraBlade}"
-				Tooltip: Enable or disable the {$ItemName.TerraBlade} projectile nerf (projectile lifetime decreased)
-			}
-
-			InfluxWaverTweakToggle: {
-				Label: "{$ItemName.InfluxWaver}"
-				Tooltip: Enable or disable the {$ItemName.InfluxWaver} projectile nerf (projectile lifetime decreased)
-			}
-			
-			ExpFeaturesHeader: Experimantal features
-
-			BannerSlotToggle: {
-				Label: Banner slot
-				Tooltip:  Enable or disable the banner slot
-			}
-
-			MotorcycleMountToggle: {
-				Label: Motorcycle mount
-				Tooltip: Enable or disable the motorcycle mount
-			}
-
-			ClientSideConfig: Client-Side Settings
-
-			TearAltToggle: {
-				Label: "{$Mods.VanillaPlus.ItemName.Tear} Vanilla Texture"
-				Tooltip: "Enable or disable the vanilla-like texture for the {$Mods.VanillaPlus.ItemName.Tear}"
+				HardDisableAll:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisableAll}"
+					Tooltip: Removes the items completely, rendering them unusable in-game (use with caution)
+				}
 			}
 		}
 		
-		ItemName: {
+		ItemName:
+		{
 			FleshMace: Flesh Mace
 			RottenMace: Rotten Mace
 			EnchantedSpear: Enchanted Spear
@@ -112,10 +68,10 @@ Mods: {
 			SkullOfBoom: Skull of Boom
 			SkeletronsFinger: Skeletron's Finger
 			OlMansCurse: Old Man's Curse
-			MotorcycleMountItem: Motorcycle wheel
 		}
 
-		ItemTooltip: {
+		ItemTooltip:
+		{
 			LifeFruitLantern: Greatly increase life regeneration when placed nearby
 			Dualies: "'It's high noon'"
 			ShinyCharm: Regenerates life quickly
@@ -123,10 +79,10 @@ Mods: {
 			SkullOfBoom: Throws non-consumable skull that explodes and spreads water flames
 			SkeletronsFinger: Contains a fragment of {$NPCName.SkeletronHead}'s consciousness
 			OlMansCurse: "Summons cursed skulls to fight for you\n\"CURSES!\""
-			MotorcycleMountItem: Summon a rideable motorcycle
- 		}
+		}
 
-		ProjectileName: {
+		ProjectileName:
+		{
 			EnchantedSpearProjectile: "{$Mods.VanillaPlus.ItemName.EnchantedSpear}"
 			DualiesRevolver: "{$ItemName.Revolver}"
 			MiniServant: Mini Servant of Cthulhu
@@ -140,26 +96,27 @@ Mods: {
 			CursedSkullMinion: Cursed Skull
 		}
 
-		TileName: {
+		TileName:
+		{
 			LifeFruitLanternTile: Life Fruit Lantern
 		}
 
-		BuffName: {
+		BuffName:
+		{
 			LifeFruitLamp: Life Fruit Regeneration
 			CthulhusMalediction: Cthulhu's Malediction
 			MiniServantMinion: Eye on you
 			Aquaflame: "{$BuffName.OnFire}"
 			CursedSkullMinionBuff: "{$Mods.VanillaPlus.ProjectileName.CursedSkullMinion}"
-			MotorcycleMount: Motorcycle
 		}
 
-		BuffDescription: {
+		BuffDescription:
+		{
 			LifeFruitLamp: Life regeneration is increased
 			CthulhusMalediction: Defense reduced by 5
 			MiniServantMinion: The {$Mods.VanillaPlus.ProjectileName.MiniServant} will fight for you
 			Aquaflame: "{BuffDescription.OnFire}"
 			CursedSkullMinionBuff: The {$Mods.VanillaPlus.ProjectileName.CursedSkullMinion} will fight for you
-			MotorcycleMount: Bruuum-Bruuummm
 		}
 	}
 }

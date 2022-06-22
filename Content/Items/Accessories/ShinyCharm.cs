@@ -3,23 +3,20 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 
 namespace VanillaPlus.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.HandsOn)]
-    public class ShinyCharm : ModItem
+    class ShinyCharm : ConfigurableItem
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().ShinyCharmToggle;
-        }
-
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             Item.width = 28;
             Item.height = 22;
@@ -29,7 +26,11 @@ namespace VanillaPlus.Content.Items.Accessories
             Item.value = Item.sellPrice(gold: 6);
         }
 
-        public override void AddRecipes()
+        protected override void SetConfigurableDefaults(ItemConfig config)
+        {
+        }
+
+        protected override void AddRecipesWithConfig()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.BandofRegeneration, 1)

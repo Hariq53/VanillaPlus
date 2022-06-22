@@ -44,7 +44,7 @@ namespace VanillaPlus.Content.Buffs
                         dust13.noGravity = true;
                         dust13.velocity *= 1.8f;
                         dust13.velocity.Y -= 0.5f;
-                        if (Main.rand.Next(4) == 0)
+                        if (Main.rand.NextBool(4))
                         {
                             dust13.noGravity = false;
                             dust13.scale *= 0.5f;

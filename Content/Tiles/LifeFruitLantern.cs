@@ -60,7 +60,7 @@ namespace VanillaPlus.Content.Tiles
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().LifeFruitLanternToggle;
+            return true; //.LifeFruitLanternToggle;
         }
 
         public override void SetDefaults()

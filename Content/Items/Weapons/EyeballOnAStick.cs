@@ -13,7 +13,7 @@ namespace VanillaPlus.Content.Items.Weapons
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().EOCDropsToggle;
+            return true; //.EOCDropsToggle;
         }
 
         protected override int MinionBuff => ModContent.BuffType<MiniServantMinion>();

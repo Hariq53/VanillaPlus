@@ -11,7 +11,7 @@ namespace VanillaPlus.Content.Items.Weapons
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().ChristmasBarrageToggle;
+            return true; //.ChristmasBarrageToggle;
         }
 
         public override void SetStaticDefaults()
