@@ -9,13 +9,13 @@ namespace VanillaPlus.Common.Config.Global
 {
     public class GlobalItemsConfig : ItemConfig
     {
-        [Label("$Mods.VanillaPlus.Config.Items.SoftDisableAll.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.Items.SoftDisableAll.Tooltip")]
+        [Label("$Mods.VanillaPlus.Config.ItemConfig.SoftDisableAll.Label")]
+        [Tooltip("$Mods.VanillaPlus.Config.ItemConfig.SoftDisableAll.Tooltip")]
         [ReloadRequired]
         public override bool IsSoftDisabled { get => base.IsSoftDisabled; set => base.IsSoftDisabled = value; }
 
-        [Label("$Mods.VanillaPlus.Config.Items.HardDisableAll.Label")]
-        [Tooltip("$Mods.VanillaPlus.Config.Items.HardDisableAll.Tooltip")]
+        [Label("$Mods.VanillaPlus.Config.ItemConfig.HardDisableAll.Label")]
+        [Tooltip("$Mods.VanillaPlus.Config.ItemConfig.HardDisableAll.Tooltip")]
         [ReloadRequired]
         public override bool IsHardDisabled { get => base.IsHardDisabled; set => base.IsHardDisabled = value; }
     }

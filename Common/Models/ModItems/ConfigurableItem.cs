@@ -73,7 +73,7 @@ namespace VanillaPlus.Common.Models.ModItems
         /// Do not override unless you want to add recipes regardless of Config, in every other
         /// case, use <see cref="AddRecipesWithConfig"/>
         /// </summary>
-        public override void AddRecipes()
+        public override sealed void AddRecipes()
         {
             if (!ShouldAddRecipes())
                 return;

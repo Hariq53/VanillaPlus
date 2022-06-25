@@ -24,20 +24,22 @@ namespace VanillaPlus.Common.Config
     [Label("$Mods.VanillaPlus.Config.ServerSideConfig")]
     public class VanillaPlusServerConfig : ModConfig
     {
+        public static void ElementConfigSetter<T>(ref T config, T newValue) where T : ElementConfig?
+        {
+            ElementConfig? superConfig = config?.SuperConfig;
+            config = newValue;
+            if (config is null)
+                return;
+            config.SuperConfig = superConfig;
+        }
+
         public override bool NeedsReload(ModConfig pendingConfig)
         {
-            if (pendingConfig is VanillaPlusServerConfig otherConfig)
-            {
-                PropertyInfo[] properties = this.GetType().GetProperties(BindingFlags.Instance);
+            VanillaPlusServerConfig newConfig = (pendingConfig as VanillaPlusServerConfig)!;
 
-                foreach (PropertyInfo property in properties)
-                {
-                    object? thisValue = property.GetValue(this);
-                    object? otherValue = property.GetValue(otherConfig);
-                    if (!(thisValue)?.Equals(otherValue) ?? true)
-                        return true;
-                }
-            }
+            if (!Equals(Items, newConfig.Items))
+                return true;
+
             return base.NeedsReload(pendingConfig);
         }
 
@@ -48,30 +50,41 @@ namespace VanillaPlus.Common.Config
         [Label("$Mods.VanillaPlus.Config.GlobalConfig.Label")]
         [Tooltip("$Mods.VanillaPlus.Config.GlobalConfig.Tooltip")]
         [ReloadRequired]
-        public GlobalItemsConfig GlobalItems { get => _globalItems; set => _globalItems.Assign(value); }
-        readonly GlobalItemsConfig _globalItems = new();
-
-        [ReloadRequired]
-        public ItemsConfig Items { get; } = new();
-
-        public bool TestBool = false;
-
-        static void AssignSuperConfig(Func<ItemConfig?> superConfigHandler, IEnumerable<ItemConfig> subConfigs)
+        public GlobalItemsConfig GlobalItems
         {
-            foreach (ItemConfig itemConfig in subConfigs)
-                if (itemConfig.SuperConfigHandler is null)
-                    itemConfig.SuperConfigHandler = superConfigHandler;
+            get
+            {
+                foreach (Func<ItemConfig?> getItem in Items.AllSubs)
+                    AssignSuperConfig(_globalItems, getItem());
+                return _globalItems;
+            }
+
+            set => _globalItems = value;
+        }
+        GlobalItemsConfig _globalItems = new();
+
+        public ItemsConfig Items
+        {
+            get;
+            set;
+        } = new();
+
+		static void AssignSuperConfig(ItemConfig? superConfig, IEnumerable<ItemConfig?> subConfigs)
+        {
+            foreach (ItemConfig? itemConfig in subConfigs)
+                if (itemConfig is not null)
+                    itemConfig.SuperConfig ??= superConfig;
         }
 
-        static void AssignSuperConfig(Func<ItemConfig?> superConfigHandler, params ItemConfig[] subConfigs)
+        static void AssignSuperConfig(ItemConfig? superConfig, params ItemConfig?[] subConfigs)
         {
-            AssignSuperConfig(superConfigHandler, subConfigs.AsEnumerable());
-        }
-
-        public VanillaPlusServerConfig()
-            : base()
-        {
-            AssignSuperConfig(() => GlobalItems, Items.TestItem);
+            if (subConfigs.Length == 1)
+            {
+                ItemConfig? subConfig = subConfigs[0];
+                if (subConfig is not null)
+                    subConfig.SuperConfig ??= superConfig;
+            }
+            AssignSuperConfig(superConfig, subConfigs.AsEnumerable());
         }
     }
 }

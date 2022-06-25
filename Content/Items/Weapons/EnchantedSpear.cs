@@ -5,22 +5,21 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    class EnchantedSpear : ModItem
+    class EnchantedSpear : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return true; //.EnchantedSpearToggle;
-        }
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.EnchantedSpear;
 
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             // GFX
             Item.width = 32;
@@ -47,7 +46,7 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.rare = ItemRarityID.Blue;
         }
 
-        public override void AddRecipes()
+        protected override void AddRecipesWithConfig()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Spear, 1)
@@ -64,7 +63,7 @@ namespace VanillaPlus.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            // Clone the default values for a vanilla spear.
+            // Clone the default values for the vanilla spear.
             Projectile.CloneDefaults(ProjectileID.Spear);
         }
 
@@ -98,15 +97,11 @@ namespace VanillaPlus.Content.Items.Weapons
 
             // Apply proper rotation to the sprite.
             if (Projectile.spriteDirection == -1)
-            {
                 // If sprite is facing left, rotate 45 degrees
                 Projectile.rotation += MathHelper.PiOver4;
-            }
             else
-            {
                 // If sprite is facing right, rotate 135 degrees
                 Projectile.rotation += MathHelper.Pi - MathHelper.PiOver4;
-            }
 
             if (!Main.dedServ)
             {
@@ -134,7 +129,7 @@ namespace VanillaPlus.Content.Items.Weapons
 
         public override void PostAI()
         {
-            // Shoot a projectile once in this projectile's lifetime
+            // Shoot an Enchanted Beam once in this projectile's lifetime
             if (!ProjectileShotFlag)
             {
                 ProjectileShotFlag = true;

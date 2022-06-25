@@ -16,7 +16,6 @@ using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
 using VanillaPlus.Common.Config.Global;
-using VanillaPlus.Common.Config.Items;
 using VanillaPlus.Common.Config.Items.Weapons;
 using VanillaPlus.Common.Config.Items.Weapons.EOCDrops;
 using VanillaPlus.Common.Config.Items.Weapons.EvilMaces;
@@ -24,76 +23,55 @@ using VanillaPlus.Common.Models.Config;
 
 using static VanillaPlus.Common.Config.VanillaPlusServerConfig;
 
-namespace VanillaPlus.Common.Config
+namespace VanillaPlus.Common.Config.Items
 {
-    /*
-     * SETUP GUIDE FOR CONFIGURABLE ITEM:
-     * 1. Copy this snippet (replace ConfigItem with the name of the item):
-     * 
-     * [Header("$Mods.VanillaPlus.ItemName.ConfigItem")]
-     * public ConfigItemConfig? ConfigItem
-     * {
-     *     get => _configItem;
-     *     set => ItemConfigSetter(ref _configItem, value);
-     * }
-     *
-     * ConfigItemConfig? _configItem;
-     *  
-     * 2. Update the Equals method (to force reload every time the config of the item is changed)
-     *  
-     * 3. Add the Item to AllSubs
-     *  
-     * 4. Change the class of the actual ModItem to ConfigurableItem (or ConfigurableWeapon, etc.)
-     *    and override the Config to set it to the instance of ItemConfig you just created, then
-     *    update the SetDefaults, AddRecipes, etc. to their configurable counterparts (for example:
-     *    SetDefaults -> SetRegularDefaults & SetConfigurableDefaults, AddRecipes -> AddRecipesWithConfig)
-     */
     [SeparatePage]
-    [Label("$Mods.VanillaPlus.Config.Items.Label")]
-    public class ItemsConfig
+    [Label("$Mods.VanillaPlus.Config.Items.Weapons.Label")]
+    public class WeaponsConfig
     {
         [JsonIgnore]
         public Func<ItemConfig?>[] AllSubs => new Func<ItemConfig?>[]
         {
             () => Dualies,
             () => FleshMace,
-            () => RottenMace,
-            () => EnchantedSpear,
-            () => ChristmasBarrage,
-            () => EyeballOnAStick,
-            () => FangOfCthulhu,
-            () => Tear
+            () => RottenMace
         };
 
-        [Header("$Mods.VanillaPlus.Config.Items.Weapons.Header")]
-        
+        [Header("$Mods.VanillaPlus.ItemName.Dualies")]
         public DualiesConfig? Dualies
         {
             get => _dualies;
             set => ElementConfigSetter(ref _dualies, value);
         }
+
         DualiesConfig? _dualies;
 
+        [Header("$Mods.VanillaPlus.Config.Items.Weapons.EvilMaces")]
         public EvilMacesConfig? EvilMaces
         {
             get;
             set;
         } = new();
 
+        [Header("$Mods.VanillaPlus.ItemName.EnchantedSpear")]
         public EnchantedSpearConfig? EnchantedSpear
         {
             get => _enchantedSpear;
             set => ElementConfigSetter(ref _enchantedSpear, value);
         }
+
         EnchantedSpearConfig? _enchantedSpear;
 
+        [Header("$Mods.VanillaPlus.ItemName.ChristmasBarrage")]
         public ChristmasBarrageConfig? ChristmasBarrage
         {
             get => _christmasBarrage;
             set => ElementConfigSetter(ref _christmasBarrage, value);
         }
+
         ChristmasBarrageConfig? _christmasBarrage;
 
+        [Header("$Mods.VanillaPlus.Config.Items.Weapons.EOCDrops")]
         public EOCDropsConfig? EOCDrops
         {
             get;
@@ -117,7 +95,7 @@ namespace VanillaPlus.Common.Config
 
         public override bool Equals(object? obj)
         {
-            if (obj is ItemsConfig other)
+            if (obj is WeaponsConfig other)
             {
                 if (!Equals(Dualies, other.Dualies))
                     return false;
@@ -125,13 +103,7 @@ namespace VanillaPlus.Common.Config
                 if (!Equals(EvilMaces, other.EvilMaces))
                     return false;
 
-                if (!Equals(EnchantedSpear, other.EnchantedSpear))
-                    return false;
-
                 if (!Equals(ChristmasBarrage, other.ChristmasBarrage))
-                    return false;
-
-                if (!Equals(EOCDrops, other.EOCDrops))
                     return false;
 
                 return true;

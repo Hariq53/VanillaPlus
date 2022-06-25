@@ -6,23 +6,38 @@ Mods:
 		{
 			ServerSideConfig: Impostazione lato Server
 			
-			ItemsHeader: Oggetti
+			SoftDisable: Disabilita
+			HardDisable: Rimuovi
+			SoftDisableAll: "{$Mods.VanillaPlus.Config.SoftDisable} Tutti"
+			HardDisableAll: "{$Mods.VanillaPlus.Config.HardDisable} Tutti"
 			
+			ElementConfig:
+			{
+				Label: Impostazioni
+
+				SoftDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisable}"
+				}
+
+				HardDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisable}"
+				}
+			}
+
 			GlobalConfig:
 			{
 				Label: Impostazione Globali
 				Tooltip: Tutti i cambiamenti apportati qui verranno applicati a tutti i membri sottostanti (le impostazioni dei membri sottostanti verranno sovrascritte)
 			}
-			
-			SoftDisable: Disabilita
-			HardDisable: Rimuovi
-			SoftDisableAll: "{$Mods.VanillaPlus.Config.SoftDisable} Tutti"
-			HardDisableAll: "{$Mods.VanillaPlus.Config.HardDisable} Tutti"
 
-			Items:
+			ItemsHeader: Oggetti
+
+			ItemConfig:
 			{
-				Label: Impostazioni di tutti gli oggetti
-				
+				Label: Impostazione Oggetto
+
 				SoftDisable:
 				{
 					Tooltip: Rimuove ricette, drop, ecc. ma permette di continuare ad usare l'oggetto se è stato già ottenuto in precedenza (CONSIGLIATO)
@@ -42,7 +57,34 @@ Mods:
 				{
 					Tooltip: Rimuove tutti gli oggetti completamente, rendendoli inutilizzabili in gioco (usare con cautela)
 				}
+			}
+			
+			WeaponConfig:
+			{
+				Damage:
+				{
+					Label: Danno
+					Tooltip: NO LOC
+				}
 
+				UseTime:
+				{
+					Label: Velocità
+					Tooltip: NO LOC
+				}
+			}
+
+			Items:
+			{
+				Label: Impostazioni di tutti gli oggetti
+
+				Weapons:
+				{
+					Header: Armi
+
+					EvilMaces: Mazze Corrotte
+					EOCDrops: Nuovi oggetti dell'{$NPCName.EyeofCthulhu}
+				}
 			}
 		}
 

@@ -4,6 +4,7 @@ using Terraria.GameContent.Creative;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
+using VanillaPlus.Common;
 using VanillaPlus.Common.Config;
 using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Common.Models.ModItems;
@@ -13,6 +14,8 @@ namespace VanillaPlus.Content.Items.Weapons
 {
     public class FleshMace : ConfigurableWeapon
     {
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.FleshMace;
+
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -27,7 +30,7 @@ namespace VanillaPlus.Content.Items.Weapons
 
             // Animation
             Item.useTime = 45;
-            Item.useAnimation = Item.useTime / 2;
+            Item.useAnimation = 22;
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Swing;
 
@@ -45,10 +48,7 @@ namespace VanillaPlus.Content.Items.Weapons
 
         protected override void SetConfigurableDefaults(WeaponConfig config)
         {
-            base.SetConfigurableDefaults(config);
-
-            // Set here to make sure that the damage that has been set on the item is the final one
-            FleshBall.StickyDamage = Item.damage / 4;
+            Item.useAnimation = Item.useTime / 2;
         }
 
         protected override void AddRecipesWithConfig()
@@ -76,7 +76,8 @@ namespace VanillaPlus.Content.Items.Weapons
                 {
                     if (!Player.JustDroppedAnItem)
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.MaxMana, Player.position);
-                    PlayerInput.TryEndingFastUse();                }
+                    PlayerInput.TryEndingFastUse();
+                }
                 base.PostItemCheck();
             }
         }

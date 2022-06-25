@@ -6,16 +6,16 @@ using Terraria.ModLoader;
 
 namespace VanillaPlus.Common.Models.ModItems
 {
-    class SummonStaff : ModItem
+    class SummonStaff : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
+        public override bool ShouldLoad()
         {
             return false;
         }
 
         protected virtual int MinionBuff => 0;
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             // GFX
             Item.UseSound = SoundID.Item113;

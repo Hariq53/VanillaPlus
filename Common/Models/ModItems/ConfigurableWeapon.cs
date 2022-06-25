@@ -36,8 +36,6 @@ namespace VanillaPlus.Common.Models.ModItems
         /// this method gets called only if <c>Config</c> is not null
         /// </summary>
         /// <param name="config">See <see cref="Config" /></param>
-        protected virtual void SetConfigurableDefaults(WeaponConfig config)
-        {
-        }
+        protected virtual void SetConfigurableDefaults(WeaponConfig config) { }
     }
 }

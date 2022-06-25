@@ -5,23 +5,38 @@ Mods:
 		Config:
 		{
 			ServerSideConfig: Server-Side Config
-
-			ItemsHeader: Items
 			
+			SoftDisable: Soft Disable
+			HardDisable: Hard Disable
+			SoftDisableAll: "{$Mods.VanillaPlus.Config.SoftDisable} All"
+			HardDisableAll: "{$Mods.VanillaPlus.Config.HardDisable} All"
+			
+			ElementConfig:
+			{
+				Label: Settings
+
+				SoftDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisable}"
+				}
+
+				HardDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisable}"
+				}
+			}
+
 			GlobalConfig:
 			{
 				Label: Global Settings
 				Tooltip: All the changes you make here will apply to all subconfigs (changing these options will overwrite the subconfigs)
 			}
 
-			SoftDisable: Soft Disable
-			HardDisable: Hard Disable
-			SoftDisableAll: "{$Mods.VanillaPlus.Config.SoftDisable} All"
-			HardDisableAll: "{$Mods.VanillaPlus.Config.HardDisable} All"
+			ItemsHeader: Items
 
-			Items:
+			ItemConfig:
 			{
-				Label: Single items settings
+				Label: Item Settings
 
 				SoftDisable:
 				{
@@ -45,6 +60,36 @@ Mods:
 				{
 					Label: "{$Mods.VanillaPlus.Config.HardDisableAll}"
 					Tooltip: Removes the items completely, rendering them unusable in-game (use with caution)
+				}
+			}
+
+			WeaponConfig:
+			{
+				Label: Weapon Settings
+
+				Damage:
+				{
+					Label: Damage
+					Tooltip: NO LOC
+				}
+
+				UseTime:
+				{
+					Label: Use Time
+					Tooltip: NO LOC
+				}
+			}
+
+			Items:
+			{
+				Label: Single items settings
+				
+				Weapons:
+				{
+					Header: Weapons
+
+					EvilMaces: Evil Maces
+					EOCDrops: New {$NPCName.EyeofCthulhu} drops
 				}
 			}
 		}

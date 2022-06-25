@@ -11,10 +11,7 @@ namespace VanillaPlus.Content.Items.Weapons
 {
     class OlMansCurse : SummonStaff
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return true; //.SkeletronDropsToggle;
-        }
+        public override bool ShouldLoad() => true;
 
         protected override int MinionBuff => ModContent.BuffType<CursedSkullMinionBuff>();
 
@@ -23,9 +20,9 @@ namespace VanillaPlus.Content.Items.Weapons
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
-            base.SetDefaults();
+            base.SetRegularDefaults();
 
             // GFX
             Item.width = 38;

@@ -5,18 +5,17 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 using VanillaPlus.Content.Projectiles;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    public class Tear : ModItem
+    public class Tear : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return true; //.EOCDropsToggle;
-        }
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.Tear;
 
-        public override string Texture => false ? "VanillaPlus/Content/Items/Weapons/Tear_Alt" : base.Texture;
+        //public override string Texture => false ? "VanillaPlus/Content/Items/Weapons/Tear_Alt" : base.Texture;
 
         public override void SetStaticDefaults()
         {
@@ -26,12 +25,7 @@ namespace VanillaPlus.Content.Items.Weapons
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override bool? UseItem(Player player)
-        {
-            return base.UseItem(player);
-        }
-
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             // GFX
             Item.width = 34;

@@ -7,22 +7,21 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    class Dualies : ModItem
+    class Dualies : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return true; //.DualiesToggle;
-        }
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.Dualies;
 
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             // GFX
             Item.width = 58;
@@ -51,7 +50,12 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.value = Item.buyPrice(gold: 20);
         }
 
-        public override void AddRecipes()
+        protected override void SetConfigurableDefaults(WeaponConfig config)
+        {
+            Item.useAnimation = Item.useTime * 2;
+        }
+
+        protected override void AddRecipesWithConfig()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Revolver, 2)

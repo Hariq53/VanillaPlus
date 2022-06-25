@@ -12,6 +12,8 @@ namespace VanillaPlus.Content.Items.Weapons
 {
     public class RottenMace : ConfigurableWeapon
     {
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.RottenMace;
+
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -26,7 +28,7 @@ namespace VanillaPlus.Content.Items.Weapons
 
             // Animation
             Item.useTime = 45;
-            Item.useAnimation = Item.useTime / 2;
+            Item.useAnimation = 22;
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Swing;
 
@@ -41,7 +43,12 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 1, silver: 50);
             Item.rare = ItemRarityID.Green;
         }
-        
+
+        protected override void SetConfigurableDefaults(WeaponConfig config)
+        {
+            Item.useAnimation = Item.useTime / 2;
+        }
+
         protected override void AddRecipesWithConfig()
         {
             CreateRecipe()
@@ -51,7 +58,7 @@ namespace VanillaPlus.Content.Items.Weapons
                 .Register();
         }
 
-        internal static int SwingDust { get; set; } = DustID.CorruptGibs;
+        public static int SwingDust { get; set; } = DustID.CorruptGibs;
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {

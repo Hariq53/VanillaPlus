@@ -86,8 +86,6 @@ namespace VanillaPlus.Content.Items.Accessories
 
                 if (sheath)
                 {
-                    //Main.NewText($"sheathDash: {sheathDash}, sheathCooldown: {sheathCooldown}");
-
                     if (sheathCooldown > 0)
                     {
                         sheathCooldown--;

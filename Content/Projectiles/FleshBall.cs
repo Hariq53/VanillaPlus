@@ -35,8 +35,8 @@ namespace VanillaPlus.Content.Projectiles
             set => Projectile.ai[1] = value;
         }
 
-        public static int DustEffect { get; set; } = DustID.Blood;
-        public static int StickingLifeTime { get; set; } = 120; // How long the projectile should stick to an enemy
+        public static int DustEffect = DustID.Blood;
+        public static int StickingLifeTime = 120; // How long the projectile should stick to an enemy
 
         public override void AI()
         {
@@ -67,14 +67,11 @@ namespace VanillaPlus.Content.Projectiles
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.position);
-            for (int i = 0; i < 10; i++)
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustEffect,
-                             Projectile.velocity.X * 0.25f, Projectile.velocity.Y * 0.25f, 100);
             return base.OnTileCollide(oldVelocity);
         }
 
-        internal static float GravForce => 0.2f; // How fast the projectile will fall
-        internal static float RotationSpeed => 0.4f; // How fast the projectile will spin mid-air
+        public readonly static float GravForce = 0.2f; // How fast the projectile will fall
+        public readonly static float RotationSpeed = 0.4f; // How fast the projectile will spin mid-air
 
         private void RegularAI()
         {
@@ -85,22 +82,24 @@ namespace VanillaPlus.Content.Projectiles
         }
 
         internal static int HitFrequency { get; set; } = 30; // Every how many ticks the projectiles deals damage to the NPC it's sticking to
-        internal static int StickyDamage { get; set; } = 7;
-
-        static int Getter()
-        {
-            return ModContent.GetModItem(ModContent.ItemType<FleshMace>()).Item.damage / 4;
-        }
 
         private void StickyAI()
         {
             Projectile.Center = Main.npc[TargetIndex].Center - Projectile.velocity * 2f;
 
             if (Projectile.timeLeft % HitFrequency == 0)
-                Main.npc[TargetIndex].StrikeNPC(StickyDamage, 0, Projectile.direction);
+                Main.npc[TargetIndex].StrikeNPC(Projectile.damage / 4, 0, Projectile.direction);
 
             if (!(Main.npc[TargetIndex].active))
                 Projectile.Kill();
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustEffect,
+                             Projectile.velocity.X * 0.25f, Projectile.velocity.Y * 0.25f, 100);
+            base.Kill(timeLeft);
         }
     }
 }
