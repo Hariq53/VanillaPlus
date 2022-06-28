@@ -2,15 +2,14 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Config.GameplayTweaks;
+using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.GameplayTweaks.GlobalItems
 {
-    class FlyingDragon : GlobalItem
+    class FlyingDragonTweak : ConfigurableGlobalItem
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return true; //.FlyingDragonTweakToggle;
-        }
+        protected override TweakConfig? Config => VanillaPlus.ServerSideConfig?.GameplayTweaks.FlyingDragonTweak;
 
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {
@@ -20,6 +19,8 @@ namespace VanillaPlus.Common.GameplayTweaks.GlobalItems
         public override void SetDefaults(Item item)
         {
             item.damage = 200;
+            if (Config is FlyingDragonTweakConfig config)
+                item.damage = config.Damage;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +12,10 @@ namespace VanillaPlus.Common.Config.Items.Weapons.EOCDrops
     [Label("$Mods.VanillaPlus.ItemName.EyeballOnAStick")]
     public class EyeballOnAStickConfig : WeaponConfig
     {
-        protected override int DefaultDamage => 10;
+        [DefaultValue(10)]
+        public override int Damage { get => base.Damage; set => base.Damage = value; }
 
-        protected override int DefaultUseTime => 36;
+        [DefaultValue(36)]
+        public override int UseTime { get => base.UseTime; set => base.UseTime = value; }
     }
 }

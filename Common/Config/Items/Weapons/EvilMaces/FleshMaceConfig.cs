@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader.Config;
+﻿using System.ComponentModel;
+using Terraria.ModLoader.Config;
 using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.Config.Items.Weapons.EvilMaces
@@ -6,8 +7,10 @@ namespace VanillaPlus.Common.Config.Items.Weapons.EvilMaces
     [Label("$Mods.VanillaPlus.ItemName.FleshMace")]
     public class FleshMaceConfig : WeaponConfig
     {
-        protected override int DefaultDamage => 25;
+        [DefaultValue(25)]
+        public override int Damage { get => base.Damage; set => base.Damage = value; }
 
-        protected override int DefaultUseTime => 45;
+        [DefaultValue(45)]
+        public override int UseTime { get => base.UseTime; set => base.UseTime = value; }
     }
 }

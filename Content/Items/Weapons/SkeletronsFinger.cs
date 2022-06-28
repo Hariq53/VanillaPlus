@@ -7,52 +7,57 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    class SkeletronsFinger : ModItem
+    class SkeletronsFinger : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return true; //.SkeletronDropsToggle;
-        }
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.SkeletronsFinger;
 
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.shootSpeed = 15f;
-            Item.damage = 35;
+            // GFX
             Item.width = 20;
             Item.height = 34;
             Item.UseSound = SoundID.Item1;
-            Item.useAnimation = 15;
-            Item.useTime = 15;
             Item.noUseGraphic = true;
-            Item.noMelee = true;
-            Item.value = Item.buyPrice(0, 35);
+
+            // Animation
+            Item.useTime = Item.useAnimation = 15;
+            Item.useStyle = ItemUseStyleID.Swing;
+
+            // Weapon Specific
+            Item.damage = 35;
             Item.knockBack = 5f;
-            Item.DamageType = DamageClass.Melee;
-            Item.rare = ItemRarityID.Green;
             Item.shoot = ModContent.ProjectileType<SkeletronsFingerProjectile>();
+            Item.shootSpeed = 15f;
+            Item.DamageType = DamageClass.Melee;
+            Item.noMelee = true;
+
+            // Other
+            Item.value = Item.buyPrice(0, 35);
+            Item.rare = ItemRarityID.Green;
         }
 
-        Projectile projectile = new();
+        Projectile _activeProjectile = new();
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-
-            projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
+            _activeProjectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
             return false;
         }
 
         public override bool CanUseItem(Player player)
         {
-            return !projectile.active;
+            // The player is not allowed to use the item until the boomerang projectile disappears
+            return !_activeProjectile.active;
         }
     }
 
@@ -66,12 +71,6 @@ namespace VanillaPlus.Content.Items.Weapons
             Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = true;
-        }
-
-        public int BackToPlayerTimer
-        {
-            get => (int)Projectile.ai[0];
-            set => Projectile.ai[0] = value;
         }
 
         bool lookingForTarget = true;

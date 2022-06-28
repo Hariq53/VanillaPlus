@@ -7,7 +7,7 @@ using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.Models.ModItems
 {
-    public abstract class ConfigurableWeapon : ConfigurableItem
+    public abstract class ConfigurableWeapon : ConfigurableModItem
     {
         /// <summary>
         /// The config instance this weapon should pull data from

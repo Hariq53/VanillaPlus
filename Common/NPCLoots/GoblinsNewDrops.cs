@@ -3,15 +3,18 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Content.Items.Weapons;
 
 namespace VanillaPlus.Common.NPCLoots
 {
     internal class GoblinsNewDrops : GlobalNPC
     {
-        public override bool IsLoadingEnabled(Mod mod)
+        public override bool AppliesToEntity(NPC entity, bool lateInstantiation)
         {
-            return true; //.GoblinDropsToggle;
+            return entity.type == NPCID.GoblinWarrior ||
+                   entity.type == NPCID.GoblinThief ||
+                   entity.type == NPCID.GoblinPeon;
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
@@ -19,13 +22,16 @@ namespace VanillaPlus.Common.NPCLoots
             switch (npc.type)
             {
                 case NPCID.GoblinWarrior:
-                    npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<WarriorsMallet>(), 100, 40));
+                    if (VanillaPlus.ServerSideConfig?.Items.WarriorsMallet?.IsEnabled() ?? false)
+                        npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<WarriorsMallet>(), 100, 40));
                     break;
                 case NPCID.GoblinThief:
-                    npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<ThiefsDagger>(), 100, 40));
+                    if (VanillaPlus.ServerSideConfig?.Items.ThiefsDagger?.IsEnabled() ?? false)
+                        npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<ThiefsDagger>(), 100, 40));
                     break;
                 case NPCID.GoblinPeon:
-                    npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<GoblinsBlade>(), 100, 40));
+                    if (VanillaPlus.ServerSideConfig?.Items.GoblinsBlade?.IsEnabled() ?? false)
+                        npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<GoblinsBlade>(), 100, 40));
                     break;
             }
             base.ModifyNPCLoot(npc, npcLoot);

@@ -4,6 +4,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Content.Items.Weapons;
 
 namespace VanillaPlus.Common.NPCLoots
@@ -12,7 +13,7 @@ namespace VanillaPlus.Common.NPCLoots
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return true; //.ChristmasBarrageToggle;
+            return VanillaPlus.ServerSideConfig?.Items.ChristmasBarrage?.IsEnabled() ?? false;
         }
 
         public override bool AppliesToEntity(NPC entity, bool lateInstantiation)

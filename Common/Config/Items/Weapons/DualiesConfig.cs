@@ -10,8 +10,10 @@ namespace VanillaPlus.Common.Config.Items.Weapons
     [Label("$Mods.VanillaPlus.ItemName.Dualies")]
     public class DualiesConfig : WeaponConfig
     {
-        protected override int DefaultDamage => 15;
+        [DefaultValue(15)]
+        public override int Damage { get => base.Damage; set => base.Damage = value; }
 
-        protected override int DefaultUseTime => 11;
+        [DefaultValue(11)]
+        public override int UseTime { get => base.UseTime; set => base.UseTime = value; }
     }
 }

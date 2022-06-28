@@ -27,24 +27,28 @@ namespace VanillaPlus.Common.Models.ModProjectiles
                 RegularAI();
         }
 
-        protected int ExplosionDuration = 3;
-        protected int ExplosionDamage = -1;
-        protected SoundStyle ExplosionSound = SoundID.Item14;
-        protected Point ExplosionHitBoxDimensions = new(128, 128);
-        protected bool ExplodeOnNPCCollision = false;
-        protected bool ExplodeOnTileCollision = false;
+        protected virtual int ExplosionDuration => 3;
+
+        protected virtual int? ExplosionDamage => null;
+
+        protected virtual float ExplosionKnockback => 8f;
+
+        protected virtual SoundStyle ExplosionSound => SoundID.Item14;
+
+        protected virtual Point ExplosionHitBoxDimensions => new(128, 128);
+
+        protected virtual bool ExplodeOnNPCCollision => false;
+
+        protected virtual bool ExplodeOnTileCollision => false;
 
         public virtual void ExplosionAI()
         {
             if (Projectile.timeLeft == ExplosionDuration - 1)
                 ExplosionEffects();
-            ExplosionLogic();
+            ExplosionLogic(ExplosionDamage ?? Projectile.damage, ExplosionKnockback);
         }
 
-        public virtual void RegularAI()
-        {
-            Projectile.damage = 0;
-        }
+        public virtual void RegularAI() { }
 
         public virtual bool ShouldExplode()
         {
@@ -58,15 +62,14 @@ namespace VanillaPlus.Common.Models.ModProjectiles
             ProjectilesUtilities.ExplosionVisualEffect(Projectile);
         }
 
-        public virtual void ExplosionLogic()
+        public virtual void ExplosionLogic(int explosionDamage, float explosionKnockback)
         {
-            if (ExplosionDamage > 0)
-                Projectile.damage = ExplosionDamage;
+            Projectile.damage = explosionDamage;
             Projectile.velocity = Vector2.Zero;
             Projectile.tileCollide = false;
             Projectile.alpha = 255;
             Projectile.Resize(ExplosionHitBoxDimensions.X, ExplosionHitBoxDimensions.Y);
-            Projectile.knockBack = 8f;
+            Projectile.knockBack = explosionKnockback;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

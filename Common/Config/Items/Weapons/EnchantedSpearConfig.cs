@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader.Config;
+﻿using System.ComponentModel;
+using Terraria.ModLoader.Config;
 using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.Config.Items.Weapons
@@ -6,8 +7,10 @@ namespace VanillaPlus.Common.Config.Items.Weapons
     [Label("$Mods.VanillaPlus.ItemName.EnchantedSpear")]
     public class EnchantedSpearConfig : WeaponConfig
     {
-        protected override int DefaultDamage => 20;
+        [DefaultValue(20)]
+        public override int Damage { get => base.Damage; set => base.Damage = value; }
 
-        protected override int DefaultUseTime => 31;
+        [DefaultValue(31)]
+        public override int UseTime { get => base.UseTime; set => base.UseTime = value; }
     }
 }

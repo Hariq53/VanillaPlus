@@ -6,11 +6,31 @@ Mods:
 		{
 			ServerSideConfig: Impostazione lato Server
 			
+			Disable: Disabilita
+			DisableAll: "{$Mods.VanillaPlus.Config.Disable} Tutti"
 			SoftDisable: Disabilita
 			HardDisable: Rimuovi
 			SoftDisableAll: "{$Mods.VanillaPlus.Config.SoftDisable} Tutti"
 			HardDisableAll: "{$Mods.VanillaPlus.Config.HardDisable} Tutti"
 			
+			Damage:
+			{
+				Label: Danno
+				Tooltip: Inserisci il danno BASE che l'oggetto dovrebbe avere
+			}
+
+			UseTime:
+			{
+				Label: Velocità
+				Tooltip: Inserisci la velocità che l'oggetto dovrebbe avere
+			}
+
+			LifeTime:
+			{
+				Label: Tempo di vita
+				Tooltip: Inserisci il numero di tick (60 tick = 1 secondo) di vita prima del despawn
+			}
+
 			ElementConfig:
 			{
 				Label: Impostazioni
@@ -24,6 +44,11 @@ Mods:
 				{
 					Label: "{$Mods.VanillaPlus.Config.HardDisable}"
 				}
+			}
+			
+			TweakConfig:
+			{
+				Label: Impostazioni
 			}
 
 			GlobalConfig:
@@ -61,21 +86,36 @@ Mods:
 			
 			WeaponConfig:
 			{
-				Damage:
+			}
+			
+			TileConfig:
+			{
+				Label: Tile Settings
+
+				SoftDisable:
 				{
-					Label: Danno
-					Tooltip: NO LOC
+					Tooltip: Rimuove ricette, drop, ecc. ma permette di continuare ad usare il blocco se è stato già ottenuto in precedenza (CONSIGLIATO)
 				}
 
-				UseTime:
+				HardDisable:
 				{
-					Label: Velocità
-					Tooltip: NO LOC
+					Tooltip: Rimuove il blocco completamente, rendendolo inutilizzabile in tutti i mondi in cui è stato piazzato (usare con cautela)
+				}
+
+				SoftDisableAll:
+				{
+					Tooltip: Rimuove ricette, drop, ecc. ma permette di continuare ad usare i blocchi se sono stati già ottenuti in precedenza (CONSIGLIATO)
+				}
+
+				HardDisableAll:
+				{
+					Tooltip: Rimuove tutti i blocchi completamente, rendendoli inutilizzabili in tutti i mondi in cui sono stati piazzati (usare con cautela)
 				}
 			}
 
 			Items:
 			{
+				Header: Oggetti
 				Label: Impostazioni di tutti gli oggetti
 
 				Weapons:
@@ -84,6 +124,49 @@ Mods:
 
 					EvilMaces: Mazze Corrotte
 					EOCDrops: Nuovi oggetti dell'{$NPCName.EyeofCthulhu}
+					GoblinsDrops: Nuovi oggetti dell'{$Bestiary_Invasions.Goblins}
+					SkeletronDrops: Nuovi oggetti di {$NPCName.SkeletronHead}
+				}
+
+				Accessories:
+				{
+					Header: Accessori
+				}
+			}
+
+			Tiles:
+			{
+				Header: Blocchi
+				Label: Impostazioni di tutti i blocchi
+			}
+
+			GameplayTweaks:
+			{
+				Header: Modifiche al gameplay
+				Label: Impostazioni di tutte le modifiche
+				
+				FlyingDragonTweak:
+				{
+					Label: Buff al danno del {$ItemName.DD2SquireBetsySword}
+					Tooltip: Questa modifica cambia il danno del {$ItemName.DD2SquireBetsySword} (danno base: 180, danno consigliato: 200)
+				}
+
+				GladiusTweak:
+				{
+					Label: Aggiustamento all'animazione del {$ItemName.Gladius}
+					Tooltip: Questa modifica cambia l'animazione del {$ItemName.Gladius}, rendendo il pattern d'attacco simile alla {$ItemName.PiercingStarlight}
+				}
+
+				TerraBladeTweak:
+				{
+					Label: Nerf al proiettile della {$ItemName.TerraBlade}
+					Tooltip: Questa modifica cambia il tempo di vita del proiettile della {$ItemName.TerraBlade} (valore consigliato: 65 tick, circa un secondo)
+				}
+
+				InfluxWaverTweak:
+				{
+					Label: Nerf al proiettile dello {$ItemName.InfluxWaver}
+					Tooltip: Questa modifica cambia il tempo di vita del proiettile della {$ItemName.InfluxWaver} (valore consigliato: 70 tick, circa un secondo)
 				}
 			}
 		}

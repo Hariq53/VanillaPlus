@@ -7,7 +7,7 @@ using Terraria.ModLoader.Config;
 namespace VanillaPlus.Common.Models.Config
 {
     [Label("$Mods.VanillaPlus.Config.ItemConfig.Label")]
-    public class ItemConfig : ElementConfig
+    public class ItemConfig : SHConfig
     {
         [Label("$Mods.VanillaPlus.Config.ItemConfig.SoftDisable.Label")]
         [Tooltip("$Mods.VanillaPlus.Config.ItemConfig.SoftDisable.Tooltip")]
@@ -17,10 +17,6 @@ namespace VanillaPlus.Common.Models.Config
         [Label("$Mods.VanillaPlus.Config.ItemConfig.HardDisable.Label")]
         [Tooltip("$Mods.VanillaPlus.Config.ItemConfig.HardDisable.Tooltip")]
         public override bool IsHardDisabled { get => base.IsHardDisabled; set => base.IsHardDisabled = value; }
-
-        public override bool Equals(object? obj) => base.Equals(obj);
-
-        public override int GetHashCode() => base.GetHashCode();
 
         public ItemConfig()
             : base()

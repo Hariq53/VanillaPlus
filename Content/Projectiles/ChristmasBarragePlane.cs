@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
@@ -19,6 +20,12 @@ namespace VanillaPlus.Content.Projectiles
             Main.projFrames[Projectile.type] = 4;
         }
 
+        protected override bool ExplodeOnNPCCollision => true;
+
+        protected override bool ExplodeOnTileCollision => true;
+
+        protected override Point ExplosionHitBoxDimensions => new(100, 100);
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -33,13 +40,13 @@ namespace VanillaPlus.Content.Projectiles
 
             // AI
             Projectile.timeLeft = 120;
-
-            ExplodeOnTileCollision = true;
-            ExplodeOnNPCCollision = true;
-            ExplosionHitBoxDimensions = new(100, 100);
         }
 
-        int currentFrame = 0;
+        int CurrentFrame
+        {
+            get => (int)Projectile.ai[0];
+            set => Projectile.ai[0] = value;
+        }
 
         public override bool PreAI()
         {
@@ -48,13 +55,13 @@ namespace VanillaPlus.Content.Projectiles
                 if (++Projectile.frameCounter >= 5)
                 {
                     Projectile.frameCounter = 0;
-                    currentFrame += 2;
-                    if (currentFrame >= Main.projFrames[Projectile.type])
-                        currentFrame = 0;
+                    CurrentFrame += 2;
+                    if (CurrentFrame >= Main.projFrames[Projectile.type])
+                        CurrentFrame = 0;
                 }
                 if (Projectile.timeLeft % 40 == 0)
                 {
-                    currentFrame++;
+                    CurrentFrame++;
 
                     IEntitySource source = Projectile.GetSource_FromThis();
                     if (Projectile.owner == Main.myPlayer)
@@ -71,17 +78,17 @@ namespace VanillaPlus.Content.Projectiles
             ProjectilesUtilities.FaceForwardHorizontalSprite(Projectile);
             if (Projectile.spriteDirection == 1)
             {
-                this.DrawOffsetX = -32;
-                this.DrawOriginOffsetX = 16;
-                this.DrawOriginOffsetY = 0;
+                DrawOffsetX = -32;
+                DrawOriginOffsetX = 16;
+                DrawOriginOffsetY = 0;
             }
             else
             {
-                this.DrawOffsetX = 0;
-                this.DrawOriginOffsetX = -16;
-                this.DrawOriginOffsetY = 0;
+                DrawOffsetX = 0;
+                DrawOriginOffsetX = -16;
+                DrawOriginOffsetY = 0;
             }
-            Projectile.frame = currentFrame;
+            Projectile.frame = CurrentFrame;
         }
     }
 }

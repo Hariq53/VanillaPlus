@@ -10,44 +10,27 @@ namespace VanillaPlus.Common.Models.Config
 {
     public class WeaponConfig : ItemConfig
     {
-        private const int DEFAULT_DAMAGE = 0;
-
-        private int _damage = DEFAULT_DAMAGE;
-
-        protected virtual int DefaultDamage => 1;
 
         [Label("$Mods.VanillaPlus.Config.WeaponConfig.Damage.Label")]
         [Tooltip("$Mods.VanillaPlus.Config.WeaponConfig.Damage.Tooltip")]
+        [Range(0, int.MaxValue)]
+        [DefaultValue(1)]
         [ReloadRequired]
         public virtual int Damage
         {
-            get
-            {
-                if (_damage == DEFAULT_DAMAGE)
-                    _damage = DefaultDamage;
-                return _damage;
-            }
-            set => _damage = value;
+            get;
+            set;
         }
-
-        private const int DEFAULT_USETIME = 0;
-
-        private int _useTime = DEFAULT_USETIME;
-
-        protected virtual int DefaultUseTime => 1;
 
         [Label("$Mods.VanillaPlus.Config.WeaponConfig.UseTime.Label")]
         [Tooltip("$Mods.VanillaPlus.Config.WeaponConfig.UseTime.Tooltip")]
+        [Range(0, int.MaxValue)]
+        [DefaultValue(1)]
         [ReloadRequired]
         public virtual int UseTime
         {
-            get
-            {
-                if (_useTime == DEFAULT_USETIME)
-                    _useTime = DefaultUseTime;
-                return _useTime;
-            }
-            set => _useTime = value;
+            get;
+            set;
         }
 
         public override bool Equals(object? obj)

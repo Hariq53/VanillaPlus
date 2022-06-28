@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +12,10 @@ namespace VanillaPlus.Common.Config.Items.Weapons.EOCDrops
     [Label("$Mods.VanillaPlus.ItemName.Tear")]
     public class TearConfig : WeaponConfig
     {
-        protected override int DefaultDamage => 9;
+        [DefaultValue(9)]
+        public override int Damage { get => base.Damage; set => base.Damage = value; }
 
-        protected override int DefaultUseTime => 25;
+        [DefaultValue(25)]
+        public override int UseTime { get => base.UseTime; set => base.UseTime = value; }
     }
 }

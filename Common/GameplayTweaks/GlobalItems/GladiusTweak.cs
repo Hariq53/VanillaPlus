@@ -2,15 +2,13 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.GameplayTweaks.GlobalItems
 {
-    class Gladius : GlobalItem
+    class GladiusTweak : ConfigurableGlobalItem
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return true; //.GladiusTweakToggle;
-        }
+        protected override TweakConfig? Config => VanillaPlus.ServerSideConfig?.GameplayTweaks.GladiusTweak;
 
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {

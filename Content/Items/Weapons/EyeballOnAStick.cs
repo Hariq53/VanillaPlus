@@ -14,7 +14,7 @@ namespace VanillaPlus.Content.Items.Weapons
     {
         protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.EyeballOnAStick;
 
-        protected override int MinionBuff => ModContent.BuffType<MiniServantMinion>();
+        protected override int MinionBuffType => ModContent.BuffType<MiniServantMinion>();
 
         public override void SetStaticDefaults()
         {

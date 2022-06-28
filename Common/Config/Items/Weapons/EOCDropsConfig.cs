@@ -49,6 +49,13 @@ namespace VanillaPlus.Common.Config.Items.Weapons
         }
         TearConfig? _tear;
 
+        public TheOcularMenaceConfig? TheOcularMenace
+        {
+            get => _theOcularMenace;
+            set => ElementConfigSetter(ref _theOcularMenace, value);
+        }
+        TheOcularMenaceConfig? _theOcularMenace;
+
         public override bool Equals(object? obj)
         {
             if (obj is EOCDropsConfig other)
@@ -60,6 +67,9 @@ namespace VanillaPlus.Common.Config.Items.Weapons
                     return false;
 
                 if (!Equals(Tear, other.Tear))
+                    return false;
+
+                if (!Equals(TheOcularMenace, other.TheOcularMenace))
                     return false;
 
                 return true;

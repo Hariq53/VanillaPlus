@@ -6,11 +6,30 @@ Mods:
 		{
 			ServerSideConfig: Server-Side Config
 			
+			Disable: Disable
 			SoftDisable: Soft Disable
 			HardDisable: Hard Disable
 			SoftDisableAll: "{$Mods.VanillaPlus.Config.SoftDisable} All"
 			HardDisableAll: "{$Mods.VanillaPlus.Config.HardDisable} All"
 			
+			Damage:
+			{
+				Label: Damage
+				Tooltip: Define the BASE damage the item should have
+			}
+
+			UseTime:
+			{
+				Label: Use Time
+				Tooltip: Define the use time the item should have
+			}
+
+			LifeTime:
+			{
+				Label: Life time
+				Tooltip: Define the amount of ticks (60 ticks = 1 second) before despawning
+			}
+
 			ElementConfig:
 			{
 				Label: Settings
@@ -26,13 +45,26 @@ Mods:
 				}
 			}
 
+			TweakConfig:
+			{
+				Label: Settings
+
+				Disable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.Disable}"
+				}
+
+				DisableAll:
+				{
+					Label: "{$Mods.VanillaPlus.Config.DisableAll}"
+				}
+			}
+
 			GlobalConfig:
 			{
 				Label: Global Settings
 				Tooltip: All the changes you make here will apply to all subconfigs (changing these options will overwrite the subconfigs)
 			}
-
-			ItemsHeader: Items
 
 			ItemConfig:
 			{
@@ -69,20 +101,50 @@ Mods:
 
 				Damage:
 				{
-					Label: Damage
-					Tooltip: NO LOC
+					Label: "{$Mods.VanillaPlus.Config.Damage.Label}"
+					Tooltip: "{$Mods.VanillaPlus.Config.Damage.Tooltip}"
 				}
 
 				UseTime:
 				{
-					Label: Use Time
-					Tooltip: NO LOC
+					Label: "{$Mods.VanillaPlus.Config.UseTime.Label}"
+					Tooltip: "{$Mods.VanillaPlus.Config.UseTime.Tooltip}"
+				}
+			}
+
+			TileConfig:
+			{
+				Label: Tile Settings
+
+				SoftDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisable}"
+					Tooltip: Removes crafting recipes, drops, etc. but keeps the tile loaded in all worlds (RECOMMENDED)
+				}
+
+				HardDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisable}"
+					Tooltip: Removes the tile completely, rendering it unusable in all the worlds it was placed it (use with caution)
+				}
+
+				SoftDisableAll:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisableAll}"
+					Tooltip: Removes crafting recipes, drops, etc. but keeps the tiles loaded in all worlds (RECOMMENDED)
+				}
+
+				HardDisableAll:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisableAll}"
+					Tooltip: Removes the tiles completely, rendering them unusable in all the worlds they were placed it (use with caution)
 				}
 			}
 
 			Items:
 			{
-				Label: Single items settings
+				Header: Items
+				Label: All items settings
 				
 				Weapons:
 				{
@@ -90,6 +152,64 @@ Mods:
 
 					EvilMaces: Evil Maces
 					EOCDrops: New {$NPCName.EyeofCthulhu} drops
+					GoblinsDrops: New {$Bestiary_Invasions.Goblins} drops
+					SkeletronDrops: New {$NPCName.SkeletronHead} Drops
+				}
+
+				Accessories:
+				{
+					Header: Accessories
+				}
+			}
+
+			Tiles:
+			{
+				Header: Tiles
+				Label: All tiles settings
+			}
+
+			GameplayTweaks:
+			{
+				Header: Gameplay Tweaks
+				Label: All tweaks settings
+				
+				FlyingDragonTweak:
+				{
+					Label: "{$ItemName.DD2SquireBetsySword} damage buff"
+					Tooltip: This tweak changes the {$ItemName.DD2SquireBetsySword} damage (base damage: 180, recommended damage: 200)
+					Damage:
+					{
+						Label: "{$Mods.VanillaPlus.Config.Damage.Label}"
+						Tooltip: "{$Mods.VanillaPlus.Config.Damage.Tooltip}"
+					}
+				}
+
+				GladiusTweak:
+				{
+					Label: "{$ItemName.Gladius} animation change"
+					Tooltip: This tweak changes the {$ItemName.Gladius} animation, giving it the same attack pattern as the {$ItemName.PiercingStarlight}
+				}
+
+				TerraBladeTweak:
+				{
+					Label: "{$ItemName.TerraBlade} projectile nerf"
+					Tooltip: This tweak changes the {$ItemName.TerraBlade}'s projectile lifetime (recommended value: 65 ticks, approx. one second)
+					LifeTime:
+					{
+						Label: "{$Mods.VanillaPlus.Config.LifeTime.Label}"
+						Tooltip: "{$Mods.VanillaPlus.Config.LifeTime.Tooltip}"
+					}
+				}
+
+				InfluxWaverTweak:
+				{
+					Label: "{$ItemName.InfluxWaver} projectile nerf"
+					Tooltip: This tweak changes the {$ItemName.InfluxWaver}'s projectile lifetime (recommended value: 70 ticks, approx. one second)
+					LifeTime:
+					{
+						Label: "{$Mods.VanillaPlus.Config.LifeTime.Label}"
+						Tooltip: "{$Mods.VanillaPlus.Config.LifeTime.Tooltip}"
+					}
 				}
 			}
 		}

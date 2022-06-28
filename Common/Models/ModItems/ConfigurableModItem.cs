@@ -7,7 +7,7 @@ using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.Models.ModItems
 {
-    public abstract class ConfigurableItem : ModItem
+    public abstract class ConfigurableModItem : ModItem
     {
         /// <summary>
         /// The config instance this item should pull data from

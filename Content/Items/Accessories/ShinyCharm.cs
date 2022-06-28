@@ -9,8 +9,10 @@ using VanillaPlus.Common.Models.ModItems;
 namespace VanillaPlus.Content.Items.Accessories
 {
     [AutoloadEquip(EquipType.HandsOn)]
-    class ShinyCharm : ConfigurableItem
+    class ShinyCharm : ConfigurableModItem
     {
+        protected override ItemConfig? Config => VanillaPlus.ServerSideConfig?.Items.ShinyCharm;
+
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -21,13 +23,9 @@ namespace VanillaPlus.Content.Items.Accessories
             Item.width = 28;
             Item.height = 22;
             Item.accessory = true;
-            Item.lifeRegen = 4;
+            Item.lifeRegen = 8;
             Item.rare = ItemRarityID.Expert;
             Item.value = Item.sellPrice(gold: 6);
-        }
-
-        protected override void SetConfigurableDefaults(ItemConfig config)
-        {
         }
 
         protected override void AddRecipesWithConfig()

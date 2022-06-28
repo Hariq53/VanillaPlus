@@ -16,6 +16,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
+using VanillaPlus.Common.Config.GameplayTweaks;
 using VanillaPlus.Common.Config.Global;
 using VanillaPlus.Common.Models.Config;
 
@@ -35,9 +36,15 @@ namespace VanillaPlus.Common.Config
 
         public override bool NeedsReload(ModConfig pendingConfig)
         {
-            VanillaPlusServerConfig newConfig = (pendingConfig as VanillaPlusServerConfig)!;
+            VanillaPlusServerConfig other = (pendingConfig as VanillaPlusServerConfig)!;
 
-            if (!Equals(Items, newConfig.Items))
+            if (!Equals(Items, other.Items))
+                return true;
+
+            if (!Equals(Tiles, other.Tiles))
+                return true;
+
+            if (!Equals(GameplayTweaks, other.GameplayTweaks))
                 return true;
 
             return base.NeedsReload(pendingConfig);
@@ -45,7 +52,7 @@ namespace VanillaPlus.Common.Config
 
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [Header("$Mods.VanillaPlus.Config.ItemsHeader")]
+        [Header("$Mods.VanillaPlus.Config.Items.Header")]
 
         [Label("$Mods.VanillaPlus.Config.GlobalConfig.Label")]
         [Tooltip("$Mods.VanillaPlus.Config.GlobalConfig.Tooltip")]
@@ -54,8 +61,7 @@ namespace VanillaPlus.Common.Config
         {
             get
             {
-                foreach (Func<ItemConfig?> getItem in Items.AllSubs)
-                    AssignSuperConfig(_globalItems, getItem());
+                AssignSuperConfig(_globalItems, Items.AllItems);
                 return _globalItems;
             }
 
@@ -69,18 +75,63 @@ namespace VanillaPlus.Common.Config
             set;
         } = new();
 
-		static void AssignSuperConfig(ItemConfig? superConfig, IEnumerable<ItemConfig?> subConfigs)
+        [Header("$Mods.VanillaPlus.Config.Tiles.Header")]
+
+        [Label("$Mods.VanillaPlus.Config.GlobalConfig.Label")]
+        [Tooltip("$Mods.VanillaPlus.Config.GlobalConfig.Tooltip")]
+        [ReloadRequired]
+        public GlobalTilesConfig GlobalTiles
         {
-            foreach (ItemConfig? itemConfig in subConfigs)
-                if (itemConfig is not null)
-                    itemConfig.SuperConfig ??= superConfig;
+            get
+            {
+                AssignSuperConfig(_globalTiles, Tiles.AllTiles);
+                return _globalTiles;
+            }
+
+            set => _globalTiles = value;
+        }
+        GlobalTilesConfig _globalTiles = new();
+
+        public TilesConfig Tiles
+        {
+            get;
+            set;
+        } = new();
+
+        [Header("$Mods.VanillaPlus.Config.GameplayTweaks.Header")]
+
+        [Label("$Mods.VanillaPlus.Config.GlobalConfig.Label")]
+        [Tooltip("$Mods.VanillaPlus.Config.GlobalConfig.Tooltip")]
+        public GlobalGameplayTweaksConfig GlobalGameplayTweak
+        {
+            get
+            {
+                AssignSuperConfig(_globalGameplayTweak, GameplayTweaks.AllTweaks);
+                return _globalGameplayTweak;
+            }
+
+            set => _globalGameplayTweak = value;
+        }
+        GlobalGameplayTweaksConfig _globalGameplayTweak = new();
+
+        public GameplayTweaksConfig GameplayTweaks
+        {
+            get;
+            set;
+        } = new();
+
+        static void AssignSuperConfig(ElementConfig? superConfig, IEnumerable<ElementConfig?> subConfigs)
+        {
+            foreach (ElementConfig? config in subConfigs)
+                if (config is not null)
+                    config.SuperConfig ??= superConfig;
         }
 
-        static void AssignSuperConfig(ItemConfig? superConfig, params ItemConfig?[] subConfigs)
+        static void AssignSuperConfig(ElementConfig? superConfig, params ElementConfig?[] subConfigs)
         {
             if (subConfigs.Length == 1)
             {
-                ItemConfig? subConfig = subConfigs[0];
+                ElementConfig? subConfig = subConfigs[0];
                 if (subConfig is not null)
                     subConfig.SuperConfig ??= superConfig;
             }

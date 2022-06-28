@@ -8,12 +8,11 @@ namespace VanillaPlus.Common.Models.ModItems
 {
     class SummonStaff : ConfigurableWeapon
     {
-        public override bool ShouldLoad()
-        {
-            return false;
-        }
+        public override bool ShouldLoad() => false;
 
-        protected virtual int MinionBuff => 0;
+        protected virtual int MinionBuffType => 0;
+
+        protected virtual int MinionProjectileType => 0;
 
         protected override void SetRegularDefaults()
         {
@@ -26,9 +25,10 @@ namespace VanillaPlus.Common.Models.ModItems
 
             // Weapon Specific
             Item.DamageType = DamageClass.Summon;
+            Item.shoot = MinionProjectileType;
 
             // Other
-            Item.buffType = MinionBuff;
+            Item.buffType = MinionBuffType;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

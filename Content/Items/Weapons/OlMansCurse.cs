@@ -3,6 +3,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Common.Models.ModItems;
 using VanillaPlus.Content.Buffs;
 using VanillaPlus.Content.Projectiles.Minions;
@@ -11,9 +12,11 @@ namespace VanillaPlus.Content.Items.Weapons
 {
     class OlMansCurse : SummonStaff
     {
-        public override bool ShouldLoad() => true;
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.OlMansCurse;
 
-        protected override int MinionBuff => ModContent.BuffType<CursedSkullMinionBuff>();
+        protected override int MinionBuffType => ModContent.BuffType<CursedSkullMinionBuff>();
+
+        protected override int MinionProjectileType => ModContent.ProjectileType<CursedSkullMinion>();
 
         public override void SetStaticDefaults()
         {
@@ -29,13 +32,11 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.height = 38;
 
             // Animation
-            Item.useAnimation = 36;
-            Item.useTime = 36;
+            Item.useAnimation = Item.useTime = 36;
 
             // Weapon Specific
             Item.damage = 22;
             Item.knockBack = 8f;
-            Item.shoot = ModContent.ProjectileType<CursedSkullMinion>();
             Item.mana = 14;
 
             // Other

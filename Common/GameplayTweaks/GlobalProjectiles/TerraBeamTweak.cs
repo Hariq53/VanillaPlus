@@ -2,15 +2,15 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Config.GameplayTweaks;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.GlobalProjectiles;
 
 namespace VanillaPlus.Common.GameplayTweaks.GlobalProjectiles
 {
-    class TerraBeam : GlobalProjectile
+    class TerraBeamTweak : ConfigurableGlobalProjectile
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return true; //.TerraBeamTweakToggle;
-        }
+        protected override TweakConfig? Config => VanillaPlus.ServerSideConfig?.GameplayTweaks.TerraBladeTweak;
 
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
         {
@@ -20,6 +20,8 @@ namespace VanillaPlus.Common.GameplayTweaks.GlobalProjectiles
         public override void SetDefaults(Projectile projectile)
         {
             projectile.timeLeft = 65;
+            if (Config is TerraBladeTweakConfig config)
+                projectile.timeLeft = config.LifeTime;
         }
     }
 }

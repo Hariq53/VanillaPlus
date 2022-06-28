@@ -3,23 +3,21 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    public class WarriorsMallet : ModItem
+    public class WarriorsMallet : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return true; //.GoblinDropsToggle;
-        }
-
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.WarriorsMallet;
 
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             // GFX
             Item.width = 32;
@@ -27,8 +25,7 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.UseSound = SoundID.Item1;
 
             // Animation
-            Item.useTime = 33;
-            Item.useAnimation = 33;
+            Item.useTime = Item.useAnimation = 33;
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Swing;
 

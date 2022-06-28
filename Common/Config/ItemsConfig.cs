@@ -17,6 +17,7 @@ using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
 using VanillaPlus.Common.Config.Global;
 using VanillaPlus.Common.Config.Items;
+using VanillaPlus.Common.Config.Items.Accessories;
 using VanillaPlus.Common.Config.Items.Weapons;
 using VanillaPlus.Common.Config.Items.Weapons.EOCDrops;
 using VanillaPlus.Common.Config.Items.Weapons.EvilMaces;
@@ -41,7 +42,7 @@ namespace VanillaPlus.Common.Config
      *  
      * 2. Update the Equals method (to force reload every time the config of the item is changed)
      *  
-     * 3. Add the Item to AllSubs
+     * 3. Add the Item to AllItems
      *  
      * 4. Change the class of the actual ModItem to ConfigurableItem (or ConfigurableWeapon, etc.)
      *    and override the Config to set it to the instance of ItemConfig you just created, then
@@ -53,17 +54,31 @@ namespace VanillaPlus.Common.Config
     public class ItemsConfig
     {
         [JsonIgnore]
-        public Func<ItemConfig?>[] AllSubs => new Func<ItemConfig?>[]
+        public IEnumerable<ItemConfig?> AllItems
         {
-            () => Dualies,
-            () => FleshMace,
-            () => RottenMace,
-            () => EnchantedSpear,
-            () => ChristmasBarrage,
-            () => EyeballOnAStick,
-            () => FangOfCthulhu,
-            () => Tear
-        };
+            get
+            {
+                return new ItemConfig?[]
+                {
+                    Dualies,
+                    FleshMace,
+                    RottenMace,
+                    EnchantedSpear,
+                    ChristmasBarrage,
+                    EyeballOnAStick,
+                    FangOfCthulhu,
+                    Tear,
+                    TheOcularMenace,
+                    GoblinsBlade,
+                    ThiefsDagger,
+                    WarriorsMallet,
+                    SkullOfBoom,
+                    SkeletronsFinger,
+                    OlMansCurse,
+                    ShinyCharm
+                };
+            }
+        }
 
         [Header("$Mods.VanillaPlus.Config.Items.Weapons.Header")]
         
@@ -100,12 +115,35 @@ namespace VanillaPlus.Common.Config
             set;
         } = new();
 
+        public GoblinsDropsConfig? GoblinsDrops
+        {
+            get;
+            set;
+        } = new();
+
+        public SkeletronDropsConfig? SkeletronDrops
+        {
+            get;
+            set;
+        } = new();
+
+        [Header("$Mods.VanillaPlus.Config.Items.Accessories.Header")]
+        public ShinyCharmConfig? ShinyCharm
+        {
+            get => _shinyCharm;
+            set => ElementConfigSetter(ref _shinyCharm, value);
+        }
+        ShinyCharmConfig? _shinyCharm;
+
+        // Evil Maces
         [JsonIgnore]
         public FleshMaceConfig? FleshMace => EvilMaces?.FleshMace;
 
         [JsonIgnore]
         public RottenMaceConfig? RottenMace => EvilMaces?.RottenMace;
 
+
+        // EOC Drops
         [JsonIgnore]
         public EyeballOnAStickConfig? EyeballOnAStick => EOCDrops?.EyeballOnAStick;
 
@@ -114,6 +152,29 @@ namespace VanillaPlus.Common.Config
 
         [JsonIgnore]
         public TearConfig? Tear => EOCDrops?.Tear;
+
+        [JsonIgnore]
+        public TheOcularMenaceConfig? TheOcularMenace => EOCDrops?.TheOcularMenace;
+
+        // Goblins Drops
+        [JsonIgnore]
+        public GoblinsBladeConfig? GoblinsBlade => GoblinsDrops?.GoblinsBlade;
+
+        [JsonIgnore]
+        public ThiefsDaggerConfig? ThiefsDagger => GoblinsDrops?.ThiefsDagger;
+
+        [JsonIgnore]
+        public WarriorsMalletConfig? WarriorsMallet => GoblinsDrops?.WarriorsMallet;
+
+        // Skeletron Drops
+        [JsonIgnore]
+        public SkullOfBoomConfig? SkullOfBoom => SkeletronDrops?.SkullOfBoom;
+
+        [JsonIgnore]
+        public SkeletronsFingerConfig? SkeletronsFinger => SkeletronDrops?.SkeletronsFinger;
+
+        [JsonIgnore]
+        public OlMansCurseConfig? OlMansCurse => SkeletronDrops?.OlMansCurse;
 
         public override bool Equals(object? obj)
         {
@@ -132,6 +193,15 @@ namespace VanillaPlus.Common.Config
                     return false;
 
                 if (!Equals(EOCDrops, other.EOCDrops))
+                    return false;
+
+                if (!Equals(GoblinsDrops, other.GoblinsDrops))
+                    return false;
+
+                if (!Equals(SkeletronDrops, other.SkeletronDrops))
+                    return false;
+
+                if (!Equals(ShinyCharm, other.ShinyCharm))
                     return false;
 
                 return true;

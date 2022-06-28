@@ -5,11 +5,21 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 
 namespace VanillaPlus.Content.Tiles
 {
     class LifeFruitLanternTile : ModTile
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            TileConfig? config = VanillaPlus.ServerSideConfig?.Tiles.LifeFruitLantern;
+            if (config is not null && config.IsHardDisabled)
+                return false;
+            return base.IsLoadingEnabled(mod);
+        }
+
         public override void SetStaticDefaults()
         {
             Main.tileLighted[Type] = true;
@@ -56,14 +66,12 @@ namespace VanillaPlus.Content.Tiles
         }
     }
 
-    class LifeFruitLantern : ModItem
+    class LifeFruitLantern : ConfigurableModItem
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return true; //.LifeFruitLanternToggle;
-        }
+        // Extract item info from the TileConfig by using the user-defined conversion operator
+        protected override ItemConfig? Config => (ItemConfig?)VanillaPlus.ServerSideConfig?.Tiles.LifeFruitLantern;
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTurn = true;
@@ -80,7 +88,7 @@ namespace VanillaPlus.Content.Tiles
             Item.rare = ItemRarityID.Green;
         }
 
-        public override void AddRecipes()
+        protected override void AddRecipesWithConfig()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.LifeFruit)
@@ -93,9 +101,9 @@ namespace VanillaPlus.Content.Tiles
     {
         public bool lantern = false;
 
+        //Runs just before UpdateLifeRegen
         public override void PostUpdateMiscEffects()
         {
-            //Runs just before UpdateLifeRegen
             if (lantern)
                 Player.AddBuff(ModContent.BuffType<Buffs.LifeFruitLamp>(), 2, false);
         }
