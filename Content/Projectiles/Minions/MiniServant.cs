@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
@@ -15,7 +16,7 @@ namespace VanillaPlus.Content.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Main.projFrames[Projectile.type] = 2;
+            Main.projFrames[Type] = 6;
         }
 
         protected override int MinionBuff => ModContent.BuffType<MiniServantMinion>();
@@ -28,8 +29,7 @@ namespace VanillaPlus.Content.Projectiles.Minions
             Projectile.frame = 0;
 
             // Hitbox and collision
-            Projectile.width = 30;
-            Projectile.height = 20;
+            Projectile.width = Projectile.height = 18;
             Projectile.tileCollide = true;
             Projectile.shouldFallThrough = true;
             Projectile.ignoreWater = true;
@@ -102,6 +102,9 @@ namespace VanillaPlus.Content.Projectiles.Minions
                 berserk = true;
             else
                 berserk = false;
+
+            if (Main.myPlayer == Projectile.owner)
+                Projectile.netUpdate = true;
         }
 
         protected override void SearchForTargets(Player owner, out bool foundTarget, out NPC target)
@@ -161,16 +164,21 @@ namespace VanillaPlus.Content.Projectiles.Minions
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (Projectile.velocity.X != oldVelocity.X)
+            // If the projectile hits the left or right side of the tile, reverse the X velocity
+            if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                 Projectile.velocity.X = -oldVelocity.X;
-            if (Projectile.velocity.Y != oldVelocity.Y)
+
+            // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
+            if (Math.Abs(Projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
                 Projectile.velocity.Y = -oldVelocity.Y;
+
             return false;
         }
 
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
-            bool isInAir = !IsInsideTile();
+            // if the projectile is not directly inside a tile
+            bool isInAir = !Collision.SolidCollision(Projectile.TopLeft, Projectile.width, Projectile.height);
             Projectile.tileCollide = isInAir;
             fallThrough = true;
             return isInAir;
@@ -241,14 +249,37 @@ namespace VanillaPlus.Content.Projectiles.Minions
         protected override void Visuals()
         {
             ProjectilesUtilities.FaceForwardHorizontalSprite(Projectile);
-            Projectile.frame = (berserk ? 1 : 0);
+
+            int animationLength = 5;
+
+            if (Projectile.frameCounter++ < animationLength)
+                return;
+
+            Projectile.frameCounter = 0;
+            Projectile.frame++;
+
+            if (berserk)
+            {
+                if (Projectile.frame < 3) Projectile.frame += 3;
+
+                if (Projectile.frame > 5) Projectile.frame = 3;
+            }
+            else
+            {
+                if (Projectile.frame > 2) Projectile.frame -= 3;
+
+                if (Projectile.frame > 2) Projectile.frame = 0;
+            }
         }
 
-        bool IsInsideTile()
+        public override void SendExtraAI(BinaryWriter writer)
         {
-            Point projectileCenterTileCoords = Projectile.Center.ToTileCoordinates();
-            ushort type = Main.tile[projectileCenterTileCoords.X, projectileCenterTileCoords.Y].TileType;
-            return Main.tileSolid[type] && !Main.tileSolidTop[type];
+            writer.Write(berserk);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            berserk = reader.ReadBoolean();
         }
     }
 }

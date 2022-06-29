@@ -2,7 +2,6 @@
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
 using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Common.Models.ModItems;
 
@@ -20,8 +19,8 @@ namespace VanillaPlus.Content.Items.Weapons
         protected override void SetRegularDefaults()
         {
             // GFX
-            Item.width = 22;
-            Item.height = 44;
+            Item.width = 18;
+            Item.height = 40;
             Item.UseSound = SoundID.Item5;
             Item.alpha = 30;
 

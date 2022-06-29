@@ -99,7 +99,7 @@ namespace VanillaPlus.Content.NPCs.Bosses.SnakeBoss
             set => NPC.localAI[1] = value;
         }
 
-        public ref float AttackDirection => ref NPC.localAI[1];
+        public ref float AttackDirection => ref NPC.localAI[2];
 
         Player Target
         {

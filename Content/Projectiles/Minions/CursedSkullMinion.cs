@@ -18,7 +18,7 @@ namespace VanillaPlus.Content.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Main.projFrames[Projectile.type] = 3;
+            Main.projFrames[Type] = 3;
         }
 
         protected override int MinionBuff => ModContent.BuffType<CursedSkullMinionBuff>();
@@ -99,7 +99,7 @@ namespace VanillaPlus.Content.Projectiles.Minions
             for (int i = 0; i < 1000; i++)
             {
                 Projectile projectile = Main.projectile[i];
-                if (projectile.active && projectile.owner == Projectile.owner && projectile.type == Projectile.type && (projectile.type != 759 || projectile.frame == Main.projFrames[projectile.type] - 1))
+                if (projectile.active && projectile.owner == Projectile.owner && Type == Type && (Type != 759 || projectile.frame == Main.projFrames[Type] - 1))
                 {
                     if (Projectile.whoAmI > i)
                         index++;
@@ -298,7 +298,7 @@ namespace VanillaPlus.Content.Projectiles.Minions
             if (Projectile.frameCounter >= frameSpeed)
             {
                 Projectile.frameCounter = 0;
-                if (frame < Main.projFrames[Projectile.type])
+                if (frame < Main.projFrames[Type])
                     Projectile.frame = frame;
                 else
                     Projectile.frame = 0;

@@ -10,7 +10,7 @@ namespace VanillaPlus.Common.Config.Items.Weapons.EvilMaces
         [DefaultValue(25)]
         public override int Damage { get => base.Damage; set => base.Damage = value; }
 
-        [DefaultValue(45)]
+        [DefaultValue(22)]
         public override int UseTime { get => base.UseTime; set => base.UseTime = value; }
     }
 }

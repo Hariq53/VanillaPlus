@@ -2,7 +2,6 @@
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
 using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Common.Models.ModItems;
 
@@ -28,7 +27,7 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.useTime = Item.useAnimation = 22;
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Swing;
-             
+
             // Weapon Specific
             Item.damage = 31;
             Item.knockBack = 3.5f;

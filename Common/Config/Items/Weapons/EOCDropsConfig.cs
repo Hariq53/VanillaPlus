@@ -1,25 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.Serialization;
-using Terraria;
-using Terraria.GameContent;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
-using Terraria.ModLoader.Config.UI;
-using Terraria.UI;
-using VanillaPlus.Common.Config.Global;
-using VanillaPlus.Common.Config.Items.Weapons;
+﻿using Terraria.ModLoader.Config;
 using VanillaPlus.Common.Config.Items.Weapons.EOCDrops;
-using VanillaPlus.Common.Config.Items.Weapons.EvilMaces;
-using VanillaPlus.Common.Models.Config;
 
 using static VanillaPlus.Common.Config.VanillaPlusServerConfig;
 
@@ -28,6 +8,7 @@ namespace VanillaPlus.Common.Config.Items.Weapons
     [Label("$Mods.VanillaPlus.Config.Items.Weapons.EOCDrops")]
     public class EOCDropsConfig
     {
+        [Tooltip("$Mods.VanillaPlus.Config.Items.Weapons.EyeballOnAStick.Tooltip")]
         public EyeballOnAStickConfig? EyeballOnAStick
         {
             get => _eyeballOnAStick;
@@ -35,6 +16,7 @@ namespace VanillaPlus.Common.Config.Items.Weapons
         }
         EyeballOnAStickConfig? _eyeballOnAStick;
 
+        [Tooltip("$Mods.VanillaPlus.Config.Items.Weapons.FangOfCthulhu.Tooltip")]
         public FangOfCthulhuConfig? FangOfCthulhu
         {
             get => _fangOfCthulhu;
@@ -42,6 +24,7 @@ namespace VanillaPlus.Common.Config.Items.Weapons
         }
         FangOfCthulhuConfig? _fangOfCthulhu;
 
+        [Tooltip("$Mods.VanillaPlus.Config.Items.Weapons.Tear.Tooltip")]
         public TearConfig? Tear
         {
             get => _tear;
@@ -49,6 +32,7 @@ namespace VanillaPlus.Common.Config.Items.Weapons
         }
         TearConfig? _tear;
 
+        [Tooltip("$Mods.VanillaPlus.Config.Items.Weapons.TheOcularMenace.Tooltip")]
         public TheOcularMenaceConfig? TheOcularMenace
         {
             get => _theOcularMenace;

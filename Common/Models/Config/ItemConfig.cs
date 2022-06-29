@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Reflection;
-using System.Text.Json.Serialization;
-using Terraria.ModLoader.Config;
+﻿using Terraria.ModLoader.Config;
 
 namespace VanillaPlus.Common.Models.Config
 {
@@ -21,7 +17,7 @@ namespace VanillaPlus.Common.Models.Config
         public ItemConfig()
             : base()
         { }
-        
+
         public ItemConfig(bool softDisabled = false, bool hardDisabled = false)
             : base(softDisabled, hardDisabled)
         { }

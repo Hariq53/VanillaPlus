@@ -8,8 +8,6 @@ namespace VanillaPlus.Common.Models.ModItems
 {
     class SummonStaff : ConfigurableWeapon
     {
-        public override bool ShouldLoad() => false;
-
         protected virtual int MinionBuffType => 0;
 
         protected virtual int MinionProjectileType => 0;

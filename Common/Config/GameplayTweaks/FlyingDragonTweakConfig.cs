@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Terraria.ModLoader.Config;
+﻿using Terraria.ModLoader.Config;
 using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.Config.GameplayTweaks
@@ -14,7 +13,7 @@ namespace VanillaPlus.Common.Config.GameplayTweaks
         {
             get;
             set;
-        } = 180;
+        } = 200;
 
         public override bool Equals(object? obj)
         {

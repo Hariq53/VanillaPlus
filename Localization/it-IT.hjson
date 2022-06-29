@@ -5,6 +5,7 @@ Mods:
 		Config:
 		{
 			ServerSideConfig: Impostazione lato Server
+			ClientSideConfig: Impostazione lato Client
 			
 			Disable: Disabilita
 			DisableAll: "{$Mods.VanillaPlus.Config.Disable} Tutti"
@@ -21,8 +22,8 @@ Mods:
 
 			UseTime:
 			{
-				Label: Velocità
-				Tooltip: Inserisci la velocità che l'oggetto dovrebbe avere
+				Label: Tempo d'uso
+				Tooltip: Inserisci il tempo tra un uso e altro (in tick) che l'oggetto dovrebbe avere
 			}
 
 			LifeTime:
@@ -126,6 +127,81 @@ Mods:
 					EOCDrops: Nuovi oggetti dell'{$NPCName.EyeofCthulhu}
 					GoblinsDrops: Nuovi oggetti dell'{$Bestiary_Invasions.Goblins}
 					SkeletronDrops: Nuovi oggetti di {$NPCName.SkeletronHead}
+					
+					Dualies:
+					{
+						Tooltip: VALORI PREDEFINITI: 15 {$Mods.VanillaPlus.Config.Damage.Label}, 11 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					EnchantedSpear:
+					{
+						Tooltip: VALORI PREDEFINITI: 20 {$Mods.VanillaPlus.Config.Damage.Label}, 31 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+					
+					ChristmasBarrage:
+					{
+						Tooltip: VALORI PREDEFINITI: 125 {$Mods.VanillaPlus.Config.Damage.Label}, 17 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					FleshMace:
+					{
+						Tooltip: VALORI PREDEFINITI: 25 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					RottenMace:
+					{
+						Tooltip: VALORI PREDEFINITI: 30 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					EyeballOnAStick:
+					{
+						Tooltip: VALORI PREDEFINITI: 10 {$Mods.VanillaPlus.Config.Damage.Label}, 36 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					FangOfCthulhu:
+					{
+						Tooltip: VALORI PREDEFINITI: 15 {$Mods.VanillaPlus.Config.Damage.Label}, 27 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					Tear:
+					{
+						Tooltip: VALORI PREDEFINITI: 9 {$Mods.VanillaPlus.Config.Damage.Label}, 25 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					TheOcularMenace:
+					{
+						Tooltip: VALORI PREDEFINITI: 12 {$Mods.VanillaPlus.Config.Damage.Label}, 18 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					GoblinsBlade:
+					{
+						Tooltip: VALORI PREDEFINITI: 25 {$Mods.VanillaPlus.Config.Damage.Label}, 26 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					ThiefsDagger:
+					{
+						Tooltip: VALORI PREDEFINITI: 31 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					WarriorsMallet:
+					{
+						Tooltip: VALORI PREDEFINITI: 40 {$Mods.VanillaPlus.Config.Damage.Label}, 33 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					SkullOfBoom:
+					{
+						Tooltip: VALORI PREDEFINITI: 40 {$Mods.VanillaPlus.Config.Damage.Label}, 25 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					SkeletronsFinger:
+					{
+						Tooltip: VALORI PREDEFINITI: 35 {$Mods.VanillaPlus.Config.Damage.Label}, 15 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					OlMansCurse:
+					{
+						Tooltip: VALORI PREDEFINITI: 22 {$Mods.VanillaPlus.Config.Damage.Label}, 36 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
 				}
 
 				Accessories:
@@ -168,6 +244,12 @@ Mods:
 					Label: Nerf al proiettile dello {$ItemName.InfluxWaver}
 					Tooltip: Questa modifica cambia il tempo di vita del proiettile della {$ItemName.InfluxWaver} (valore consigliato: 70 tick, circa un secondo)
 				}
+			}
+
+			TearAlt:
+			{
+				Label: "Texture vanilla per lo yo-yo {$Mods.VanillaPlus.ItemName.Tear}"
+				Tooltip: "Abilita o disabilita la texture fedele al gioco originale per la {$Mods.VanillaPlus.ItemName.Tear}"
 			}
 		}
 

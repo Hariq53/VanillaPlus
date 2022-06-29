@@ -1,8 +1,4 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
+﻿using Terraria;
 using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.Models.ModItems

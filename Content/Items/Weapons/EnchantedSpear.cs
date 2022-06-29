@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
 using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Common.Models.ModItems;
 
@@ -114,7 +112,7 @@ namespace VanillaPlus.Content.Items.Weapons
                                                        1 => DustID.Enchanted_Gold,
                                                        _ => DustID.Enchanted_Pink,
                                                    }, Projectile.direction * 2, 0f, 150, Scale: 1.3f);
-                    
+
                     dust.velocity *= 0.2f;
                 }
             }
@@ -133,7 +131,7 @@ namespace VanillaPlus.Content.Items.Weapons
             if (!ProjectileShotFlag)
             {
                 ProjectileShotFlag = true;
-                
+
                 Vector2 spearTip = Projectile.Center + (Projectile.velocity * Projectile.width / 2);
                 float projectileSpeed = 9.5f;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), spearTip,

@@ -4,7 +4,6 @@ using Terraria.GameContent.Creative;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
 using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Common.Models.ModItems;
 
@@ -27,7 +26,7 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.UseSound = SoundID.Item1;
 
             // Animation
-            Item.useTime = 45;
+            Item.useTime = 44;
             Item.useAnimation = 22;
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -46,7 +45,7 @@ namespace VanillaPlus.Content.Items.Weapons
 
         protected override void SetConfigurableDefaults(WeaponConfig config)
         {
-            Item.useAnimation = Item.useTime / 2;
+            Item.useTime *= 2;
         }
 
         protected override void AddRecipesWithConfig()

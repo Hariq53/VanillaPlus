@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace VanillaPlus.Common.Models.Config
+﻿namespace VanillaPlus.Common.Models.Config
 {
     public abstract class ElementConfig
     {

@@ -2,7 +2,6 @@
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
 using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Common.Models.ModItems;
 using VanillaPlus.Content.Projectiles;
@@ -26,8 +25,7 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.UseSound = SoundID.Item13;
 
             // Animation
-            Item.useAnimation = 18;
-            Item.useTime = 18;
+            Item.useAnimation = Item.useTime = 18;
             Item.autoReuse = true;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;

@@ -5,6 +5,7 @@ Mods:
 		Config:
 		{
 			ServerSideConfig: Server-Side Config
+			ClientSideConfig: Client-Side Config
 			
 			Disable: Disable
 			SoftDisable: Soft Disable
@@ -21,7 +22,7 @@ Mods:
 			UseTime:
 			{
 				Label: Use Time
-				Tooltip: Define the use time the item should have
+				Tooltip: Define the use time (in ticks) the item should have
 			}
 
 			LifeTime:
@@ -154,6 +155,81 @@ Mods:
 					EOCDrops: New {$NPCName.EyeofCthulhu} drops
 					GoblinsDrops: New {$Bestiary_Invasions.Goblins} drops
 					SkeletronDrops: New {$NPCName.SkeletronHead} Drops
+
+					Dualies:
+					{
+						Tooltip: DEFAULT VALUES: 15 {$Mods.VanillaPlus.Config.Damage.Label}, 11 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					EnchantedSpear:
+					{
+						Tooltip: DEFAULT VALUES: 20 {$Mods.VanillaPlus.Config.Damage.Label}, 31 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+					
+					ChristmasBarrage:
+					{
+						Tooltip: DEFAULT VALUES: 125 {$Mods.VanillaPlus.Config.Damage.Label}, 17 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					FleshMace:
+					{
+						Tooltip: DEFAULT VALUES: 25 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					RottenMace:
+					{
+						Tooltip: DEFAULT VALUES: 30 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					EyeballOnAStick:
+					{
+						Tooltip: DEFAULT VALUES: 10 {$Mods.VanillaPlus.Config.Damage.Label}, 36 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					FangOfCthulhu:
+					{
+						Tooltip: DEFAULT VALUES: 15 {$Mods.VanillaPlus.Config.Damage.Label}, 27 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					Tear:
+					{
+						Tooltip: DEFAULT VALUES: 9 {$Mods.VanillaPlus.Config.Damage.Label}, 25 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					TheOcularMenace:
+					{
+						Tooltip: DEFAULT VALUES: 12 {$Mods.VanillaPlus.Config.Damage.Label}, 18 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					GoblinsBlade:
+					{
+						Tooltip: DEFAULT VALUES: 25 {$Mods.VanillaPlus.Config.Damage.Label}, 26 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					ThiefsDagger:
+					{
+						Tooltip: DEFAULT VALUES: 31 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					WarriorsMallet:
+					{
+						Tooltip: DEFAULT VALUES: 40 {$Mods.VanillaPlus.Config.Damage.Label}, 33 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					SkullOfBoom:
+					{
+						Tooltip: DEFAULT VALUES: 40 {$Mods.VanillaPlus.Config.Damage.Label}, 25 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					SkeletronsFinger:
+					{
+						Tooltip: DEFAULT VALUES: 35 {$Mods.VanillaPlus.Config.Damage.Label}, 15 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+					
+					OlMansCurse:
+					{
+						Tooltip: DEFAULT VALUES: 22 {$Mods.VanillaPlus.Config.Damage.Label}, 36 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
 				}
 
 				Accessories:
@@ -211,6 +287,13 @@ Mods:
 						Tooltip: "{$Mods.VanillaPlus.Config.LifeTime.Tooltip}"
 					}
 				}
+			}
+
+			
+			TearAlt:
+			{
+				Label: "{$Mods.VanillaPlus.ItemName.Tear} Vanilla Texture"
+				Tooltip: "Enable or disable the vanilla-like texture for the {$Mods.VanillaPlus.ItemName.Tear}"
 			}
 		}
 		

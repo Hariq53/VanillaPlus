@@ -1,7 +1,4 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
+﻿using Terraria.ModLoader;
 using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.GameplayTweaks.GlobalItems

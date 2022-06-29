@@ -1,25 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.Serialization;
-using Terraria;
-using Terraria.GameContent;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
-using Terraria.ModLoader.Config.UI;
-using Terraria.UI;
-using VanillaPlus.Common.Config.Global;
-using VanillaPlus.Common.Config.Items.Weapons;
+﻿using Terraria.ModLoader.Config;
 using VanillaPlus.Common.Config.Items.Weapons.EOCDrops;
-using VanillaPlus.Common.Config.Items.Weapons.EvilMaces;
-using VanillaPlus.Common.Models.Config;
 
 using static VanillaPlus.Common.Config.VanillaPlusServerConfig;
 
@@ -28,6 +8,7 @@ namespace VanillaPlus.Common.Config.Items.Weapons
     [Label("$Mods.VanillaPlus.Config.Items.Weapons.SkeletronDrops")]
     public class SkeletronDropsConfig
     {
+        [Tooltip("$Mods.VanillaPlus.Config.Items.Weapons.SkullOfBoom.Tooltip")]
         public SkullOfBoomConfig? SkullOfBoom
         {
             get => _skullOfBoom;
@@ -35,6 +16,7 @@ namespace VanillaPlus.Common.Config.Items.Weapons
         }
         SkullOfBoomConfig? _skullOfBoom;
 
+        [Tooltip("$Mods.VanillaPlus.Config.Items.Weapons.SkeletronsFinger.Tooltip")]
         public SkeletronsFingerConfig? SkeletronsFinger
         {
             get => _skeletronsFinger;
@@ -42,6 +24,7 @@ namespace VanillaPlus.Common.Config.Items.Weapons
         }
         SkeletronsFingerConfig? _skeletronsFinger;
 
+        [Tooltip("$Mods.VanillaPlus.Config.Items.Weapons.OlMansCurse.Tooltip")]
         public OlMansCurseConfig? OlMansCurse
         {
             get => _olMansCurse;

@@ -13,7 +13,7 @@ namespace VanillaPlus.Common
             for (int i = 0; i < 5; i++)
             {
                 float scale = Main.rand.NextFloat(20, 26) * 0.1f;
-                Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, 
+                Dust dust = Dust.NewDustDirect(player.position, player.width, player.height,
                                               DustID.ManaRegeneration, Alpha: 255, Scale: scale);
                 dust.noLight = true;
                 dust.noGravity = true;

@@ -17,7 +17,7 @@ namespace VanillaPlus.Content.Projectiles
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 4;
+            Main.projFrames[Type] = 4;
         }
 
         protected override bool ExplodeOnNPCCollision => true;
@@ -56,7 +56,7 @@ namespace VanillaPlus.Content.Projectiles
                 {
                     Projectile.frameCounter = 0;
                     CurrentFrame += 2;
-                    if (CurrentFrame >= Main.projFrames[Projectile.type])
+                    if (CurrentFrame >= Main.projFrames[Type])
                         CurrentFrame = 0;
                 }
                 if (Projectile.timeLeft % 40 == 0)

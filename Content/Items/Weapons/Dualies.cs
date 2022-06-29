@@ -6,7 +6,6 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
-using VanillaPlus.Common.Config;
 using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Common.Models.ModItems;
 
@@ -63,7 +62,7 @@ namespace VanillaPlus.Content.Items.Weapons
         }
 
         bool RevolversSpawnedFlag { get; set; }
-        
+
         int SecondRevolverID { get; set; }
 
         public static Vector2 RevolverOffset => new(5f, 3f);
@@ -71,7 +70,7 @@ namespace VanillaPlus.Content.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 direction = Vector2.Normalize(velocity);
-            
+
             if (player.direction == -1)
                 position += direction * RevolverOffset.X;
 
@@ -82,7 +81,7 @@ namespace VanillaPlus.Content.Items.Weapons
                 Projectile.NewProjectile(source, position, velocity,
                                          ModContent.ProjectileType<DualiesRevolver>(), 0, 0,
                                          player.whoAmI, player.itemAnimation);
-                
+
                 Vector2 secondRevolverPosition = position - new Vector2(RevolverOffset.X * player.direction,
                                                                         RevolverOffset.Y);
 
@@ -135,7 +134,7 @@ namespace VanillaPlus.Content.Items.Weapons
             get => Projectile.localAI[0] == 1f;
             set => Projectile.localAI[0] = value ? 1f : -1f;
         }
-        
+
         private int AnimationTime
         {
             get => (int)Projectile.ai[0];
@@ -155,7 +154,7 @@ namespace VanillaPlus.Content.Items.Weapons
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            
+
             if (!SetupFlag)
             {
                 Projectile.timeLeft = AnimationTime;

@@ -1,8 +1,4 @@
-﻿using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
+﻿using Terraria.ModLoader;
 using VanillaPlus.Common.Models.Config;
 
 namespace VanillaPlus.Common.Models.ModItems
@@ -22,7 +18,7 @@ namespace VanillaPlus.Common.Models.ModItems
         public virtual bool ShouldLoad()
         {
             // If all items are hard disabled, do not load (for when the Config is null)
-            
+
 
             // If there is no config, the item should be loaded
             if (Config is null)
@@ -41,7 +37,7 @@ namespace VanillaPlus.Common.Models.ModItems
             // If there is a config and the item is soft disabled, recipes shouldn't be added
             return !Config.IsSoftDisabled;
         }
-        
+
         public override sealed bool IsLoadingEnabled(Mod mod)
         {
             return ShouldLoad();

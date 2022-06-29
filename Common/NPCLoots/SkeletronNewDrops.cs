@@ -2,7 +2,6 @@
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
 using VanillaPlus.Content.Items.Weapons;
 
 namespace VanillaPlus.Common.NPCLoots

@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Reflection;
-using System.Text.Json.Serialization;
-using Terraria.ModLoader.Config;
+﻿using Terraria.ModLoader.Config;
 
 namespace VanillaPlus.Common.Models.Config
 {

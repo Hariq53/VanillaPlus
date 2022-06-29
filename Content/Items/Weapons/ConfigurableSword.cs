@@ -1,17 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.ComponentModel;
-using System.Reflection;
-using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent.Creative;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common;
-using VanillaPlus.Common.Config;
-using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Common.Models.ModItems;
-using static VanillaPlus.Common.Config.VanillaPlusServerConfig;
 
 namespace VanillaPlus.Content.Items.Weapons
 {

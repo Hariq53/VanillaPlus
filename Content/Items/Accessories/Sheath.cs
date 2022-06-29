@@ -1,13 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
-using VanillaPlus.Common.Config;
-using VanillaPlus.Common.Models.Config;
-using VanillaPlus.Common.Models.ModItems;
 
 namespace VanillaPlus.Content.Items.Accessories
 {

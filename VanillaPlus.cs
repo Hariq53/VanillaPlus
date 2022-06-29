@@ -1,11 +1,6 @@
 using Terraria.ModLoader;
 using VanillaPlus.Common.BannerSlot;
 using VanillaPlus.Common.Config;
-using VanillaPlus.Common.Models.Config;
-using VanillaPlus.Common.Models.ModItems;
-using VanillaPlus.Content.Items.Accessories;
-using VanillaPlus.Content.Items.Weapons;
-using VanillaPlus.Content.Projectiles;
 
 namespace VanillaPlus
 {

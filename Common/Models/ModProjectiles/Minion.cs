@@ -11,10 +11,10 @@ namespace VanillaPlus.Common.Models.ModProjectiles
 
         public override void SetStaticDefaults()
         {
-            Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
-            ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true; // This is necessary for right-click targeting
-            ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
-            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
+            Main.projPet[Type] = true; // Denotes that this projectile is a pet or minion
+            ProjectileID.Sets.MinionTargettingFeature[Type] = true; // This is necessary for right-click targeting
+            ProjectileID.Sets.MinionSacrificable[Type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
+            ProjectileID.Sets.CultistIsResistantTo[Type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
         }
 
         public override void SetDefaults()
@@ -26,9 +26,9 @@ namespace VanillaPlus.Common.Models.ModProjectiles
             Projectile.penetrate = -1; // Needed so the minion doesn't despawn on collision with enemies or tiles
         }
 
-        public override bool? CanCutTiles() { return false; }
+        public override bool? CanCutTiles() => false;
 
-        public override bool MinionContactDamage() { return true; }
+        public override bool MinionContactDamage() => true;
 
         public bool FoundTarget
         {
@@ -50,13 +50,10 @@ namespace VanillaPlus.Common.Models.ModProjectiles
                 if (npc.active)
                     return npc;
                 else
-                    return null;
+                    return null!;
             }
 
-            set
-            {
-                TargetID = value.whoAmI;
-            }
+            set => TargetID = value.whoAmI;
         }
 
         public override void AI()

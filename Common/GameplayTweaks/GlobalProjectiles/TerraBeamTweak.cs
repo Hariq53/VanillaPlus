@@ -1,7 +1,5 @@
 ﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
 using VanillaPlus.Common.Config.GameplayTweaks;
 using VanillaPlus.Common.Models.Config;
 using VanillaPlus.Common.Models.GlobalProjectiles;
