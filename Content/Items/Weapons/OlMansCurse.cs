@@ -2,8 +2,8 @@
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
-using VanillaPlus.Common.Models.Items;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 using VanillaPlus.Content.Buffs;
 using VanillaPlus.Content.Projectiles.Minions;
 
@@ -11,34 +11,31 @@ namespace VanillaPlus.Content.Items.Weapons
 {
     class OlMansCurse : SummonStaff
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().SkeletronDropsToggle;
-        }
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.OlMansCurse;
 
-        protected override int MinionBuff => ModContent.BuffType<CursedSkullMinionBuff>();
+        protected override int MinionBuffType => ModContent.BuffType<CursedSkullMinionBuff>();
+
+        protected override int MinionProjectileType => ModContent.ProjectileType<CursedSkullMinion>();
 
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
-            base.SetDefaults();
+            base.SetRegularDefaults();
 
             // GFX
             Item.width = 38;
             Item.height = 38;
 
             // Animation
-            Item.useAnimation = 36;
-            Item.useTime = 36;
+            Item.useAnimation = Item.useTime = 36;
 
             // Weapon Specific
             Item.damage = 22;
             Item.knockBack = 8f;
-            Item.shoot = ModContent.ProjectileType<CursedSkullMinion>();
             Item.mana = 14;
 
             // Other

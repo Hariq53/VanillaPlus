@@ -1,22 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 using VanillaPlus.Content.Projectiles;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    public class Tear : ModItem
+    public class Tear : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().EOCDropsToggle;
-        }
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.Tear;
 
-        public override string Texture => ModContent.GetInstance<VanillaPlusClientConfig>().TearAltToggle ? "VanillaPlus/Content/Items/Weapons/Tear_Alt" : base.Texture;
+
+        public override string Texture => VanillaPlus.ClientSideConfig?.TearAlt ?? false
+                                          ? "VanillaPlus/Content/Items/Weapons/Tear_Alt" : base.Texture;
 
         public override void SetStaticDefaults()
         {
@@ -26,12 +25,7 @@ namespace VanillaPlus.Content.Items.Weapons
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override bool? UseItem(Player player)
-        {
-            return base.UseItem(player);
-        }
-
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             // GFX
             Item.width = 34;
@@ -39,8 +33,7 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.UseSound = SoundID.Item1;
 
             // Animation
-            Item.useAnimation = 25;
-            Item.useTime = 25;
+            Item.useAnimation = Item.useTime = 25;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -66,13 +59,13 @@ namespace VanillaPlus.Content.Items.Weapons
             // The following sets are only applicable to yoyo that use aiStyle 99.
             // YoyosLifeTimeMultiplier is how long in seconds the yoyo will stay out before automatically returning to the player. 
             // Vanilla values range from 3f(Wood) to 16f(Chik), and defaults to -1f. Leaving as -1 will make the time infinite.
-            ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 7f;
+            ProjectileID.Sets.YoyosLifeTimeMultiplier[Type] = 7f;
             // YoyosMaximumRange is the maximum distance the yoyo sleep away from the player. 
             // Vanilla values range from 130f(Wood) to 400f(Terrarian), and defaults to 200f
-            ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 200f;
+            ProjectileID.Sets.YoyosMaximumRange[Type] = 200f;
             // YoyosTopSpeed is top speed of the yoyo projectile. 
             // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
-            ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 10f;
+            ProjectileID.Sets.YoyosTopSpeed[Type] = 10f;
         }
 
         public override void SetDefaults()
@@ -107,7 +100,7 @@ namespace VanillaPlus.Content.Items.Weapons
         {
             foreach (Projectile projectile in Main.projectile)
             {
-                if (projectile.type == ModContent.ProjectileType<TearEye>() && projectile.ModProjectile is TearEye eye)
+                if (Type == ModContent.ProjectileType<TearEye>() && projectile.ModProjectile is TearEye eye)
                     if (eye.OwnerID == Projectile.whoAmI)
                         projectile.Kill();
             }

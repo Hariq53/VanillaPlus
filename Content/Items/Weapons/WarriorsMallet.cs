@@ -2,35 +2,39 @@
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    public class WarriorsMallet : ModItem
+    public class WarriorsMallet : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().GoblinDropsToggle;
-        }
-
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.WarriorsMallet;
 
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
+            // GFX
             Item.width = 32;
             Item.height = 32;
-            Item.damage = 40;
             Item.UseSound = SoundID.Item1;
+
+            // Animation
+            Item.useTime = Item.useAnimation = 33;
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Swing;
+
+            // Weapon Specific
+            Item.damage = 40;
+            Item.knockBack = 10f;
             Item.crit = 5;
-            Item.useTime = 33;
-            Item.useAnimation = 33;
-            Item.knockBack = 10;
+            Item.DamageType = DamageClass.Melee;
+
+            // Other
             Item.value = Item.sellPrice(silver: 60);
             Item.rare = ItemRarityID.Blue;
         }

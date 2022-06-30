@@ -5,25 +5,23 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
-using VanillaPlus.Common.Config;
-using VanillaPlus.Common.Models.Projectiles;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
+using VanillaPlus.Common.Models.ModProjectiles;
 using VanillaPlus.Content.Buffs;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    class SkullOfBoom : ModItem
+    class SkullOfBoom : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().SkeletronDropsToggle;
-        }
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.SkullOfBoom;
 
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             // GFX
             Item.width = 20;
@@ -31,8 +29,7 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.UseSound = SoundID.Item1;
 
             // Animation
-            Item.useAnimation = 25;
-            Item.useTime = 25;
+            Item.useAnimation = Item.useTime = 25;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.autoReuse = false;
             Item.noUseGraphic = true;
@@ -63,10 +60,13 @@ namespace VanillaPlus.Content.Items.Weapons
             Projectile.width = 20;
             Projectile.height = 22;
             Projectile.timeLeft = 240;
-            ExplosionDuration = 20;
-            ExplosionSound = SoundID.Item74;
-            ExplodeOnNPCCollision = true;
         }
+
+        protected override int ExplosionDuration => 20;
+
+        protected override SoundStyle ExplosionSound => SoundID.Item74;
+
+        protected override bool ExplodeOnNPCCollision => true;
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -83,18 +83,19 @@ namespace VanillaPlus.Content.Items.Weapons
         public override void ExplosionEffects()
         {
             SoundEngine.PlaySound(ExplosionSound, Projectile.position);
-            ExplosionDamage = Projectile.damage / 5;
         }
 
-        public override void ExplosionLogic()
+        public override void ExplosionLogic(int explosionDamage, float explosionKnockback)
         {
+            // Effect here because it has to execute every tick during the explosion
             ProjectilesUtilities.InfernoForkVisualEffect(Projectile, DustID.UnusedWhiteBluePurple, 2.5f);
-            base.ExplosionLogic();
+            explosionDamage = Projectile.damage / 5;
+            base.ExplosionLogic(explosionDamage, explosionKnockback);
         }
 
         public override void RegularAI()
         {
-            if (Main.rand.Next(2) == 0)
+            if (Main.rand.NextBool(2))
             {
                 Dust smokeDust = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Smoke, Alpha: 100, Scale: Main.rand.NextFloat(1f, 1.5f));
                 smokeDust.fadeIn = Main.rand.NextFloat(1.5f, 2f);
@@ -109,7 +110,9 @@ namespace VanillaPlus.Content.Items.Weapons
                 spinningPoint = new(0f, (float)(-Projectile.height / 2 - 6));
                 fireDust.position = projectileCenter + Utils.RotatedBy(spinningPoint, radians) * 1.1f;
             }
+
             Projectile.ai[0]++;
+
             if (Projectile.ai[0] > 5f)
             {
                 if (Projectile.velocity.Y == 0f && Projectile.velocity.X != 0f)

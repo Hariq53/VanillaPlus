@@ -6,23 +6,21 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
-using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    class Dualies : ModItem
+    class Dualies : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().DualiesToggle;
-        }
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.Dualies;
 
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             // GFX
             Item.width = 58;
@@ -51,40 +49,61 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.value = Item.buyPrice(gold: 20);
         }
 
-        public override void AddRecipes()
+        protected override void SetConfigurableDefaults(WeaponConfig config)
+        {
+            Item.useAnimation = Item.useTime * 2;
+        }
+
+        protected override void AddRecipesWithConfig()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Revolver, 2)
                 .Register();
         }
 
-        bool shot = false;
-        int secondRevolverIndex;
-        public static readonly Vector2 offset = new(5f, 3f);
+        bool RevolversSpawnedFlag { get; set; }
+
+        int SecondRevolverID { get; set; }
+
+        public static Vector2 RevolverOffset => new(5f, 3f);
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 direction = Vector2.Normalize(velocity);
+
             if (player.direction == -1)
-                position += direction * offset.X;
+                position += direction * RevolverOffset.X;
+
             SoundEngine.PlaySound(SoundID.Item41);
-            if (!shot)
+
+            if (!RevolversSpawnedFlag)
             {
-                Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<DualiesRevolver>(), 0, 0, player.whoAmI, player.itemAnimation);
-                secondRevolverIndex = Projectile.NewProjectile(source, position.X - offset.X * player.direction, position.Y - offset.Y, velocity.X, velocity.Y, ModContent.ProjectileType<DualiesRevolver>(), 0, 0, player.whoAmI, player.itemAnimation);
-                shot = true;
+                Projectile.NewProjectile(source, position, velocity,
+                                         ModContent.ProjectileType<DualiesRevolver>(), 0, 0,
+                                         player.whoAmI, player.itemAnimation);
+
+                Vector2 secondRevolverPosition = position - new Vector2(RevolverOffset.X * player.direction,
+                                                                        RevolverOffset.Y);
+
+                SecondRevolverID = Projectile.NewProjectile(source, secondRevolverPosition.X,
+                                                            secondRevolverPosition.Y, velocity.X, velocity.Y,
+                                                            ModContent.ProjectileType<DualiesRevolver>(),
+                                                            0, 0, player.whoAmI, player.itemAnimation);
+
+                RevolversSpawnedFlag = true;
             }
             else
             {
-                Main.projectile[secondRevolverIndex].velocity = velocity;
-                shot = false;
+                Main.projectile[SecondRevolverID].velocity = velocity;
+                RevolversSpawnedFlag = false;
             }
             return true;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+            if (!RevolversSpawnedFlag)
+                velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
         }
     }
 
@@ -110,23 +129,46 @@ namespace VanillaPlus.Content.Items.Weapons
             Projectile.tileCollide = false;
         }
 
-        private bool changed = false;
-        private Vector2 playerOffset;
+        private bool SetupFlag
+        {
+            get => Projectile.localAI[0] == 1f;
+            set => Projectile.localAI[0] = value ? 1f : -1f;
+        }
 
-        public override bool PreAI()
+        private int AnimationTime
+        {
+            get => (int)Projectile.ai[0];
+            set => Projectile.ai[0] = value;
+        }
+
+        private Vector2 PlayerOffset
+        {
+            get => new(Projectile.ai[0], Projectile.ai[1]);
+            set
+            {
+                Projectile.ai[0] = value.X;
+                Projectile.ai[1] = value.Y;
+            }
+        }
+
+        public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (!changed)
+
+            if (!SetupFlag)
             {
-                Projectile.timeLeft = (int)Projectile.ai[0];
-                playerOffset = player.position - Projectile.position;
-                changed = true;
+                Projectile.timeLeft = AnimationTime;
+
+                // Setting PlayerOffset wipes AnimationTime
+                PlayerOffset = player.position - Projectile.position;
+
+                SetupFlag = true;
             }
-            Projectile.position = player.position - playerOffset;
+
+            Projectile.position = player.position - PlayerOffset;
             Projectile.velocity.Normalize();
             Projectile.velocity *= (float)(Projectile.width / 2);
             ProjectilesUtilities.FaceForwardHorizontalSprite(Projectile);
-            return base.PreAI();
         }
     }
 }

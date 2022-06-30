@@ -3,7 +3,7 @@ using Terraria.ID;
 
 namespace VanillaPlus.Common
 {
-    class NPCsUtilities
+    static class NPCsUtilities
     {
         static public void Kill(int npcID)
         {

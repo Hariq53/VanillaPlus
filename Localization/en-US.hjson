@@ -1,100 +1,304 @@
-Mods: {
-	VanillaPlus: {
-		Config: {
-			ServerSideConfig: Server-Side Settings
-
-			ItemHeader: Items
+Mods:
+{
+	VanillaPlus:
+	{
+		Config:
+		{
+			ServerSideConfig: Server-Side Config
+			ClientSideConfig: Client-Side Config
 			
-			EvilMaceToggle: {
-				Label: Evil Maces
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.FleshMace} and {$Mods.VanillaPlus.ItemName.RottenMace} items
-			}
-
-			EnchantedSpearToggle: {
-				Label: "{$Mods.VanillaPlus.ItemName.EnchantedSpear}"
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.EnchantedSpear} item
-			}
-
-			ChristmasBarrageToggle: {
-				Label: "{$Mods.VanillaPlus.ItemName.ChristmasBarrage}"
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.ChristmasBarrage} item
-			}
-
-			DualiesToggle: {
-				Label: "{$Mods.VanillaPlus.ItemName.Dualies}"
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.Dualies}
-			}
-
-			ShinyCharmToggle: {
-				Label: "{$Mods.VanillaPlus.ItemName.ShinyCharm}"
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.ShinyCharm}
-			}
-
-			EOCDropsToggle: {
-				Label: "{$NPCNames.EyeofCthulhu} Drops"
-				Tooltip: Enable or disable the new weapon drops for the {$NPCName.EyeofCthulhu}
-			}
-
-			GoblinDropsToggle: {
-				Label: "{$Bestiary_Invasions.Goblins} Drops"
-				Tooltip: Enable or disable the new weapon drops for the {$Bestiary_Invasions.Goblins}
-			}
-
-			SkeletonDropsToggle: {
-				Label: "{$NPCName.SkeletronHead} Drops"
-				Tooltip: Enable or disable the new weapon drops from {$NPCName.SkeletronHead}
-			}
-
-			TilesHeader: Tiles
-
-			LifeFruitLanternToggle: {
-				Label: "{$Mods.VanillaPlus.ItemName.LifeFruitLantern}"
-				Tooltip: Enable or disable the {$Mods.VanillaPlus.ItemName.LifeFruitLantern} item
-			}
-
-			TweaksHeader: Tweaks
-
-			GladiusTweakToggle: {
-				Label: "{$ItemName.Gladius}"
-				Tooltip: Enable or disable the change to the {$ItemName.Gladius} animation
-			}
-
-			FlyingDragonTweakToggle: {
-				Label: "{$ItemName.DD2SquireBetsySword}"
-				Tooltip: Enable or the disable the {$ItemName.DD2SquireBetsySword} damage buff (from 180 to 200)
-			}
-
-			TerraBeamTweakToggle: {
-				Label: "{$ItemName.TerraBlade}"
-				Tooltip: Enable or disable the {$ItemName.TerraBlade} projectile nerf (projectile lifetime decreased)
-			}
-
-			InfluxWaverTweakToggle: {
-				Label: "{$ItemName.InfluxWaver}"
-				Tooltip: Enable or disable the {$ItemName.InfluxWaver} projectile nerf (projectile lifetime decreased)
-			}
+			Disable: Disable
+			SoftDisable: Soft Disable
+			HardDisable: Hard Disable
+			SoftDisableAll: "{$Mods.VanillaPlus.Config.SoftDisable} All"
+			HardDisableAll: "{$Mods.VanillaPlus.Config.HardDisable} All"
 			
-			ExpFeaturesHeader: Experimantal features
-
-			BannerSlotToggle: {
-				Label: Banner slot
-				Tooltip:  Enable or disable the banner slot
+			Damage:
+			{
+				Label: Damage
+				Tooltip: Define the BASE damage the item should have
 			}
 
-			MotorcycleMountToggle: {
-				Label: Motorcycle mount
-				Tooltip: Enable or disable the motorcycle mount
+			UseTime:
+			{
+				Label: Use Time
+				Tooltip: Define the use time (in ticks) the item should have
 			}
 
-			ClientSideConfig: Client-Side Settings
+			LifeTime:
+			{
+				Label: Life time
+				Tooltip: Define the amount of ticks (60 ticks = 1 second) before despawning
+			}
 
-			TearAltToggle: {
+			ElementConfig:
+			{
+				Label: Settings
+
+				SoftDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisable}"
+				}
+
+				HardDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisable}"
+				}
+			}
+
+			TweakConfig:
+			{
+				Label: Settings
+
+				Disable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.Disable}"
+				}
+
+				DisableAll:
+				{
+					Label: "{$Mods.VanillaPlus.Config.DisableAll}"
+				}
+			}
+
+			GlobalConfig:
+			{
+				Label: Global Settings
+				Tooltip: All the changes you make here will apply to all subconfigs (changing these options will overwrite the subconfigs)
+			}
+
+			ItemConfig:
+			{
+				Label: Item Settings
+
+				SoftDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisable}"
+					Tooltip: Removes crafting recipes, drops, etc. but allows players to keep using the item (RECOMMENDED)
+				}
+
+				HardDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisable}"
+					Tooltip: Removes the item completely, rendering it unusable in-game (use with caution)
+				}
+
+				SoftDisableAll:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisableAll}"
+					Tooltip: Removes crafting recipes, drops, etc. but allows players to keep using the items (RECOMMENDED)
+				}
+
+				HardDisableAll:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisableAll}"
+					Tooltip: Removes the items completely, rendering them unusable in-game (use with caution)
+				}
+			}
+
+			WeaponConfig:
+			{
+				Label: Weapon Settings
+
+				Damage:
+				{
+					Label: "{$Mods.VanillaPlus.Config.Damage.Label}"
+					Tooltip: "{$Mods.VanillaPlus.Config.Damage.Tooltip}"
+				}
+
+				UseTime:
+				{
+					Label: "{$Mods.VanillaPlus.Config.UseTime.Label}"
+					Tooltip: "{$Mods.VanillaPlus.Config.UseTime.Tooltip}"
+				}
+			}
+
+			TileConfig:
+			{
+				Label: Tile Settings
+
+				SoftDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisable}"
+					Tooltip: Removes crafting recipes, drops, etc. but keeps the tile loaded in all worlds (RECOMMENDED)
+				}
+
+				HardDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisable}"
+					Tooltip: Removes the tile completely, rendering it unusable in all the worlds it was placed it (use with caution)
+				}
+
+				SoftDisableAll:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisableAll}"
+					Tooltip: Removes crafting recipes, drops, etc. but keeps the tiles loaded in all worlds (RECOMMENDED)
+				}
+
+				HardDisableAll:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisableAll}"
+					Tooltip: Removes the tiles completely, rendering them unusable in all the worlds they were placed it (use with caution)
+				}
+			}
+
+			Items:
+			{
+				Header: Items
+				Label: All items settings
+				
+				Weapons:
+				{
+					Header: Weapons
+
+					EvilMaces: Evil Maces
+					EOCDrops: New {$NPCName.EyeofCthulhu} drops
+					GoblinsDrops: New {$Bestiary_Invasions.Goblins} drops
+					SkeletronDrops: New {$NPCName.SkeletronHead} Drops
+
+					Dualies:
+					{
+						Tooltip: DEFAULT VALUES: 15 {$Mods.VanillaPlus.Config.Damage.Label}, 11 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					EnchantedSpear:
+					{
+						Tooltip: DEFAULT VALUES: 20 {$Mods.VanillaPlus.Config.Damage.Label}, 31 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+					
+					ChristmasBarrage:
+					{
+						Tooltip: DEFAULT VALUES: 125 {$Mods.VanillaPlus.Config.Damage.Label}, 17 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					FleshMace:
+					{
+						Tooltip: DEFAULT VALUES: 25 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					RottenMace:
+					{
+						Tooltip: DEFAULT VALUES: 30 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					EyeballOnAStick:
+					{
+						Tooltip: DEFAULT VALUES: 10 {$Mods.VanillaPlus.Config.Damage.Label}, 36 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					FangOfCthulhu:
+					{
+						Tooltip: DEFAULT VALUES: 15 {$Mods.VanillaPlus.Config.Damage.Label}, 27 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					Tear:
+					{
+						Tooltip: DEFAULT VALUES: 9 {$Mods.VanillaPlus.Config.Damage.Label}, 25 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					TheOcularMenace:
+					{
+						Tooltip: DEFAULT VALUES: 12 {$Mods.VanillaPlus.Config.Damage.Label}, 18 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					GoblinsBlade:
+					{
+						Tooltip: DEFAULT VALUES: 25 {$Mods.VanillaPlus.Config.Damage.Label}, 26 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					ThiefsDagger:
+					{
+						Tooltip: DEFAULT VALUES: 31 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					WarriorsMallet:
+					{
+						Tooltip: DEFAULT VALUES: 40 {$Mods.VanillaPlus.Config.Damage.Label}, 33 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					SkullOfBoom:
+					{
+						Tooltip: DEFAULT VALUES: 40 {$Mods.VanillaPlus.Config.Damage.Label}, 25 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					SkeletronsFinger:
+					{
+						Tooltip: DEFAULT VALUES: 35 {$Mods.VanillaPlus.Config.Damage.Label}, 15 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+					
+					OlMansCurse:
+					{
+						Tooltip: DEFAULT VALUES: 22 {$Mods.VanillaPlus.Config.Damage.Label}, 36 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+				}
+
+				Accessories:
+				{
+					Header: Accessories
+				}
+			}
+
+			Tiles:
+			{
+				Header: Tiles
+				Label: All tiles settings
+			}
+
+			GameplayTweaks:
+			{
+				Header: Gameplay Tweaks
+				Label: All tweaks settings
+				
+				FlyingDragonTweak:
+				{
+					Label: "{$ItemName.DD2SquireBetsySword} damage buff"
+					Tooltip: This tweak changes the {$ItemName.DD2SquireBetsySword} damage (base damage: 180, recommended damage: 200)
+					Damage:
+					{
+						Label: "{$Mods.VanillaPlus.Config.Damage.Label}"
+						Tooltip: "{$Mods.VanillaPlus.Config.Damage.Tooltip}"
+					}
+				}
+
+				GladiusTweak:
+				{
+					Label: "{$ItemName.Gladius} animation change"
+					Tooltip: This tweak changes the {$ItemName.Gladius} animation, giving it the same attack pattern as the {$ItemName.PiercingStarlight}
+				}
+
+				TerraBladeTweak:
+				{
+					Label: "{$ItemName.TerraBlade} projectile nerf"
+					Tooltip: This tweak changes the {$ItemName.TerraBlade}'s projectile lifetime (recommended value: 65 ticks, approx. one second)
+					LifeTime:
+					{
+						Label: "{$Mods.VanillaPlus.Config.LifeTime.Label}"
+						Tooltip: "{$Mods.VanillaPlus.Config.LifeTime.Tooltip}"
+					}
+				}
+
+				InfluxWaverTweak:
+				{
+					Label: "{$ItemName.InfluxWaver} projectile nerf"
+					Tooltip: This tweak changes the {$ItemName.InfluxWaver}'s projectile lifetime (recommended value: 70 ticks, approx. one second)
+					LifeTime:
+					{
+						Label: "{$Mods.VanillaPlus.Config.LifeTime.Label}"
+						Tooltip: "{$Mods.VanillaPlus.Config.LifeTime.Tooltip}"
+					}
+				}
+			}
+
+			
+			TearAlt:
+			{
 				Label: "{$Mods.VanillaPlus.ItemName.Tear} Vanilla Texture"
 				Tooltip: "Enable or disable the vanilla-like texture for the {$Mods.VanillaPlus.ItemName.Tear}"
 			}
 		}
 		
-		ItemName: {
+		ItemName:
+		{
 			FleshMace: Flesh Mace
 			RottenMace: Rotten Mace
 			EnchantedSpear: Enchanted Spear
@@ -112,10 +316,10 @@ Mods: {
 			SkullOfBoom: Skull of Boom
 			SkeletronsFinger: Skeletron's Finger
 			OlMansCurse: Old Man's Curse
-			MotorcycleMountItem: Motorcycle wheel
 		}
 
-		ItemTooltip: {
+		ItemTooltip:
+		{
 			LifeFruitLantern: Greatly increase life regeneration when placed nearby
 			Dualies: "'It's high noon'"
 			ShinyCharm: Regenerates life quickly
@@ -123,10 +327,10 @@ Mods: {
 			SkullOfBoom: Throws non-consumable skull that explodes and spreads water flames
 			SkeletronsFinger: Contains a fragment of {$NPCName.SkeletronHead}'s consciousness
 			OlMansCurse: "Summons cursed skulls to fight for you\n\"CURSES!\""
-			MotorcycleMountItem: Summon a rideable motorcycle
- 		}
+		}
 
-		ProjectileName: {
+		ProjectileName:
+		{
 			EnchantedSpearProjectile: "{$Mods.VanillaPlus.ItemName.EnchantedSpear}"
 			DualiesRevolver: "{$ItemName.Revolver}"
 			MiniServant: Mini Servant of Cthulhu
@@ -140,26 +344,27 @@ Mods: {
 			CursedSkullMinion: Cursed Skull
 		}
 
-		TileName: {
+		TileName:
+		{
 			LifeFruitLanternTile: Life Fruit Lantern
 		}
 
-		BuffName: {
+		BuffName:
+		{
 			LifeFruitLamp: Life Fruit Regeneration
 			CthulhusMalediction: Cthulhu's Malediction
 			MiniServantMinion: Eye on you
 			Aquaflame: "{$BuffName.OnFire}"
 			CursedSkullMinionBuff: "{$Mods.VanillaPlus.ProjectileName.CursedSkullMinion}"
-			MotorcycleMount: Motorcycle
 		}
 
-		BuffDescription: {
+		BuffDescription:
+		{
 			LifeFruitLamp: Life regeneration is increased
 			CthulhusMalediction: Defense reduced by 5
 			MiniServantMinion: The {$Mods.VanillaPlus.ProjectileName.MiniServant} will fight for you
 			Aquaflame: "{BuffDescription.OnFire}"
 			CursedSkullMinionBuff: The {$Mods.VanillaPlus.ProjectileName.CursedSkullMinion} will fight for you
-			MotorcycleMount: Bruuum-Bruuummm
 		}
 	}
 }

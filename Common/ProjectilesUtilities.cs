@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace VanillaPlus.Common
 {
-    class ProjectilesUtilities
+    static class ProjectilesUtilities
     {
         public static void ApplyGravity(Projectile Projectile, float gravForce)
         {

@@ -1,93 +1,262 @@
-Mods: {
-	VanillaPlus: {
-		Config: {
-			ServerSideConfig: Impostazioni lato Server
-
-			ItemHeader: Oggetti
-
-			EvilMaceToggle: {
-				Label: Mazze Corrotte
-				Tooltip: Abilita o disabilita la {$Mods.VanillaPlus.ItemName.FleshMace} e la {$Mods.VanillaPlus.ItemName.RottenMace}
+Mods:
+{
+	VanillaPlus:
+	{
+		Config:
+		{
+			ServerSideConfig: Impostazione lato Server
+			ClientSideConfig: Impostazione lato Client
+			
+			Disable: Disabilita
+			DisableAll: "{$Mods.VanillaPlus.Config.Disable} Tutti"
+			SoftDisable: Disabilita
+			HardDisable: Rimuovi
+			SoftDisableAll: "{$Mods.VanillaPlus.Config.SoftDisable} Tutti"
+			HardDisableAll: "{$Mods.VanillaPlus.Config.HardDisable} Tutti"
+			
+			Damage:
+			{
+				Label: Danno
+				Tooltip: Inserisci il danno BASE che l'oggetto dovrebbe avere
 			}
 
-			EnchantedSpearToggle: {
-				Tooltip: Abilita o disabilita la {$Mods.VanillaPlus.ItemName.EnchantedSpear}
+			UseTime:
+			{
+				Label: Tempo d'uso
+				Tooltip: Inserisci il tempo tra un uso e altro (in tick) che l'oggetto dovrebbe avere
 			}
 
-			ChristmasBarrageToggle: {
-				Tooltip: Abilita o disabilita lo {$Mods.VanillaPlus.ItemName.ChristmasBarrage}
+			LifeTime:
+			{
+				Label: Tempo di vita
+				Tooltip: Inserisci il numero di tick (60 tick = 1 secondo) di vita prima del despawn
 			}
 
-			DualiesToggle: {
-				Tooltip: Abilita o disabilita le {$Mods.VanillaPlus.ItemName.Dualies}
+			ElementConfig:
+			{
+				Label: Impostazioni
+
+				SoftDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.SoftDisable}"
+				}
+
+				HardDisable:
+				{
+					Label: "{$Mods.VanillaPlus.Config.HardDisable}"
+				}
+			}
+			
+			TweakConfig:
+			{
+				Label: Impostazioni
 			}
 
-			ShinyCharmToggle: {
-				Tooltip: Abilita o disabilita l'{$Mods.VanillaPlus.ItemName.ShinyCharm}
+			GlobalConfig:
+			{
+				Label: Impostazione Globali
+				Tooltip: Tutti i cambiamenti apportati qui verranno applicati a tutti i membri sottostanti (le impostazioni dei membri sottostanti verranno sovrascritte)
 			}
 
-			EOCDropsToggle: {
-				Label: Drop dell'{$NPCName.EyeofCthulhu}
-				Tooltip: Abilita o disabilita le nuove armi ottenibili dall'{$NPCName.EyeofCthulhu}
+			ItemsHeader: Oggetti
+
+			ItemConfig:
+			{
+				Label: Impostazione Oggetto
+
+				SoftDisable:
+				{
+					Tooltip: Rimuove ricette, drop, ecc. ma permette di continuare ad usare l'oggetto se è stato già ottenuto in precedenza (CONSIGLIATO)
+				}
+
+				HardDisable:
+				{
+					Tooltip: Rimuove l'oggetto completamente, rendendolo inutilizzabile in gioco (usare con cautela)
+				}
+
+				SoftDisableAll:
+				{
+					Tooltip: Rimuove ricette, drop, ecc. ma permette di continuare ad usare gli oggetti se sono stati già ottenuti in precedenza (CONSIGLIATO)
+				}
+
+				HardDisableAll:
+				{
+					Tooltip: Rimuove tutti gli oggetti completamente, rendendoli inutilizzabili in gioco (usare con cautela)
+				}
+			}
+			
+			WeaponConfig:
+			{
+			}
+			
+			TileConfig:
+			{
+				Label: Tile Settings
+
+				SoftDisable:
+				{
+					Tooltip: Rimuove ricette, drop, ecc. ma permette di continuare ad usare il blocco se è stato già ottenuto in precedenza (CONSIGLIATO)
+				}
+
+				HardDisable:
+				{
+					Tooltip: Rimuove il blocco completamente, rendendolo inutilizzabile in tutti i mondi in cui è stato piazzato (usare con cautela)
+				}
+
+				SoftDisableAll:
+				{
+					Tooltip: Rimuove ricette, drop, ecc. ma permette di continuare ad usare i blocchi se sono stati già ottenuti in precedenza (CONSIGLIATO)
+				}
+
+				HardDisableAll:
+				{
+					Tooltip: Rimuove tutti i blocchi completamente, rendendoli inutilizzabili in tutti i mondi in cui sono stati piazzati (usare con cautela)
+				}
 			}
 
-			GoblinDropsToggle: {
-				Label: Drop dell'{$Bestiary_Invasions.Goblins}
-				Tooltip: Abilita o disabilita le nuove armi ottenibili durante l'{$Bestiary_Invasions.Goblins}
+			Items:
+			{
+				Header: Oggetti
+				Label: Impostazioni di tutti gli oggetti
+
+				Weapons:
+				{
+					Header: Armi
+
+					EvilMaces: Mazze Corrotte
+					EOCDrops: Nuovi oggetti dell'{$NPCName.EyeofCthulhu}
+					GoblinsDrops: Nuovi oggetti dell'{$Bestiary_Invasions.Goblins}
+					SkeletronDrops: Nuovi oggetti di {$NPCName.SkeletronHead}
+					
+					Dualies:
+					{
+						Tooltip: VALORI PREDEFINITI: 15 {$Mods.VanillaPlus.Config.Damage.Label}, 11 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					EnchantedSpear:
+					{
+						Tooltip: VALORI PREDEFINITI: 20 {$Mods.VanillaPlus.Config.Damage.Label}, 31 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+					
+					ChristmasBarrage:
+					{
+						Tooltip: VALORI PREDEFINITI: 125 {$Mods.VanillaPlus.Config.Damage.Label}, 17 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					FleshMace:
+					{
+						Tooltip: VALORI PREDEFINITI: 25 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					RottenMace:
+					{
+						Tooltip: VALORI PREDEFINITI: 30 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					EyeballOnAStick:
+					{
+						Tooltip: VALORI PREDEFINITI: 10 {$Mods.VanillaPlus.Config.Damage.Label}, 36 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					FangOfCthulhu:
+					{
+						Tooltip: VALORI PREDEFINITI: 15 {$Mods.VanillaPlus.Config.Damage.Label}, 27 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					Tear:
+					{
+						Tooltip: VALORI PREDEFINITI: 9 {$Mods.VanillaPlus.Config.Damage.Label}, 25 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					TheOcularMenace:
+					{
+						Tooltip: VALORI PREDEFINITI: 12 {$Mods.VanillaPlus.Config.Damage.Label}, 18 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					GoblinsBlade:
+					{
+						Tooltip: VALORI PREDEFINITI: 25 {$Mods.VanillaPlus.Config.Damage.Label}, 26 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					ThiefsDagger:
+					{
+						Tooltip: VALORI PREDEFINITI: 31 {$Mods.VanillaPlus.Config.Damage.Label}, 22 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					WarriorsMallet:
+					{
+						Tooltip: VALORI PREDEFINITI: 40 {$Mods.VanillaPlus.Config.Damage.Label}, 33 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					SkullOfBoom:
+					{
+						Tooltip: VALORI PREDEFINITI: 40 {$Mods.VanillaPlus.Config.Damage.Label}, 25 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					SkeletronsFinger:
+					{
+						Tooltip: VALORI PREDEFINITI: 35 {$Mods.VanillaPlus.Config.Damage.Label}, 15 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+
+					OlMansCurse:
+					{
+						Tooltip: VALORI PREDEFINITI: 22 {$Mods.VanillaPlus.Config.Damage.Label}, 36 {$Mods.VanillaPlus.Config.UseTime.Label}
+					}
+				}
+
+				Accessories:
+				{
+					Header: Accessori
+				}
 			}
 
-			SkeletonDropsToggle: {
-				Label: Drop di {$NPCName.SkeletronHead}
-				Tooltip: Abilita o disabilita le nuove armi ottenibili da {$NPCName.SkeletronHead}
+			Tiles:
+			{
+				Header: Blocchi
+				Label: Impostazioni di tutti i blocchi
 			}
 
-			TilesHeader: Blocchi
+			GameplayTweaks:
+			{
+				Header: Modifiche al gameplay
+				Label: Impostazioni di tutte le modifiche
+				
+				FlyingDragonTweak:
+				{
+					Label: Buff al danno del {$ItemName.DD2SquireBetsySword}
+					Tooltip: Questa modifica cambia il danno del {$ItemName.DD2SquireBetsySword} (danno base: 180, danno consigliato: 200)
+				}
 
-			LifeFruitLanternToggle: {
-				Tooltip: Abilita o disabilita la {$Mods.VanillaPlus.ItemName.LifeFruitLantern}
+				GladiusTweak:
+				{
+					Label: Aggiustamento all'animazione del {$ItemName.Gladius}
+					Tooltip: Questa modifica cambia l'animazione del {$ItemName.Gladius}, rendendo il pattern d'attacco simile alla {$ItemName.PiercingStarlight}
+				}
+
+				TerraBladeTweak:
+				{
+					Label: Nerf al proiettile della {$ItemName.TerraBlade}
+					Tooltip: Questa modifica cambia il tempo di vita del proiettile della {$ItemName.TerraBlade} (valore consigliato: 65 tick, circa un secondo)
+				}
+
+				InfluxWaverTweak:
+				{
+					Label: Nerf al proiettile dello {$ItemName.InfluxWaver}
+					Tooltip: Questa modifica cambia il tempo di vita del proiettile della {$ItemName.InfluxWaver} (valore consigliato: 70 tick, circa un secondo)
+				}
 			}
 
-			TweaksHeader: Cambiamenti al gioco base
-
-			GladiusTweakToggle: {
-				Tooltip: Abilita o disabilita il cambiamento dell'animazione del {$ItemName.Gladius}
-			}
-
-			FlyingDragonTweakToggle: {
-				Tooltip: Abilita o disabilita il buff al danno del {$ItemName.DD2SquireBetsySword} (da 180 a 200)
-			}
-
-			TerraBeamTweakToggle: {
-				Tooltip: Abilita o disabilita il nerf del proiettile della {$ItemName.TerraBlade} (distanza coperta dal proiettile diminuita)
-			}
-
-			InfluxWaverTweakToggle: {
-				Tooltip: Abilita o disabilita il nerf del proiettile dello {$ItemName.InfluxWaver} (distanza coperta dal proiettile diminuita)
-			}
-
-			ExpFeaturesHeader: Funzioni sperimentali
-
-			BannerSlotToggle: {
-				Label: Slot banner
-				Tooltip: Abilita o disabilita lo slot per i banner
-			}
-
-			MotorcycleMountToggle: {
-				Label: Mount motocicletta
-				Tooltip: Abilita o disabilita il mount motocicletta
-			}
-
-			ClientSideConfig: Impostazioni lato Client
-
-			TearAltToggle: {
+			TearAlt:
+			{
 				Label: "Texture vanilla per lo yo-yo {$Mods.VanillaPlus.ItemName.Tear}"
 				Tooltip: "Abilita o disabilita la texture fedele al gioco originale per la {$Mods.VanillaPlus.ItemName.Tear}"
 			}
 		}
 
-		ItemName: {
-			FleshMace: Mazza di carne
-			RottenMace: Mazza marcia
+		ItemName:
+		{
+			FleshMace: Maglio di carne
+			RottenMace: Clava marcia
 			EnchantedSpear: Lancia incantata
 			ChristmasBarrage: Sbarramento Natalizio
 			LifeFruitLantern: Lanterna Frutto di Vita
@@ -103,10 +272,10 @@ Mods: {
 			SkullOfBoom: Teschio Esplosivo
 			SkeletronsFinger: Dito di Skeletron
 			OlMansCurse: Maledizione del vecchio
-			MotorcycleMountItem: Ruota di Motocicletta
 		}
 		
-		ItemTooltip: {
+		ItemTooltip:
+		{
 			LifeFruitLantern: Aumenta notevolmente la rigenerazione della vita quando posizionato nelle vicinanze
 			Dualies: "'Mezzogiorno di fuoco'"
 			ShinyCharm: Rigenera la vita velocemente
@@ -114,10 +283,10 @@ Mods: {
 			SkullOfBoom: Evoca teschi esplosivi che emettono fiamme d'acqua
 			SkeletronsFinger: Contiene un frammento della coscienza di {$NPCName.SkeletronHead}
 			OlMansCurse: "Evoca un {$Mods.VanillaPlus.ProjectileName.CursedSkullMinion} che combatte per te\n\"MALEDIZIONE!\""
-			MotorcycleMountItem: Evoca una motocicletta cavalcabile
- 		}
+		}
 
-		ProjectileName: {
+		ProjectileName:
+		{
 			EnchantedSpearProjectile: "{$Mods.VanillaPlus.ItemName.EnchantedSpear}"
 			DualiesRevolver: "{$ItemName.Revolver}"
 			MiniServant: Servo Puro di Cthulhu
@@ -131,23 +300,24 @@ Mods: {
 			CursedSkullMinion: Teschio Maledetto
 		}
 
-		TileName: {
+		TileName:
+		{
 			LifeFruitLanternTile: Lanterna Frutto di Vita
 		}
 
-		BuffName: {
+		BuffName:
+		{
 			LifeFruitLamp: Rigenerazione Frutto di Vita
 			CthulhusMalediction: Maledizione di Cthulhu
 			MiniServantMinion: "{$Mods.VanillaPlus.ProjectileName.MiniServant}"
-			MotorcycleMount: Motocicletta
 		}
 
-		BuffDescription: {
+		BuffDescription:
+		{
 			LifeFruitLamp: Rigenerazione vita notevolmente aumentata
 			CthulhusMalediction: Difesa ridotta di 5
 			MiniServantMinion: "Il {$Mods.VanillaPlus.ProjectileName.MiniServant} combatterà te"
 			CursedSkullMinionBuff: "Il {$Mods.VanillaPlus.ProjectileName.CursedSkullMinion} combatterà te"
-			MotorcycleMount: Bruuum-Bruuummm
 		}
 	}
 }

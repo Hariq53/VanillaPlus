@@ -1,8 +1,9 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using VanillaPlus.Common;
-using VanillaPlus.Common.Models.Projectiles;
+using VanillaPlus.Common.Models.ModProjectiles;
 
 namespace VanillaPlus.Content.Projectiles
 {
@@ -12,6 +13,12 @@ namespace VanillaPlus.Content.Projectiles
         {
             return true;
         }
+
+        protected override bool ExplodeOnNPCCollision => true;
+
+        protected override bool ExplodeOnTileCollision => true;
+
+        protected override Point ExplosionHitBoxDimensions => new(100, 100);
 
         public override void SetDefaults()
         {
@@ -27,10 +34,6 @@ namespace VanillaPlus.Content.Projectiles
 
             // AI
             Projectile.timeLeft = 120;
-
-            ExplodeOnTileCollision = true;
-            ExplodeOnNPCCollision = true;
-            ExplosionHitBoxDimensions = new(100, 100);
         }
 
         public override void RegularAI()

@@ -2,8 +2,8 @@
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
-using VanillaPlus.Common.Models.Items;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
 using VanillaPlus.Content.Buffs;
 using VanillaPlus.Content.Projectiles.Minions;
 
@@ -11,21 +11,18 @@ namespace VanillaPlus.Content.Items.Weapons
 {
     class EyeballOnAStick : SummonStaff
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().EOCDropsToggle;
-        }
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.EyeballOnAStick;
 
-        protected override int MinionBuff => ModContent.BuffType<MiniServantMinion>();
+        protected override int MinionBuffType => ModContent.BuffType<MiniServantMinion>();
 
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
-            base.SetDefaults();
+            base.SetRegularDefaults();
 
             // GFX
             Item.width = 26;

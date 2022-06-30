@@ -4,23 +4,22 @@ using Terraria.GameContent.Creative;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Config;
+using VanillaPlus.Common.Models.Config;
+using VanillaPlus.Common.Models.ModItems;
+using VanillaPlus.Content.Projectiles;
 
 namespace VanillaPlus.Content.Items.Weapons
 {
-    public class FleshMace : ModItem
+    public class FleshMace : ConfigurableWeapon
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ModContent.GetInstance<VanillaPlusServerConfig>().EvilMaceToggle;
-        }
+        protected override WeaponConfig? Config => VanillaPlus.ServerSideConfig?.Items.FleshMace;
 
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-        public override void SetDefaults()
+        protected override void SetRegularDefaults()
         {
             // GFX
             Item.width = 34;
@@ -28,15 +27,15 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.UseSound = SoundID.Item1;
 
             // Animation
-            Item.useAnimation = 21;
-            Item.useTime = 45;
+            Item.useTime = 44;
+            Item.useAnimation = 22;
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Swing;
 
             // Weapon Specific
             Item.damage = 25;
             Item.knockBack = 5f;
-            Item.shoot = ModContent.ProjectileType<Projectiles.FleshBall>();
+            Item.shoot = ModContent.ProjectileType<FleshBall>();
             Item.shootSpeed = 10f;
             Item.DamageType = DamageClass.Melee;
 
@@ -45,7 +44,12 @@ namespace VanillaPlus.Content.Items.Weapons
             Item.rare = ItemRarityID.Green;
         }
 
-        public override void AddRecipes()
+        protected override void SetConfigurableDefaults(WeaponConfig config)
+        {
+            Item.useTime *= 2;
+        }
+
+        protected override void AddRecipesWithConfig()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.ZombieArm, 1)
@@ -54,7 +58,7 @@ namespace VanillaPlus.Content.Items.Weapons
                 .Register();
         }
 
-        private protected int SwingDust = DustID.Blood;
+        internal static int SwingDust { get; set; } = DustID.Blood;
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
