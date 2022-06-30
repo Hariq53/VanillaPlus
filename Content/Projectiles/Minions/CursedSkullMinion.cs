@@ -1,24 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using VanillaPlus.Common.Models.ModProjectiles;
 using VanillaPlus.Content.Buffs;
+using VanillaPlus.Common.Models.ModProjectiles;
 
 namespace VanillaPlus.Content.Projectiles.Minions
 {
     class CursedSkullMinion : Minion
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return true;
-        }
+        public override bool IsLoadingEnabled(Mod mod) => true;
 
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Main.projFrames[Type] = 3;
+            Main.projFrames[Projectile.type] = 3;
         }
 
         protected override int MinionBuff => ModContent.BuffType<CursedSkullMinionBuff>();
@@ -83,23 +81,19 @@ namespace VanillaPlus.Content.Projectiles.Minions
                     }
                 }
             }
-
-            if (shadowflamesDamage == 0)
-                shadowflamesDamage = Projectile.damage;
-
-            Projectile.damage = 0;
         }
 
-        int shadowflamesDamage = 0;
-
+        public override bool MinionContactDamage() => false;
+        
         protected override Vector2 GetIdlePosition(Player owner)
         {
             int index = 0;
             int totalIndexesInGroup = 0;
-            for (int i = 0; i < 1000; i++)
+
+            for (int i = 0; i < Main.projectile.Length; i++)
             {
                 Projectile projectile = Main.projectile[i];
-                if (projectile.active && projectile.owner == Projectile.owner && Type == Type && (Type != 759 || projectile.frame == Main.projFrames[Type] - 1))
+                if (projectile.active && projectile.owner == Projectile.owner && projectile.type == Type)
                 {
                     if (Projectile.whoAmI > i)
                         index++;
@@ -108,7 +102,7 @@ namespace VanillaPlus.Content.Projectiles.Minions
                 }
             }
 
-            radius = 20f + totalIndexesInGroup * 5f;
+            float radius = 20f + totalIndexesInGroup * 5f;
             Vector2 idlePosition = owner.Center;
             idlePosition.Y -= (48 + radius);
 
@@ -117,11 +111,14 @@ namespace VanillaPlus.Content.Projectiles.Minions
             return idlePosition;
         }
 
-        float radius = 0f;
-
         protected override void IdleBehaviour(Vector2 idlePosition)
         {
-            ShootTimer = 0;
+            if (shootTimer != 0)
+            {
+                shootTimer = 0;
+                if (Main.myPlayer == Projectile.owner)
+                    Projectile.netUpdate = true;
+            }
 
             Vector2 vectorToIdlePos = idlePosition - Projectile.Center;
             float distanceFromIdlePos = vectorToIdlePos.Length();
@@ -132,7 +129,11 @@ namespace VanillaPlus.Content.Projectiles.Minions
                 inertia = 1f;
 
             if (distanceFromIdlePos < 5f)
+            {
                 isSpinning = true;
+                if (Main.myPlayer == Projectile.owner)
+                    Projectile.netUpdate = true;
+            }
 
             if (isSpinning)
                 Projectile.velocity = vectorToIdlePos;
@@ -151,36 +152,36 @@ namespace VanillaPlus.Content.Projectiles.Minions
             }
         }
 
-        public bool movingUpOverlap = false;
+        public int shootTimer = 0;
 
-        public int ShootTimer
-        {
-            get => (int)Projectile.ai[0];
-            set => Projectile.ai[0] = value;
-        }
-
-        public bool isSpinning
-        {
-            get => Projectile.ai[1] == 1f;
-            set => Projectile.ai[1] = value ? 1f : 0f;
-        }
+        public bool isSpinning = false;
 
         protected override void AttackBehaviour(NPC target)
         {
-            isSpinning = false;
+            if (isSpinning)
+            {
+                isSpinning = false;
+                if (Main.myPlayer == Projectile.owner)
+                    Projectile.netUpdate = true;
+            }
 
             Vector2 directionToTarget = Vector2.Normalize(target.Center - Projectile.Center);
             float distanceFromTarget = Vector2.Distance(target.Center, Projectile.Center);
 
             float speed = 4f, inertia = 20f, slowDownSpeed = 3f;
 
-            ShootTimer++;
-            if (ShootTimer >= 60f + 10f * Projectile.minionPos)
+            shootTimer++;
+            if (shootTimer >= 60f + 10f * Projectile.minionPos)
             {
-                int projectileIndex = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, directionToTarget * speed, ProjectileID.Shadowflames, shadowflamesDamage, Projectile.knockBack, Main.myPlayer);
+                int projectileIndex = Projectile.NewProjectile(Projectile.GetSource_FromThis(),
+                                                               Projectile.Center, directionToTarget * speed,
+                                                               ProjectileID.Shadowflames, Projectile.originalDamage,
+                                                               Projectile.knockBack, Projectile.owner);
                 Main.projectile[projectileIndex].hostile = false;
                 Main.projectile[projectileIndex].friendly = true;
-                ShootTimer = 0;
+                shootTimer = 0;
+                if (Main.myPlayer == Projectile.owner)
+                    Projectile.netUpdate = true;
             }
 
             if (distanceFromTarget > 100f + speed)
@@ -298,7 +299,7 @@ namespace VanillaPlus.Content.Projectiles.Minions
             if (Projectile.frameCounter >= frameSpeed)
             {
                 Projectile.frameCounter = 0;
-                if (frame < Main.projFrames[Type])
+                if (frame < Main.projFrames[Projectile.type])
                     Projectile.frame = frame;
                 else
                     Projectile.frame = 0;
@@ -306,12 +307,24 @@ namespace VanillaPlus.Content.Projectiles.Minions
 
             Lighting.AddLight(Projectile.Center, Color.Yellow.ToVector3() * 0.78f);
         }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(shootTimer);
+            writer.Write(isSpinning);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            shootTimer = reader.ReadInt32();
+            isSpinning = reader.ReadBoolean();
+        }
     }
 
     class CursedSkullTimer : ModSystem
     {
         public static float angle = 0f;
 
-        public override void PreUpdateProjectiles() { angle += 0.017f; }
+        public override void PreUpdateProjectiles() => angle += 0.017f;
     }
 }

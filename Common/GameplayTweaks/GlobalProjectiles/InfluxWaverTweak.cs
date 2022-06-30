@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using VanillaPlus.Common.Config.GameplayTweaks;
 using VanillaPlus.Common.Models.Config;
@@ -20,6 +21,22 @@ namespace VanillaPlus.Common.GameplayTweaks.GlobalProjectiles
             projectile.timeLeft = 70;
             if (Config is InfluxWaverTweakConfig config)
                 projectile.timeLeft = config.LifeTime;
+        }
+
+        public override void Kill(Projectile projectile, int timeLeft)
+        {
+            base.Kill(projectile, timeLeft);
+            if (timeLeft > 0)
+                return;
+            SoundEngine.PlaySound(SoundID.Item10, projectile.position);
+            for (int i = 0; i < 15; i++)
+            {
+                Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height,
+                                                DustID.InfluxWaver, -projectile.velocity.X,
+                                                -projectile.velocity.Y, 100, Scale: 2f);
+                dust.noGravity = true;
+                dust.velocity *= Main.rand.NextFloat(0.1f, 1.5f);
+            }
         }
     }
 }
