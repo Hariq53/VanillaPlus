@@ -99,12 +99,17 @@ namespace VanillaPlus.Content.Projectiles.Minions
             }
 
             if (owner.statLife <= owner.statLifeMax * 0.25f)
+            {
                 berserk = true;
-            else
-                berserk = false;
-
-            if (Main.myPlayer == Projectile.owner)
-                Projectile.netUpdate = true;
+                if (Main.myPlayer == Projectile.owner)
+                    Projectile.netUpdate = true;
+            }
+            else if (berserk)
+            {
+                berserk = true;
+                if (Main.myPlayer == Projectile.owner)
+                    Projectile.netUpdate = true;
+            }
         }
 
         protected override void SearchForTargets(Player owner, out bool foundTarget, out NPC target)
